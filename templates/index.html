@@ -19,6 +19,10 @@
     <button id="controls">Controls</button>
     <button id="decisions">Decisions</button>
     <button id="annexures">Annexures</button>
+    <button id="cc">Compliance Calender</button>
+    <button id="standard">Standard Text</button>
+
+
 
 
 
@@ -43,6 +47,45 @@
                 });
         });
     </script>
+    <script>
+        document.getElementById('cc').addEventListener('click', function() {
+            // Send a POST request to the server to trigger the Selenium script
+            fetch('/cc', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(response)
+                        console.log('Selenium script triggered successfully.');
+                    } else {
+                        console.error('Failed to trigger Selenium script.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+
+    <script>
+        document.getElementById('standard').addEventListener('click', function() {
+            // Send a POST request to the server to trigger the Selenium script
+            fetch('/standard', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(response)
+                        console.log('Selenium script triggered successfully.');
+                    } else {
+                        console.error('Failed to trigger Selenium script.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+
+
+
+    
     <script>
         document.getElementById('decisions').addEventListener('click', function() {
             // Send a POST request to the server to trigger the Selenium script

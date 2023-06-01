@@ -17,8 +17,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from CheckurlinAssignment import CheckUrlinAssignment
 
 
-class Annexures:
-    def annexures():
+class Compliancecalender:
+    def compliance_calender():
         # logging.basicConfig(filename='logs.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
         user = "tharun"
         password = "tharun123"
@@ -30,7 +30,7 @@ class Annexures:
         time.sleep(0.5)
         driver.find_element(By.ID,"bl18").click()
         time.sleep(0.5)
-        driver.find_element(By.ID,"Annexures").click()
+        driver.find_element(By.ID,"Compliance").click()
         time.sleep(1)
         decision_reports_url = driver.current_url
         # check_element_path = '//*[@id="navbar1"]/div[2]/div/button/i'
@@ -45,8 +45,8 @@ class Annexures:
         driver.find_element(By.XPATH  ,'/html/body/section/div/div/div/div/div[2]/div/div[3]/table/tbody/tr/td[11]/a[1]/button').click()
         new_page_url = driver.current_url
 
-        xpath_list_perm_page = ['//*[@id="32"]/div/div/table/tbody/tr[1]/td[2]/input','//*[@id="32"]/div/div/table/tbody/tr[33]/td[2]/input','//*[@id="32"]/div/div/table/tbody/tr[17]/td[2]/input']
-        id_list = ['add_annexure','edit','mark_inactive']
+        xpath_list_perm_page = ['//*[@id="32"]/div/div/table/tbody/tr[7]/td[2]/input','//*[@id="32"]/div/div/table/tbody/tr[39]/td[2]/input','//*[@id="32"]/div/div/table/tbody/tr[23]/td[2]/input']
+        id_list = ['add_compliance','edit','mark_inactive']
         flow = ["add","edit","delete"]
         for i in range(0,len(xpath_list_perm_page)):
             time.sleep(2)
@@ -72,20 +72,14 @@ class Annexures:
                     if flow[i] == "add":
                         add_element.click()
                         time.sleep(0.2)
-                        driver.find_element(By.NAME ,'annexure_name').send_keys("new_annexure")
+                        driver.find_element(By.NAME ,'compilance_calendar_name').send_keys("new_compliance")
                         time.sleep(0.2)
-                        driver.find_element(By.ID,"select2-chapters-container").click()
+                        driver.find_element(By.ID,"select2-ctype-container").click()
                         time.sleep(1)
                         search = driver.find_element(By.XPATH,"/html/body/span/span/span[1]/input")
-                        search.send_keys("others")
+                        search.send_keys("Type1")
                         search.send_keys(Keys.RETURN)
-                        driver.find_element(By.ID,"select2-area_audit_id-container").click()
-                        time.sleep(1)
-                        search = driver.find_element(By.XPATH,"/html/body/span/span/span[1]/input")
-                        search.send_keys("Audit of Account Receivable & Payable")
-                        search.send_keys(Keys.RETURN)
-
-                        driver.find_element(By.NAME ,'annexure_description').send_keys("New_description")                 
+                                         
                         driver.find_element(By.ID , 'btnsb').click()
                         
                         check_status = driver.find_element(By.XPATH  ,'/html/body/section/div/div[1]')
@@ -99,13 +93,13 @@ class Annexures:
                             
                     elif flow[i] == "edit":
 
-                        driver.find_element(By.XPATH , '//*[@id="annextureact_filter"]/label/input').send_keys("new_annexure")
+                        driver.find_element(By.XPATH , '//*[@id="complianceact_filter"]/label/input').send_keys("new_compliance")
                         driver.find_element(By.ID ,'edit').click()
                         
                         time.sleep(0.2)
-                        decision_btn = driver.find_element(By.NAME ,'annexure_name')
+                        decision_btn = driver.find_element(By.NAME ,'compilance_calendar_name')
                         decision_btn.clear()
-                        decision_btn.send_keys("new_annexure22")
+                        decision_btn.send_keys("new_compliance22")
                         time.sleep(0.2)              
                         driver.find_element(By.ID , 'btnsb').click()
                         
@@ -120,7 +114,7 @@ class Annexures:
 
                         
                     elif flow[i] == "delete":
-                        driver.find_element(By.XPATH , '//*[@id="annextureact_filter"]/label/input').send_keys("new_annexure22")
+                        driver.find_element(By.XPATH , '//*[@id="complianceact_filter"]/label/input').send_keys("new_compliance22")
     #                     search_btn.send_keys("new_checklist")
                         delete_btn = driver.find_element(By.NAME ,'mark_inactive')
                         delete_btn.click()

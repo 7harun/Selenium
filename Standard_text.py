@@ -17,8 +17,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from CheckurlinAssignment import CheckUrlinAssignment
 
 
-class Annexures:
-    def annexures():
+class Standard_text:
+    def standard_text():
         # logging.basicConfig(filename='logs.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
         user = "tharun"
         password = "tharun123"
@@ -30,11 +30,11 @@ class Annexures:
         time.sleep(0.5)
         driver.find_element(By.ID,"bl18").click()
         time.sleep(0.5)
-        driver.find_element(By.ID,"Annexures").click()
+        driver.find_element(By.ID,"Standard").click()
         time.sleep(1)
-        decision_reports_url = driver.current_url
+        standard_text_url = driver.current_url
         # check_element_path = '//*[@id="navbar1"]/div[2]/div/button/i'
-        # checkinassignment = CheckUrlinAssignment.checkurlinassignment(driver,standardised_reports_url,check_element_path)
+        # checkinassignment = CheckUrlinAssignment.checkurlinassignment(driver,standard_text_url,check_element_path)
         # print(checkinassignment)
         driver.get("https://old.anyaudit.co.in/Management/users")
         search = driver.find_element(By.ID  ,"txtSearch")
@@ -45,8 +45,8 @@ class Annexures:
         driver.find_element(By.XPATH  ,'/html/body/section/div/div/div/div/div[2]/div/div[3]/table/tbody/tr/td[11]/a[1]/button').click()
         new_page_url = driver.current_url
 
-        xpath_list_perm_page = ['//*[@id="32"]/div/div/table/tbody/tr[1]/td[2]/input','//*[@id="32"]/div/div/table/tbody/tr[33]/td[2]/input','//*[@id="32"]/div/div/table/tbody/tr[17]/td[2]/input']
-        id_list = ['add_annexure','edit','mark_inactive']
+        xpath_list_perm_page = ['//*[@id="32"]/div/div/table/tbody/tr[16]/td[2]/input','//*[@id="32"]/div/div/table/tbody/tr[48]/td[2]/input','//*[@id="32"]/div/div/table/tbody/tr[32]/td[2]/input']
+        id_list = ['add_standared_text','edit','inactive_mark']
         flow = ["add","edit","delete"]
         for i in range(0,len(xpath_list_perm_page)):
             time.sleep(2)
@@ -60,7 +60,7 @@ class Annexures:
             if "checked" in html:
                 print("checked")
                 flag_add = "checked"
-                driver.get(decision_reports_url)
+                driver.get(standard_text_url)
                 try:
                     add_element = driver.find_element(By.ID ,id_list[i])
     #                 print("button exists and no error")
@@ -72,20 +72,12 @@ class Annexures:
                     if flow[i] == "add":
                         add_element.click()
                         time.sleep(0.2)
-                        driver.find_element(By.NAME ,'annexure_name').send_keys("new_annexure")
+                        driver.find_element(By.NAME ,'name').send_keys("new_standard_text122")
                         time.sleep(0.2)
-                        driver.find_element(By.ID,"select2-chapters-container").click()
-                        time.sleep(1)
-                        search = driver.find_element(By.XPATH,"/html/body/span/span/span[1]/input")
-                        search.send_keys("others")
-                        search.send_keys(Keys.RETURN)
-                        driver.find_element(By.ID,"select2-area_audit_id-container").click()
-                        time.sleep(1)
-                        search = driver.find_element(By.XPATH,"/html/body/span/span/span[1]/input")
-                        search.send_keys("Audit of Account Receivable & Payable")
-                        search.send_keys(Keys.RETURN)
-
-                        driver.find_element(By.NAME ,'annexure_description').send_keys("New_description")                 
+                        driver.find_element(By.NAME ,'description').send_keys("new_standard_text_description")
+                        time.sleep(0.2)
+                        
+                        
                         driver.find_element(By.ID , 'btnsb').click()
                         
                         check_status = driver.find_element(By.XPATH  ,'/html/body/section/div/div[1]')
@@ -99,13 +91,13 @@ class Annexures:
                             
                     elif flow[i] == "edit":
 
-                        driver.find_element(By.XPATH , '//*[@id="annextureact_filter"]/label/input').send_keys("new_annexure")
-                        driver.find_element(By.ID ,'edit').click()
+                        driver.find_element(By.XPATH , '//*[@id="standardtextid_filter"]/label/input').send_keys("new_standard_text122")
+                        driver.find_element(By.ID ,id_list[i]).click()
                         
                         time.sleep(0.2)
-                        decision_btn = driver.find_element(By.NAME ,'annexure_name')
+                        decision_btn = driver.find_element(By.NAME ,'name')
                         decision_btn.clear()
-                        decision_btn.send_keys("new_annexure22")
+                        decision_btn.send_keys("new_standard_text2233")
                         time.sleep(0.2)              
                         driver.find_element(By.ID , 'btnsb').click()
                         
@@ -120,9 +112,9 @@ class Annexures:
 
                         
                     elif flow[i] == "delete":
-                        driver.find_element(By.XPATH , '//*[@id="annextureact_filter"]/label/input').send_keys("new_annexure22")
+                        driver.find_element(By.XPATH , '//*[@id="standardtextid_filter"]/label/input').send_keys("new_standard_text2233")
     #                     search_btn.send_keys("new_checklist")
-                        delete_btn = driver.find_element(By.NAME ,'mark_inactive')
+                        delete_btn = driver.find_element(By.NAME ,id_list[i])
                         delete_btn.click()
                         alert = driver.switch_to.alert
                         alert.accept()
@@ -137,7 +129,7 @@ class Annexures:
             else:
                 print("unchecked")
                 flag = "unchecked"
-                driver.get(decision_reports_url)
+                driver.get(standard_text_url)
                 
                 try:
                     add_element = driver.find_element(By.ID ,id_list[i])

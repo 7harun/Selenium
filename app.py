@@ -14,6 +14,8 @@ from AuditVariables import Auditvariables
 from Risks import Risks
 from Annexures import Annexures
 from Decisions import Decisions
+from Compliance_calender import Compliancecalender
+from Standard_text import Standard_text
 
 
 app = Flask(__name__)
@@ -310,15 +312,36 @@ def run_Annexures():
         
         decision_obj = Annexures.annexures()
         print(decision_obj)
-        # driver.get('path/to/webpage.html')
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
 
-        # Your Selenium code here
-        # Interact with elements on the webpage (e.g., fill forms, click buttons, etc.)
-        # Perform automated testing using Selenium
+    return selenium_script
 
-        # driver.quit()
+@app.route('/cc', methods=['POST'])
+def run_CC():
 
-    # Run the Selenium script in a separate thread
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        cc_obj = Compliancecalender.compliance_calender()
+        print(cc_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/standard', methods=['POST'])
+def run_standard():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        st_obj = Standard_text.standard_text()
+        print(st_obj)
+        
     thread = Thread(target=selenium_script)
     thread.start()
 
