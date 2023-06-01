@@ -12,6 +12,7 @@ from Auditplanningtemplate import APT
 from Conditions import CheckConditions
 from AuditVariables import Auditvariables
 from Risks import Risks
+from Annexures import Annexures
 from Decisions import Decisions
 
 
@@ -285,6 +286,29 @@ def run_Decision():
     def selenium_script():
         
         decision_obj = Decisions.decisions()
+        print(decision_obj)
+        # driver.get('path/to/webpage.html')
+
+        # Your Selenium code here
+        # Interact with elements on the webpage (e.g., fill forms, click buttons, etc.)
+        # Perform automated testing using Selenium
+
+        # driver.quit()
+
+    # Run the Selenium script in a separate thread
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/annexures', methods=['POST'])
+def run_Annexures():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        decision_obj = Annexures.annexures()
         print(decision_obj)
         # driver.get('path/to/webpage.html')
 

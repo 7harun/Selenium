@@ -18,6 +18,7 @@
     <button id="risks">Risks</button>
     <button id="controls">Controls</button>
     <button id="decisions">Decisions</button>
+    <button id="annexures">Annexures</button>
 
 
 
@@ -46,6 +47,23 @@
         document.getElementById('decisions').addEventListener('click', function() {
             // Send a POST request to the server to trigger the Selenium script
             fetch('/decisions', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(response)
+                        console.log('Selenium script triggered successfully.');
+                    } else {
+                        console.error('Failed to trigger Selenium script.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+    <script>
+        document.getElementById('annexures').addEventListener('click', function() {
+            // Send a POST request to the server to trigger the Selenium script
+            fetch('/annexures', { method: 'POST' })
                 .then(response => {
                     if (response.ok) {
                         console.log(response)
