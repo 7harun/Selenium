@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Automation</title>
+</head>
+<body>
+    <button id="add_assignment">Add Assignment through datehub</button>
+    <button id="FIFW">Financial Inactive Financial Framework</button>
+    <button id="User_addassignment">Add Assignment through Userhub</button>
+    <button id="Addclusterreport">Add Assignment to cluster</button>
+    <button id="editmilestone">Editmilestone</button>
+    <button id="editmilestoneupdates">Editmilestone Updates</button>
+    <button id="standardisedreports">Standardised Reports</button>
+    <button id="apt">APT</button>
+    <button id="condition">Check Conditions</button>
+    <div>
+    <button id="auditvariable">Audit Variable</button>
+    <button id="risks">Risks</button>
+    <button id="controls">Controls</button>
+    <button id="decisions">Decisions</button>
+
+
+
+
+    </div>
+
+
+    <script>
+        document.getElementById('editmilestone').addEventListener('click', function() {
+            // Send a POST request to the server to trigger the Selenium script
+            fetch('/editmilestone', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(response)
+                        console.log('Selenium script triggered successfully.');
+                    } else {
+                        console.error('Failed to trigger Selenium script.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+    <script>
+        document.getElementById('decisions').addEventListener('click', function() {
+            // Send a POST request to the server to trigger the Selenium script
+            fetch('/decisions', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(response)
+                        console.log('Selenium script triggered successfully.');
+                    } else {
+                        console.error('Failed to trigger Selenium script.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+    <script>
+        document.getElementById('controls').addEventListener('click', function() {
+            // Send a POST request to the server to trigger the Selenium script
+            fetch('/controls', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(response)
+                        console.log('Selenium script triggered successfully.');
+                    } else {
+                        console.error('Failed to trigger Selenium script.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+    <script>
+        document.getElementById('risks').addEventListener('click', function() {
+            // Send a POST request to the server to trigger the Selenium script
+            fetch('/risks', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(response)
+                        console.log('Selenium script triggered successfully.');
+                    } else {
+                        console.error('Failed to trigger Selenium script.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+
+
+<script>
+    document.getElementById('auditvariable').addEventListener('click', function() {
+        // Send a POST request to the server to trigger the Selenium script
+        fetch('/auditvariable', { method: 'POST' })
+            .then(response => {
+                if (response.ok) {
+                    console.log(response)
+                    console.log('Selenium script triggered successfully.');
+                } else {
+                    console.error('Failed to trigger Selenium script.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+</script>
+    <script>
+        document.getElementById('condition').addEventListener('click', function() {
+            // Send a POST request to the server to trigger the Selenium script
+            fetch('/condition', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(response)
+                        console.log('Selenium script triggered successfully.');
+                    } else {
+                        console.error('Failed to trigger Selenium script.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+    <script>
+        document.getElementById('apt').addEventListener('click', function() {
+            // Send a POST request to the server to trigger the Selenium script
+            fetch('/apt', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(response)
+                        console.log('Selenium script triggered successfully.');
+                    } else {
+                        console.error('Failed to trigger Selenium script.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+    <script>
+        document.getElementById('standardisedreports').addEventListener('click', function() {
+            // Send a POST request to the server to trigger the Selenium script
+            fetch('/standardisedreports', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(response)
+                        console.log('Selenium script triggered successfully.');
+                    } else {
+                        console.error('Failed to trigger Selenium script.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+
+    <script>
+        document.getElementById('add_assignment').addEventListener('click', function() {
+            // Send a POST request to the server to trigger the Selenium script
+            fetch('/run_selenium', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(response)
+                        console.log('Selenium script triggered successfully.');
+                    } else {
+                        console.error('Failed to trigger Selenium script.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+    <script>
+        document.getElementById('FIFW').addEventListener('click', function() {
+            // Send a POST request to the server to trigger the Selenium script
+            fetch('/run_fifw', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(response)
+                        console.log('Selenium script triggered successfully.');
+                    } else {
+                        console.error('Failed to trigger Selenium script.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+    <script>
+        document.getElementById('User_addassignment').addEventListener('click', function() {
+            // Send a POST request to the server to trigger the Selenium script
+            fetch('/run_useraddassignment', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(response)
+                        console.log('Selenium script triggered successfully.');
+                    } else {
+                        console.error('Failed to trigger Selenium script.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+    <script>
+        document.getElementById('Addclusterreport').addEventListener('click', function() {
+            // Send a POST request to the server to trigger the Selenium script
+            fetch('/Addclusterreport', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(response)
+                        console.log('Selenium script triggered successfully.');
+                    } else {
+                        console.error('Failed to trigger Selenium script.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+    <script>
+        document.getElementById('editmilestoneupdates').addEventListener('click', function() {
+            // Send a POST request to the server to trigger the Selenium script
+            fetch('/editmilestoneupdates', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(response)
+                        console.log('Selenium script triggered successfully.');
+                    } else {
+                        console.error('Failed to trigger Selenium script.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+</body>
+</html>
