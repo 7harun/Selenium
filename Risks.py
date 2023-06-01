@@ -72,44 +72,34 @@ class Risks:
                     if flow[i] == "add":
                         add_element.click()
                         time.sleep(0.2)
-                        driver.find_element(By.NAME ,'impact_name').send_keys("new_impact")
+                        driver.find_element(By.NAME ,'risk_name').send_keys("new_risk")
                         time.sleep(0.2)
-                        driver.find_element(By.ID,"select2-impact_type-container").click()
-                        time.sleep(2)
-                        search = driver.find_element(By.XPATH,"/html/body/span/span/span[1]/input")
-                        search.send_keys("single")
-                        search.send_keys(Keys.RETURN)
+                       
 
-                        driver.find_element(By.ID , 'btnsb').click()
+                        driver.find_element(By.ID , 'myBtn').click()
                         
-    #                     check_status = driver.find_element(By.XPATH  ,'/html/body/section/div/div[1]')
-    #                     # Get the HTML of the element
-    #                     html = check_status.get_attribute('outerHTML')
-    # #                     print(html,"this is html")
-    #                     if "alert alert-danger text-center alert-dismiss " in html:
-    #                         print("APT already exists")
-    #                     if "alert alert-success text-center alert-dismiss " in html:
-    #                         print("new APT created")
+                        check_status = driver.find_element(By.XPATH  ,'/html/body/section/div/div[1]')
+                        # Get the HTML of the element
+                        html = check_status.get_attribute('outerHTML')
+    #                     print(html,"this is html")
+                        if "alert alert-danger text-center alert-dismiss " in html:
+                            print("APT already exists")
+                        if "alert alert-success text-center alert-dismiss " in html:
+                            print("new APT created")
                             
                     elif flow[i] == "edit":
-                        driver.find_element(By.XPATH , '//*[@id="active_audit_filter"]/label/input').send_keys("new_impact")
+                        driver.find_element(By.XPATH , '//*[@id="riskid_filter"]/label/input').send_keys("new_risk")
                         driver.find_element(By.ID ,'edit').click()
                         time.sleep(1)
-                        update_btn = driver.find_element(By.ID ,'impact_name')
+                        update_btn = driver.find_element(By.ID ,'risk_name')
                         update_btn.clear()
-                        update_btn.send_keys("new_impact22")
+                        update_btn.send_keys("new_risk22")
                         time.sleep(1)
-                        driver.find_element(By.ID,"select2-impact_type-container").click()
-                        time.sleep(2)
-                        search = driver.find_element(By.XPATH,"/html/body/span/span/span[1]/input")
-                        search.send_keys("single")
-                        search.send_keys(Keys.RETURN)
-
-                        driver.find_element(By.ID , 'btnsb').click()
+                        driver.find_element(By.ID , 'myBtn').click()
 
                         
                     elif flow[i] == "delete":
-                        driver.find_element(By.XPATH , '//*[@id="active_audit_filter"]/label/input').send_keys("new_impact22")
+                        driver.find_element(By.XPATH , '//*[@id="riskid_filter"]/label/input').send_keys("new_risk22")
     #                     search_btn.send_keys("new_checklist")
                         delete_btn = driver.find_element(By.ID ,'mark_inactive')
                         delete_btn.click()
