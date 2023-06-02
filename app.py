@@ -16,6 +16,7 @@ from Annexures import Annexures
 from Decisions import Decisions
 from Compliance_calender import Compliancecalender
 from Standard_text import Standard_text
+from CustomReports import Custom_Reports
 
 
 app = Flask(__name__)
@@ -341,6 +342,21 @@ def run_standard():
         
         st_obj = Standard_text.standard_text()
         print(st_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/customreport', methods=['POST'])
+def run_customreports():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        cr_obj = Custom_Reports.cutomreports()
+        print(cr_obj)
         
     thread = Thread(target=selenium_script)
     thread.start()
