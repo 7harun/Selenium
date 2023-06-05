@@ -71,8 +71,20 @@ class Compliancecalender:
                     print("button exists and no error")
                     if flow[i] == "add":
                         add_element.click()
-                        time.sleep(0.2)
-                        driver.find_element(By.NAME ,'compilance_calendar_name').send_keys("new_compliance")
+                        time.sleep(0.8)
+                        driver.find_element(By.ID , 'btnsb').click()
+                        try:
+                            
+                            check_status = driver.find_element(By.XPATH  ,'//*[@id="phone"]')
+                        # Get the HTML of the element
+                            html = check_status.get_attribute('outerHTML')
+        #                     print(html,"this is html")
+                            if "required" in html:
+                                print("Compliance Name is mandotory")
+                        except Exception as e:
+                            print("error",e)
+                            pass
+                        driver.find_element(By.NAME ,'compilance_calendar_name').send_keys("new_compliance1234")
                         time.sleep(0.2)
                         driver.find_element(By.ID,"select2-ctype-container").click()
                         time.sleep(1)
@@ -87,19 +99,19 @@ class Compliancecalender:
                         html = check_status.get_attribute('outerHTML')
     #                     print(html,"this is html")
                         if "alert alert-danger text-center alert-dismiss " in html:
-                            print("Decision already exists")
+                            print("Compliance calender already exists")
                         if "alert alert-success text-center alert-dismiss " in html:
-                            print("new Decision created")
+                            print("new Compliance calender created")
                             
                     elif flow[i] == "edit":
 
-                        driver.find_element(By.XPATH , '//*[@id="complianceact_filter"]/label/input').send_keys("new_compliance")
+                        driver.find_element(By.XPATH , '//*[@id="complianceact_filter"]/label/input').send_keys("new_compliance1234")
                         driver.find_element(By.ID ,'edit').click()
                         
                         time.sleep(0.2)
                         decision_btn = driver.find_element(By.NAME ,'compilance_calendar_name')
                         decision_btn.clear()
-                        decision_btn.send_keys("new_compliance2234")
+                        decision_btn.send_keys("new_compliance2234556")
                         time.sleep(0.2)              
                         driver.find_element(By.NAME , 'btnsb').click()
                         time.sleep(10)              
@@ -115,7 +127,7 @@ class Compliancecalender:
 
                         
                     elif flow[i] == "delete":
-                        driver.find_element(By.XPATH , '//*[@id="complianceact_filter"]/label/input').send_keys("new_compliance2234")
+                        driver.find_element(By.XPATH , '//*[@id="complianceact_filter"]/label/input').send_keys("new_compliance2234556")
     #                     search_btn.send_keys("new_checklist")
                         delete_btn = driver.find_element(By.NAME ,'mark_inactive')
                         delete_btn.click()
