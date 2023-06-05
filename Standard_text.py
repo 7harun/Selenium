@@ -29,8 +29,10 @@ class Standard_text:
         driver.find_element(By.XPATH , '//*[@id="sign_in"]/div[3]/div/button').click()
         time.sleep(0.5)
         driver.find_element(By.ID,"bl18").click()
-        time.sleep(0.5)
-        driver.find_element(By.ID,"Standard").click()
+        time.sleep(3)
+        driver.execute_script("window.scrollTo(0, window.scrollY + 300)")
+
+        driver.find_element(By.NAME,"Standard").click()
         time.sleep(1)
         standard_text_url = driver.current_url
         # check_element_path = '//*[@id="navbar1"]/div[2]/div/button/i'
@@ -97,7 +99,7 @@ class Standard_text:
                         time.sleep(0.2)
                         decision_btn = driver.find_element(By.NAME ,'name')
                         decision_btn.clear()
-                        decision_btn.send_keys("new_standard_text22334")
+                        decision_btn.send_keys("new_standard_text22tg")
                         time.sleep(0.2)              
                         driver.find_element(By.NAME , 'btnsb').click()
                         time.sleep(5)
@@ -113,9 +115,9 @@ class Standard_text:
 
                         
                     elif flow[i] == "delete":
-                        driver.find_element(By.XPATH , '//*[@id="standardtextid_filter"]/label/input').send_keys("new_standard_text22334")
+                        driver.find_element(By.XPATH , '//*[@id="standardtextid_filter"]/label/input').send_keys("new_standard_text22tg")
     #                     search_btn.send_keys("new_checklist")
-                        delete_btn = driver.find_element(By.NAME ,id_list[i])
+                        delete_btn = driver.find_element(By.NAME , "inactive_mark")
                         delete_btn.click()
                         alert = driver.switch_to.alert
                         alert.accept()
