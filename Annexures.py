@@ -72,7 +72,69 @@ class Annexures:
                     if flow[i] == "add":
                         add_element.click()
                         time.sleep(0.2)
-                        driver.find_element(By.NAME ,'annexure_name').send_keys("new_annexure123")
+
+                        driver.find_element(By.ID , 'btnsb').click()
+                        try:
+                            # Find the field element that contains the mandatory star mark
+                            #name
+                            field_element = driver.find_element(By.XPATH, '//*[@id="annex"]/div/div/div[1]/div')
+                            has_validation_error = field_element.get_attribute("class") == "your-validation-error-class"
+                            is_mandatory = "*" in field_element.text
+
+                            if has_validation_error or is_mandatory:
+                                print("'Name' Field is mandatory. Please fill it.")
+                            else:
+                            #     Field is not mandatory or no validation error
+                                print("'Name' Field is not mandatory or no validation error") 
+                                pass
+
+
+                            #chapter
+                            field_element = driver.find_element(By.XPATH, '//*[@id="annex"]/div/div/div[2]/div')
+                            has_validation_error = field_element.get_attribute("class") == "your-validation-error-class"
+                            is_mandatory = "*" in field_element.text
+
+                            if has_validation_error or is_mandatory:
+                                print("'Chapter' Field is mandatory. Please fill it.")
+                            else:
+                            #     Field is not mandatory or no validation error4    
+                                print("'Chapter' Field is not mandatory or no validation error") 
+                                pass
+                            
+
+
+
+                            #area of audit
+                            field_element = driver.find_element(By.XPATH, '//*[@id="annex"]/div/div/div[3]/div')
+
+                            #field_name = field_element.get_attribute("Area of audit")
+                            # Checking if the field has any validation error or highlighting indicating it is mandatory
+                            has_validation_error = field_element.get_attribute("class") == "your-validation-error-class"
+                            is_mandatory = "*" in field_element.text
+
+                            if has_validation_error or is_mandatory:
+                                print("'Area of audit' Field is mandatory. Please fill it.")
+                            else:
+                            #     Field is not mandatory or no validation error
+                                print("'Area of audit' Field is not mandatory or no validation error") 
+                                pass
+
+
+                            #description
+                            field_element = driver.find_element(By.XPATH, '//*[@id="annex"]/div/div/div[4]/div')
+                            has_validation_error = field_element.get_attribute("class") == "your-validation-error-class"
+                            is_mandatory = "*" in field_element.text
+
+                            if has_validation_error or is_mandatory:
+                                print("'Description' Field is mandatory. Please fill it.")
+                            else:
+                            #     Field is not mandatory or no validation error
+                                print("'Description' Field is not mandatory or no validation error") 
+                                pass
+
+                        except:
+                            pass
+                        driver.find_element(By.NAME ,'annexure_name').send_keys("new_annexure123_test")
                         time.sleep(0.2)
                         driver.find_element(By.ID,"select2-chapters-container").click()
                         time.sleep(1)
@@ -110,13 +172,13 @@ class Annexures:
                             
                     elif flow[i] == "edit":
 
-                        driver.find_element(By.XPATH , '//*[@id="annextureact_filter"]/label/input').send_keys("new_annexure123")
+                        driver.find_element(By.XPATH , '//*[@id="annextureact_filter"]/label/input').send_keys("new_annexure123_test")
                         driver.find_element(By.ID ,'edit').click()
                         
                         time.sleep(0.2)
                         decision_btn = driver.find_element(By.NAME ,'annexure_name')
                         decision_btn.clear()
-                        decision_btn.send_keys("new_annexure2233")
+                        decision_btn.send_keys("new_annexure22334")
                         time.sleep(1)              
                         driver.find_element(By.NAME , 'btnsb').click()
                         
@@ -131,7 +193,7 @@ class Annexures:
 
                         
                     elif flow[i] == "delete":
-                        driver.find_element(By.XPATH , '//*[@id="annextureact_filter"]/label/input').send_keys("new_annexure2233")
+                        driver.find_element(By.XPATH , '//*[@id="annextureact_filter"]/label/input').send_keys("new_annexure22334")
     #                     search_btn.send_keys("new_checklist")
                         delete_btn = driver.find_element(By.NAME ,'mark_inactive')
                         delete_btn.click()
