@@ -72,10 +72,21 @@ class Annexures:
                     if flow[i] == "add":
                         add_element.click()
                         time.sleep(0.2)
-                        driver.find_element(By.NAME ,'annexure_name').send_keys("new_annexure")
+                        driver.find_element(By.NAME ,'annexure_name').send_keys("new_annexure123")
                         time.sleep(0.2)
                         driver.find_element(By.ID,"select2-chapters-container").click()
                         time.sleep(1)
+                        try:
+                            alert = driver.switch_to.alert
+                            alert.accept()
+                            time.sleep(2)
+                            print("annexure already exists")
+                            continue
+                        except Exception as e:
+                            print(e)
+                            print("entered into exception")
+                            pass
+                        
                         search = driver.find_element(By.XPATH,"/html/body/span/span/span[1]/input")
                         search.send_keys("others")
                         search.send_keys(Keys.RETURN)
@@ -99,15 +110,15 @@ class Annexures:
                             
                     elif flow[i] == "edit":
 
-                        driver.find_element(By.XPATH , '//*[@id="annextureact_filter"]/label/input').send_keys("new_annexure")
+                        driver.find_element(By.XPATH , '//*[@id="annextureact_filter"]/label/input').send_keys("new_annexure123")
                         driver.find_element(By.ID ,'edit').click()
                         
                         time.sleep(0.2)
                         decision_btn = driver.find_element(By.NAME ,'annexure_name')
                         decision_btn.clear()
-                        decision_btn.send_keys("new_annexure22")
-                        time.sleep(0.2)              
-                        driver.find_element(By.ID , 'btnsb').click()
+                        decision_btn.send_keys("new_annexure2233")
+                        time.sleep(1)              
+                        driver.find_element(By.NAME , 'btnsb').click()
                         
                         check_status = driver.find_element(By.XPATH  ,'/html/body/section/div/div[1]')
                         # Get the HTML of the element
@@ -120,7 +131,7 @@ class Annexures:
 
                         
                     elif flow[i] == "delete":
-                        driver.find_element(By.XPATH , '//*[@id="annextureact_filter"]/label/input').send_keys("new_annexure22")
+                        driver.find_element(By.XPATH , '//*[@id="annextureact_filter"]/label/input').send_keys("new_annexure2233")
     #                     search_btn.send_keys("new_checklist")
                         delete_btn = driver.find_element(By.NAME ,'mark_inactive')
                         delete_btn.click()

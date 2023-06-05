@@ -97,9 +97,10 @@ class Standard_text:
                         time.sleep(0.2)
                         decision_btn = driver.find_element(By.NAME ,'name')
                         decision_btn.clear()
-                        decision_btn.send_keys("new_standard_text2233")
+                        decision_btn.send_keys("new_standard_text22334")
                         time.sleep(0.2)              
-                        driver.find_element(By.ID , 'btnsb').click()
+                        driver.find_element(By.NAME , 'btnsb').click()
+                        time.sleep(5)
                         
                         check_status = driver.find_element(By.XPATH  ,'/html/body/section/div/div[1]')
                         # Get the HTML of the element
@@ -112,7 +113,7 @@ class Standard_text:
 
                         
                     elif flow[i] == "delete":
-                        driver.find_element(By.XPATH , '//*[@id="standardtextid_filter"]/label/input').send_keys("new_standard_text2233")
+                        driver.find_element(By.XPATH , '//*[@id="standardtextid_filter"]/label/input').send_keys("new_standard_text22334")
     #                     search_btn.send_keys("new_checklist")
                         delete_btn = driver.find_element(By.NAME ,id_list[i])
                         delete_btn.click()

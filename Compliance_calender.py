@@ -99,9 +99,10 @@ class Compliancecalender:
                         time.sleep(0.2)
                         decision_btn = driver.find_element(By.NAME ,'compilance_calendar_name')
                         decision_btn.clear()
-                        decision_btn.send_keys("new_compliance22")
+                        decision_btn.send_keys("new_compliance2234")
                         time.sleep(0.2)              
-                        driver.find_element(By.ID , 'btnsb').click()
+                        driver.find_element(By.NAME , 'btnsb').click()
+                        time.sleep(10)              
                         
                         check_status = driver.find_element(By.XPATH  ,'/html/body/section/div/div[1]')
                         # Get the HTML of the element
@@ -114,7 +115,7 @@ class Compliancecalender:
 
                         
                     elif flow[i] == "delete":
-                        driver.find_element(By.XPATH , '//*[@id="complianceact_filter"]/label/input').send_keys("new_compliance22")
+                        driver.find_element(By.XPATH , '//*[@id="complianceact_filter"]/label/input').send_keys("new_compliance2234")
     #                     search_btn.send_keys("new_checklist")
                         delete_btn = driver.find_element(By.NAME ,'mark_inactive')
                         delete_btn.click()
