@@ -32,10 +32,10 @@ class Annexures:
         time.sleep(0.5)
         driver.find_element(By.ID,"Annexures").click()
         time.sleep(1)
-        decision_reports_url = driver.current_url
-        # check_element_path = '//*[@id="navbar1"]/div[2]/div/button/i'
-        # checkinassignment = CheckUrlinAssignment.checkurlinassignment(driver,standardised_reports_url,check_element_path)
-        # print(checkinassignment)
+        annexures_reports_url = driver.current_url
+        check_element_path = '//*[@id="navbar1"]/div[2]/div/button/i'
+        checkinassignment = CheckUrlinAssignment.checkurlinassignment(driver,annexures_reports_url,check_element_path)
+        print(checkinassignment)
         driver.get("https://old.anyaudit.co.in/Management/users")
         search = driver.find_element(By.ID  ,"txtSearch")
         search.send_keys("tharun")
@@ -60,7 +60,7 @@ class Annexures:
             if "checked" in html:
                 print("checked")
                 flag_add = "checked"
-                driver.get(decision_reports_url)
+                driver.get(annexures_reports_url)
                 try:
                     add_element = driver.find_element(By.ID ,id_list[i])
     #                 print("button exists and no error")
@@ -210,7 +210,7 @@ class Annexures:
             else:
                 print("unchecked")
                 flag = "unchecked"
-                driver.get(decision_reports_url)
+                driver.get(annexures_reports_url)
                 
                 try:
                     add_element = driver.find_element(By.ID ,id_list[i])

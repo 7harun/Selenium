@@ -32,10 +32,10 @@ class Custom_Reports:
         time.sleep(0.5)
         driver.find_element(By.ID,"Customized").click()
         time.sleep(1)
-        standard_text_url = driver.current_url
-        # check_element_path = '//*[@id="navbar1"]/div[2]/div/button/i'
-        # checkinassignment = CheckUrlinAssignment.checkurlinassignment(driver,standard_text_url,check_element_path)
-        # print(checkinassignment)
+        check_url = driver.current_url
+        check_element_path = '//*[@id="navbar1"]/div[2]/div/button/i'
+        checkinassignment = CheckUrlinAssignment.checkurlinassignment(driver,check_url,check_element_path)
+        print(checkinassignment)
         driver.get("https://old.anyaudit.co.in/Management/users")
         search = driver.find_element(By.ID  ,"txtSearch")
         search.send_keys("tharun")
@@ -60,7 +60,7 @@ class Custom_Reports:
             if "checked" in html:
                 print("checked")
                 flag_add = "checked"
-                driver.get(standard_text_url)
+                driver.get(check_url)
                 try:
                     add_element = driver.find_element(By.ID ,id_list[i])
     #                 print("button exists and no error")
@@ -72,6 +72,37 @@ class Custom_Reports:
                     if flow[i] == "add":
                         add_element.click()
                         time.sleep(0.2)
+
+                        driver.find_element(By.NAME ,'add').click()
+                        try:
+                            # Find the field element that contains the mandatory star mark
+                            #Draft Name
+                            field_element = driver.find_element(By.NAME ,'draft')
+                            has_validation_error = field_element.get_attribute("class") == "your-validation-error-class"
+                            is_mandatory = "*" in field_element.text
+
+                            if has_validation_error or is_mandatory:
+                                print("'Draft Name' Field is mandatory. Please fill it.")
+                            else:
+                            #     Field is not mandatory or no validation error
+                                print("'Draft Name' Field is not mandatory or no validation error") 
+                                pass
+
+
+                            #chapter
+                            field_element = driver.find_element(By.XPATH, '//*[@id="customreport"]/div/form/div/div[3]')
+                            has_validation_error = field_element.get_attribute("class") == "your-validation-error-class"
+                            is_mandatory = "*" in field_element.text
+
+                            if has_validation_error or is_mandatory:
+                                print("'Chapter' Field is mandatory. Please fill it.")
+                            else:
+                            #     Field is not mandatory or no validation error4    
+                                print("'Chapter' Field is not mandatory or no validation error") 
+                                pass
+
+                        except:
+                            pass
                         driver.find_element(By.NAME ,'draft').send_keys("new_custom_draft")
                         time.sleep(0.2)
                         driver.find_element(By.ID ,'select2-chapters-container').click()
@@ -131,7 +162,7 @@ class Custom_Reports:
             else:
                 print("unchecked")
                 flag = "unchecked"
-                driver.get(standard_text_url)
+                driver.get(check_url)
                 
                 try:
                     add_element = driver.find_element(By.ID ,id_list[i])
