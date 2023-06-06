@@ -35,9 +35,9 @@ class Standard_text:
         driver.find_element(By.NAME,"Standard").click()
         time.sleep(1)
         standard_text_url = driver.current_url
-        # check_element_path = '//*[@id="navbar1"]/div[2]/div/button/i'
-        # checkinassignment = CheckUrlinAssignment.checkurlinassignment(driver,standard_text_url,check_element_path)
-        # print(checkinassignment)
+        check_element_path = '//*[@id="navbar1"]/div[2]/div/button/i'
+        checkinassignment = CheckUrlinAssignment.checkurlinassignment(driver,standard_text_url,check_element_path)
+        print(checkinassignment)
         driver.get("https://old.anyaudit.co.in/Management/users")
         search = driver.find_element(By.ID  ,"txtSearch")
         search.send_keys("tharun")
@@ -74,6 +74,35 @@ class Standard_text:
                     if flow[i] == "add":
                         add_element.click()
                         time.sleep(0.2)
+                        try:
+                            # Find the field element that contains the mandatory star mark
+                            #Name
+                            field_element = driver.find_element(By.NAME ,'name')
+                            has_validation_error = field_element.get_attribute("class") == "your-validation-error-class"
+                            is_mandatory = "*" in field_element.text
+
+                            if has_validation_error or is_mandatory:
+                                print("'Name' Field is mandatory. Please fill it.")
+                            else:
+                            #     Field is not mandatory or no validation error
+                                print("'Name' Field is not mandatory or no validation error") 
+                                pass
+
+
+                            #Description
+                            field_element = driver.find_element(By.NAME, 'description')
+                            has_validation_error = field_element.get_attribute("class") == "your-validation-error-class"
+                            is_mandatory = "*" in field_element.text
+
+                            if has_validation_error or is_mandatory:
+                                print("'Description' Field is mandatory. Please fill it.")
+                            else:
+                            #     Field is not mandatory or no validation error4    
+                                print("'Description' Field is not mandatory or no validation error") 
+                                pass
+
+                        except:
+                            pass
                         driver.find_element(By.NAME ,'name').send_keys("new_standard_text122")
                         time.sleep(0.2)
                         driver.find_element(By.NAME ,'description').send_keys("new_standard_text_description")
