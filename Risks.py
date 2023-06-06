@@ -72,9 +72,69 @@ class Risks:
                     if flow[i] == "add":
                         add_element.click()
                         time.sleep(0.2)
+
+
+
+                        try:
+                            # Find the field element that contains the mandatory star mark
+                            #RISK NAME
+                            field_element = driver.find_element(By.XPATH ,'//*[@id="riskValidation"]/div[1]/div/div/div')
+                            has_validation_error = field_element.get_attribute("class") == "your-validation-error-class"
+                            is_mandatory = "*" in field_element.text
+
+                            if has_validation_error or is_mandatory:
+                                print("'Name' Field is mandatory. Please fill it.")
+                            else:
+                            #     Field is not mandatory or no validation error
+                                print("'Name' Field is not mandatory or no validation error") 
+                                pass
+
+                        except:
+                            pass
+
+
+
+                        input_element = [".","alpha1","alpha@1",12345]
+                        for j in input_element:
+                            # driver.get(decision_reports_url)
+                            try:
+                                
+                                driver.get(standardised_reports_url)
+                                time.sleep(1)
+                                add_element = driver.find_element(By.ID ,id_list[i])
+                                add_element.click()
+                                print("check1")
+                                time.sleep(1)
+                                
+                                driver.find_element(By.NAME ,'risk_name').send_keys(j)
+                                time.sleep(1)
+                                                
+                                driver.find_element(By.ID , 'myBtn').click()
+                                                        
+
+
+                                check_status = driver.find_element(By.XPATH  ,'/html/body/section/div/div[2]')
+                                # Get the HTML of the element
+                                html = check_status.get_attribute('innerHTML')
+                                # print(html)
+                                if "alert alert-danger text-center alert-dismiss " in html:
+                                    print("already exists")
+                                if "alert alert-success text-center alert-dismiss " in html:
+                                    print("new record created")
+                                #     message = element.text
+                            #     print(message)
+                            except Exception as e:
+                                print("error",e)
+
+                        driver.get(standardised_reports_url)
+                        time.sleep(1)
+                        add_element = driver.find_element(By.ID ,id_list[i])
+                        add_element.click()
+                        time.sleep(1)
+
                         driver.find_element(By.NAME ,'risk_name').send_keys("new_risk")
-                        time.sleep(0.2)
-                       
+                        time.sleep(0.2)                     
+
 
                         driver.find_element(By.ID , 'myBtn').click()
                         
@@ -88,18 +148,20 @@ class Risks:
                             print("new APT created")
                             
                     elif flow[i] == "edit":
+                        unique_id = random.randint(1000, 9999)
+                        test = "test"+str(unique_id)
                         driver.find_element(By.XPATH , '//*[@id="riskid_filter"]/label/input').send_keys("new_risk")
                         driver.find_element(By.ID ,'edit').click()
                         time.sleep(1)
                         update_btn = driver.find_element(By.ID ,'risk_name')
                         update_btn.clear()
-                        update_btn.send_keys("new_risk22")
+                        update_btn.send_keys(test)
                         time.sleep(1)
                         driver.find_element(By.ID , 'myBtn').click()
 
                         
                     elif flow[i] == "delete":
-                        driver.find_element(By.XPATH , '//*[@id="riskid_filter"]/label/input').send_keys("new_risk22")
+                        driver.find_element(By.XPATH , '//*[@id="riskid_filter"]/label/input').send_keys(test)
     #                     search_btn.send_keys("new_checklist")
                         delete_btn = driver.find_element(By.ID ,'mark_inactive')
                         delete_btn.click()
