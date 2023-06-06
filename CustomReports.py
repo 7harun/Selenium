@@ -103,6 +103,57 @@ class Custom_Reports:
 
                         except:
                             pass
+
+
+                        input_element = [".","alpha1","alpha@1",12345]
+                        for j in input_element:
+                            # driver.get(decision_reports_url)
+                            try:
+                                
+                                driver.get(check_url)
+                                time.sleep(1)
+                                add_element = driver.find_element(By.NAME ,id_list[i])
+                                add_element.click()
+                                print("check1")
+                                time.sleep(1)
+                                
+                                driver.find_element(By.NAME ,'draft').send_keys(j)
+                                time.sleep(1)
+                                driver.find_element(By.ID ,'select2-chapters-container').click()
+                                time.sleep(0.2)
+                                driver.find_element(By.XPATH ,'/html/body/span/span/span[1]/input').send_keys(j)
+                                time.sleep(1)
+                                check_status = driver.find_element(By.XPATH  ,'//*[@id="select2-chapters-results"]/li')
+                                # Get the HTML of the element
+                                dropdownitems = check_status.get_attribute('innerHTML')
+                                if "No results found" in dropdownitems:
+                                    print(j,"No results found")
+                                else:
+                                    dropdownitems.send_keys(Keys.RETURN)
+                                
+                                driver.find_element(By.ID , 'btnsb').click()
+                                                        
+
+
+                                check_status = driver.find_element(By.XPATH  ,'/html/body/section/div/div[2]')
+                                # Get the HTML of the element
+                                html = check_status.get_attribute('innerHTML')
+                                # print(html)
+                                if "alert alert-danger text-center alert-dismiss " in html:
+                                    print("already exists")
+                                if "alert alert-success text-center alert-dismiss " in html:
+                                    print("new record created")
+                                #     message = element.text
+                            #     print(message)
+                            except Exception as e:
+                                print("error",e)
+                        
+
+                        driver.get(check_url)
+                        time.sleep(1)
+                        add_element = driver.find_element(By.NAME ,id_list[i])
+                        add_element.click()
+                        time.sleep(1)
                         driver.find_element(By.NAME ,'draft').send_keys("new_custom_draft")
                         time.sleep(0.2)
                         driver.find_element(By.ID ,'select2-chapters-container').click()
@@ -123,14 +174,15 @@ class Custom_Reports:
                             print("new Decision created")
                             
                     elif flow[i] == "edit":
-
+                        unique_id = random.randint(1000, 9999)
+                        test = "test"+str(unique_id)
                         driver.find_element(By.XPATH , '//*[@id="custom_draft_filter"]/label/input').send_keys("new_custom_draft")
                         time.sleep(0.5)
                         driver.find_element(By.ID ,id_list[i]).click()
                         time.sleep(0.2)
                         decision_btn = driver.find_element(By.NAME ,'draft')
                         decision_btn.clear()
-                        decision_btn.send_keys("new_custom_draft123")
+                        decision_btn.send_keys(test)
                         time.sleep(0.2)              
                         driver.find_element(By.ID , 'update').click()
                         
@@ -145,7 +197,7 @@ class Custom_Reports:
 
                         
                     elif flow[i] == "delete":
-                        driver.find_element(By.XPATH , '//*[@id="custom_draft_filter"]/label/input').send_keys("new_custom_draft123")
+                        driver.find_element(By.XPATH , '//*[@id="custom_draft_filter"]/label/input').send_keys(test)
     #                     search_btn.send_keys("new_checklist")
                         delete_btn = driver.find_element(By.NAME ,id_list[i])
                         delete_btn.click()
