@@ -74,11 +74,156 @@ class CheckConditions:
                 if add_element:
                     print("button exists and no error")
                     if flow[i] == "add":
-                        
                         add_element.click()
+                        time.sleep(0.2)
+
+                        driver.find_element(By.ID , 'btnsb').click()
+
+
+                        try:
+                            # Find the field element that contains the mandatory star mark
+                            # ConditionName
+                            field_element = driver.find_element(By.NAME ,'cond_name')
+                            # has_validation_error = field_element.get_attribute("class") == "your-validation-error-class"
+                            # is_mandatory = "*" in field_element.text
+                            cname = field_element.get_attribute('outerHTML')
+                            # print(html)
+                            if "required" in cname:
+                                print("'ConditionName' Field is mandatory. Please fill it.")
+                            # if "alert alert-success text-center alert-dismiss " in cname:
+                            #     print("new record created")
+                            # if has_validation_error or is_mandatory:
+                            #     print("'ConditionName' Field is mandatory. Please fill it.")
+                            else:
+                            #     Field is not mandatory or no validation error
+                                print("'ConditionName' Field is not mandatory or no validation error") 
+                                pass
+
+
+                            field_element = driver.find_element(By.XPATH ,'//*[@id="fact_decision_id"]')
+                            has_validation_error = field_element.get_attribute("class") == "your-validation-error-class"
+                            is_mandatory = "*" in field_element.text
+
+                            if has_validation_error or is_mandatory:
+                                print("'Variable' Field is mandatory. Please fill it.")
+                            else:
+                            #     Field is not mandatory or no validation error
+                                print("'Variable' Field is not mandatory or no validation error") 
+                                pass
+
+                            field_element = driver.find_element(By.NAME ,'operator')
+                            operator = field_element.get_attribute('outerHTML')
+                            # print(html)
+                            if "required" in operator:
+                                print("'operator' Field is mandatory. Please fill it.")
+                            # if "alert alert-success text-center alert-dismiss " in cname:
+                            #     print("new record created")
+                            # if has_validation_error or is_mandatory:
+                            #     print("'ConditionName' Field is mandatory. Please fill it.")
+                            else:
+                            #     Field is not mandatory or no validation error
+                                print("'operator' Field is not mandatory or no validation error") 
+                                pass
+
+
+                            field_element = driver.find_element(By.NAME ,'value_one')
+                            value1 = field_element.get_attribute('outerHTML')
+                            # print(html)
+                            if "required" in value1:
+                                print("'value1' Field is mandatory. Please fill it.")
+                            # if "alert alert-success text-center alert-dismiss " in cname:
+                            #     print("new record created")
+                            # if has_validation_error or is_mandatory:
+                            #     print("'ConditionName' Field is mandatory. Please fill it.")
+                            else:
+                            #     Field is not mandatory or no validation error
+                                print("'value1' Field is not mandatory or no validation error") 
+                                pass
+
+                            field_element = driver.find_element(By.NAME ,'cond_desc')
+                            description = field_element.get_attribute('outerHTML')
+                            # print(html)
+                            if "required" in description:
+                                print("'description' Field is mandatory. Please fill it.")
+                            # if "alert alert-success text-center alert-dismiss " in cname:
+                            #     print("new record created")
+                            # if has_validation_error or is_mandatory:
+                            #     print("'ConditionName' Field is mandatory. Please fill it.")
+                            else:
+                            #     Field is not mandatory or no validation error
+                                print("'description' Field is not mandatory or no validation error") 
+                                pass
+
+                        except:
+                            pass
+
+
+
+                        input_element = ["..","alpha1","alpha@1",12345]
+                        for j in input_element:
+                            # driver.get(decision_reports_url)
+                            try:
+                                
+                                driver.get(condition_url)
+                                time.sleep(1)
+                                add_element = driver.find_element(By.ID ,id_list[i])
+                                add_element.click()
+                                print("check1")
+                                time.sleep(1)
+                                driver.find_element(By.ID ,'cond_name').send_keys(j)
+                                driver.find_element(By.ID,"select2-fact_decision_id-container").click()
+                                btn = driver.find_element(By.XPATH,"/html/body/span/span/span[1]/input")
+                                driver.find_element(By.XPATH,"/html/body/span/span/span[1]/input").send_keys("test")
+                                btn.send_keys(Keys.RETURN)
+                                time.sleep(0.2)
+                            
+                                driver.find_element(By.ID,"select2-operator-container").click()
+                                op_btn = driver.find_element(By.XPATH,"/html/body/span/span/span[1]/input")
+                                driver.find_element(By.XPATH,"/html/body/span/span/span[1]/input").send_keys("equal to")
+                                op_btn.send_keys(Keys.RETURN)
+                                time.sleep(0.5)
+                                driver.find_element(By.NAME,"value_one").send_keys(j)
+                                try:
+                                    driver.find_element(By.NAME,"value_two").send_keys(j)
+                                except:
+                                    pass
+                                driver.find_element(By.ID,"cond_desc").send_keys(j)                        
+                                
+                                time.sleep(2)
+                                driver.find_element(By.ID , 'btnsb').click()
+                                time.sleep(1)
+                                
+                                # print(html)
+                                if "alert alert-danger text-center alert-dismiss " in html:
+                                    print("already exists")
+                                if "alert alert-success text-center alert-dismiss " in html:
+                                    print("new record created")
+                                #     message = element.text
+                            #     print(message)
+                            except Exception as e:
+                                print("error",e)
+
+                        driver.get(condition_url)
+                        time.sleep(1)
+                        add_element = driver.find_element(By.ID ,id_list[i])
+                        add_element.click()
+                        time.sleep(1)
                         
-                        driver.find_element(By.ID ,'cond_name').send_keys("new_condition323")
+                        
+                        driver.find_element(By.ID ,'cond_name').send_keys("new_condition32333")
                         driver.find_element(By.ID,"select2-fact_decision_id-container").click()
+                        time.sleep(0.5)
+                        try:
+                            alert = driver.switch_to.alert
+                            alert.accept()
+                            time.sleep(2)
+                            print("condition already exists")
+                            continue
+                        except Exception as e:
+                            print(e)
+                            print("entered into exception")
+                            pass
+                        
                         btn = driver.find_element(By.XPATH,"/html/body/span/span/span[1]/input")
                         driver.find_element(By.XPATH,"/html/body/span/span/span[1]/input").send_keys("test")
                         btn.send_keys(Keys.RETURN)
@@ -113,16 +258,17 @@ class CheckConditions:
                             time.sleep(2)
                             
                     elif flow[i] == "edit":
-                        
+                        unique_id = random.randint(1000, 9999)
+                        test = "test"+str(unique_id)
                         # search = driver.find_element(By.ID,"con_data_filter")
                         # search.click()
-                        driver.find_element(By.XPATH,'//*[@id="con_data_filter"]/label/input').send_keys("new_condition323")
+                        driver.find_element(By.XPATH,'//*[@id="con_data_filter"]/label/input').send_keys("new_condition32333")
                         driver.find_element(By.ID,"edit").click()
                         time.sleep(0.5)
                         con = driver.find_element(By.ID ,'cond_name')
                         con.clear()
 
-                        con.send_keys("new_condition2")
+                        con.send_keys(test)
                         driver.find_element(By.ID,"select2-fact_decision_id-container").click()
                         btn = driver.find_element(By.XPATH,"/html/body/span/span/span[1]/input")
                         driver.find_element(By.XPATH,"/html/body/span/span/span[1]/input").send_keys("test")
@@ -159,7 +305,7 @@ class CheckConditions:
                         
                     elif flow[i] == "delete":
                         time.sleep(1)
-                        driver.find_element(By.XPATH,'//*[@id="con_data_filter"]/label/input').send_keys("new_condition2")
+                        driver.find_element(By.XPATH,'//*[@id="con_data_filter"]/label/input').send_keys(test)
                         time.sleep(1)
                         driver.find_element(By.ID,"edit").click()
                         time.sleep(0.5)
