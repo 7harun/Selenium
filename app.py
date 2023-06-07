@@ -18,6 +18,7 @@ from Compliance_calender import Compliancecalender
 from Standard_text import Standard_text
 from CustomReports import Custom_Reports
 from ChecklistGuidance import ChecklistGuidance
+from Controls import Controls
 
 
 app = Flask(__name__)
@@ -372,6 +373,20 @@ def run_guidance():
     def selenium_script():
         
         cr_obj = ChecklistGuidance.checklistguidance()
+        print(cr_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+@app.route('/controls', methods=['POST'])
+def run_control():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        cr_obj = Controls.controls()
         print(cr_obj)
         
     thread = Thread(target=selenium_script)
