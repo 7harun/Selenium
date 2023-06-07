@@ -72,6 +72,71 @@ class Auditvariables:
                     if flow[i] == "add":
                         add_element.click()
                         time.sleep(0.2)
+                        driver.find_element(By.NAME ,'btnsb').click()
+                        
+                        try:
+                            # Find the field element that contains the mandatory star mark
+                            #AUDIT VARIABLE NAME
+                            field_element = driver.find_element(By.XPATH ,'//*[@id="mainForm"]/div/div[1]')
+                            has_validation_error = field_element.get_attribute("class") == "your-validation-error-class"
+                            is_mandatory = "*" in field_element.text
+
+                            if has_validation_error or is_mandatory:
+                                print("'AUDIT VARIABLE' Field is mandatory. Please fill it.")
+                            else:
+                            #     Field is not mandatory or no validation error
+                                print("'AUDIT VARIABLE' Field is not mandatory or no validation error") 
+                                pass
+
+                             #AUDIT VARIABLE TYPE
+                            field_element = driver.find_element(By.XPATH ,'//*[@id="mainForm"]/div/div[2]/div')
+                            has_validation_error = field_element.get_attribute("class") == "your-validation-error-class"
+                            is_mandatory = "*" in field_element.text
+
+                            if has_validation_error or is_mandatory:
+                                print("'AUDIT VARIABLE TYPE' Field is mandatory. Please fill it.")
+                            else:
+                            #     Field is not mandatory or no validation error
+                                print("'AUDIT VARIABLE TYPE' Field is not mandatory or no validation error") 
+                                pass
+
+                        except:
+                            pass
+
+
+                        input_element = ["..","alpha1","alpha@1",12345]
+                        for j in input_element:
+                            # driver.get(decision_reports_url)
+                            try:
+                                
+                                driver.get(standardised_reports_url)
+                                time.sleep(1)
+                                add_element = driver.find_element(By.ID ,id_list[i])
+                                add_element.click()
+                                print("check1")
+                                time.sleep(1)                             
+                                driver.find_element(By.NAME ,'impact_name').send_keys(j)
+                                time.sleep(0.2)
+                                driver.find_element(By.ID,"select2-impact_type-container").click()
+                                time.sleep(1)
+                                search = driver.find_element(By.XPATH,"/html/body/span/span/span[1]/input")
+                                search.send_keys("single")
+                                search.send_keys(Keys.RETURN)
+
+                                driver.find_element(By.ID , 'btnsb').click()
+
+                                if "alert alert-danger text-center alert-dismiss " in html:
+                                    print("already exists")
+                                if "alert alert-success text-center alert-dismiss " in html:
+                                    print("new record created")
+                            except Exception as e:
+                                print("ERROR",e)
+                                pass
+                        driver.get(standardised_reports_url)
+                        time.sleep(1)
+                        add_element = driver.find_element(By.ID ,id_list[i])
+                        add_element.click()
+                        time.sleep(1)
                         driver.find_element(By.NAME ,'impact_name').send_keys("new_impact")
                         time.sleep(0.2)
                         driver.find_element(By.ID,"select2-impact_type-container").click()
@@ -92,12 +157,14 @@ class Auditvariables:
     #                         print("new APT created")
                             
                     elif flow[i] == "edit":
+                        unique_id = random.randint(1000, 9999)
+                        test = "test"+str(unique_id)
                         driver.find_element(By.XPATH , '//*[@id="active_audit_filter"]/label/input').send_keys("new_impact")
                         driver.find_element(By.ID ,'edit').click()
                         time.sleep(1)
                         update_btn = driver.find_element(By.ID ,'impact_name')
                         update_btn.clear()
-                        update_btn.send_keys("new_impact22")
+                        update_btn.send_keys(test)
                         time.sleep(1)
                         driver.find_element(By.ID,"select2-impact_type-container").click()
                         time.sleep(2)
@@ -109,7 +176,7 @@ class Auditvariables:
 
                         
                     elif flow[i] == "delete":
-                        driver.find_element(By.XPATH , '//*[@id="active_audit_filter"]/label/input').send_keys("new_impact22")
+                        driver.find_element(By.XPATH , '//*[@id="active_audit_filter"]/label/input').send_keys(test)
     #                     search_btn.send_keys("new_checklist")
                         delete_btn = driver.find_element(By.ID ,'mark_inactive')
                         delete_btn.click()
