@@ -19,6 +19,8 @@ from Standard_text import Standard_text
 from CustomReports import Custom_Reports
 from ChecklistGuidance import ChecklistGuidance
 from Controls import Controls
+from FIFW_AED import FIFW_AED
+from addAPT_toolkit import APT_toolkit
 
 
 app = Flask(__name__)
@@ -388,6 +390,34 @@ def run_control():
         
         cr_obj = Controls.controls()
         print(cr_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+@app.route('/ff', methods=['POST'])
+def run_FF():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        ff_obj = FIFW_AED.fifw_aed()
+        print(ff_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+@app.route('/apt_toolkit', methods=['POST'])
+def apt_toolkit():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        ff_obj = APT_toolkit.apt_toolkit()
+        print(ff_obj)
         
     thread = Thread(target=selenium_script)
     thread.start()

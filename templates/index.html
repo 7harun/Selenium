@@ -23,6 +23,11 @@
     <button id="standard">Standard Text</button>
     <button id="custom">Custom Reports</button>
     <button id="guidance">Checklist Guidance</button>
+    <button id="ff">FF Add/Edit/Delete</button>
+    <button id="apt_toolkit">APT Tool kit</button>
+
+    
+
 
 
 
@@ -51,6 +56,43 @@
                 });
         });
     </script>
+
+<script>
+    document.getElementById('ff').addEventListener('click', function() {
+        // Send a POST request to the server to trigger the Selenium script
+        fetch('/ff', { method: 'POST' })
+            .then(response => {
+                if (response.ok) {
+                    console.log(response)
+                    console.log('Selenium script triggered successfully.');
+                } else {
+                    console.error('Failed to trigger Selenium script.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+</script>
+
+
+<script>
+    document.getElementById('apt_toolkit').addEventListener('click', function() {
+        // Send a POST request to the server to trigger the Selenium script
+        fetch('/apt_toolkit', { method: 'POST' })
+            .then(response => {
+                if (response.ok) {
+                    console.log(response)
+                    console.log('Selenium script triggered successfully.');
+                } else {
+                    console.error('Failed to trigger Selenium script.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+</script>
 
 <script>
     document.getElementById('guidance').addEventListener('click', function() {
