@@ -121,17 +121,13 @@ class Custom_Reports:
                                 time.sleep(1)
                                 driver.find_element(By.ID ,'select2-chapters-container').click()
                                 time.sleep(0.2)
-                                driver.find_element(By.XPATH ,'/html/body/span/span/span[1]/input').send_keys(j)
+                                search = driver.find_element(By.XPATH ,'/html/body/span/span/span[1]/input')
+                                search.send_keys("others")
                                 time.sleep(1)
-                                check_status = driver.find_element(By.XPATH  ,'//*[@id="select2-chapters-results"]/li')
-                                # Get the HTML of the element
-                                dropdownitems = check_status.get_attribute('innerHTML')
-                                if "No results found" in dropdownitems:
-                                    print(j,"No results found")
-                                else:
-                                    dropdownitems.send_keys(Keys.RETURN)
-                                
-                                driver.find_element(By.ID , 'btnsb').click()
+                                search.send_keys(Keys.RETURN)
+                                time.sleep(1)
+                                driver.find_element(By.NAME , 'add').click()
+                                time.sleep(1)
                                                         
 
 
@@ -183,8 +179,16 @@ class Custom_Reports:
                         decision_btn = driver.find_element(By.NAME ,'draft')
                         decision_btn.clear()
                         decision_btn.send_keys(test)
-                        time.sleep(0.2)              
-                        driver.find_element(By.ID , 'update').click()
+                        time.sleep(0.2)          
+                         
+                        driver.find_element(By.ID ,'select2-chapters-container').click()
+                        time.sleep(0.2)
+                        search = driver.find_element(By.XPATH,"/html/body/span/span/span[1]/input")
+                        search.send_keys("others")
+                        search.send_keys(Keys.RETURN)
+                        time.sleep(0.2)
+
+                        driver.find_element(By.NAME , 'update').click()
                         
                         check_status = driver.find_element(By.XPATH  ,'/html/body/section/div/div[1]')
                         # Get the HTML of the element
