@@ -29,7 +29,7 @@ class Risks:
         driver.find_element(By.XPATH , '//*[@id="sign_in"]/div[3]/div/button').click()
         time.sleep(0.5)
         driver.find_element(By.ID,"bl18").click()
-        time.sleep(0.5)
+        time.sleep(1)
         driver.find_element(By.ID,"Risks").click()
         time.sleep(1)
         standardised_reports_url = driver.current_url

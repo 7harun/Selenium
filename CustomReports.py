@@ -29,7 +29,7 @@ class Custom_Reports:
         driver.find_element(By.XPATH , '//*[@id="sign_in"]/div[3]/div/button').click()
         time.sleep(0.5)
         driver.find_element(By.ID,"bl18").click()
-        time.sleep(0.5)
+        time.sleep(1)
         driver.find_element(By.ID,"Customized").click()
         time.sleep(1)
         check_url = driver.current_url
