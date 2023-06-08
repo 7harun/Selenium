@@ -13,6 +13,7 @@ from Conditions import CheckConditions
 from AuditVariables import Auditvariables
 from Risks import Risks
 from Annexures import Annexures
+from Annexures_Config import Annexures_config
 from Decisions import Decisions
 from Compliance_calender import Compliancecalender
 from Standard_text import Standard_text
@@ -316,6 +317,21 @@ def run_Annexures():
     def selenium_script():
         
         decision_obj = Annexures.annexures()
+        print(decision_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/annexuresconfig', methods=['POST'])
+def run_Annexuresconfig():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        decision_obj = Annexures_config.annexures_config()
         print(decision_obj)
         
     thread = Thread(target=selenium_script)

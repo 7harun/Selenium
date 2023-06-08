@@ -19,6 +19,8 @@
     <button id="controls">Controls</button>
     <button id="decisions">Decisions</button>
     <button id="annexures">Annexures</button>
+    <button id="annexuresconfig">Annexures config</button>
+
     <button id="cc">Compliance Calender</button>
     <button id="standard">Standard Text</button>
     <button id="custom">Custom Reports</button>
@@ -189,6 +191,23 @@
         document.getElementById('annexures').addEventListener('click', function() {
             // Send a POST request to the server to trigger the Selenium script
             fetch('/annexures', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(response)
+                        console.log('Selenium script triggered successfully.');
+                    } else {
+                        console.error('Failed to trigger Selenium script.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+    <script>
+        document.getElementById('annexuresconfig').addEventListener('click', function() {
+            // Send a POST request to the server to trigger the Selenium script
+            fetch('/annexuresconfig', { method: 'POST' })
                 .then(response => {
                     if (response.ok) {
                         console.log(response)
