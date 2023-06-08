@@ -37,8 +37,12 @@ class APT_toolkit:
         # checkinassignment = CheckUrlinAssignment.checkurlinassignment(driver,standardised_reports_url,check_element_path)
         # print(checkinassignment)
         driver.get("https://old.anyaudit.co.in/Management/users")
+        search = driver.find_element(By.ID  ,"txtSearch")
         driver.find_element(By.ID  ,"txtSearch").send_keys("tharun")
-        driver.find_element(By.XPATH  ,'/html/body/section/div/div/div/div/div[1]/ul/li[3]/div/div/button').click()
+        time.sleep(1)
+        search.send_keys(Keys.RETURN)
+        
+        # driver.find_element(By.XPATH  ,'/html/body/section/div/div/div/div/div[1]/ul/li[3]/div/div/button').click()
         time.sleep(1)
         driver.find_element(By.XPATH  ,'/html/body/section/div/div/div/div/div[2]/div/div[3]/table/tbody/tr/td[11]/a[1]/button').click()
         new_page_url = driver.current_url
@@ -69,7 +73,7 @@ class APT_toolkit:
                     print("button exists and no error")
                     if flow[i] == "add":
                         add_element.click()
-
+                    
                         time.sleep(1)
                         driver.get(standardised_reports_url)
                         time.sleep(1)
@@ -94,6 +98,40 @@ class APT_toolkit:
                         driver.find_element(By.XPATH , '//*[@id="configuration_act_filter"]/label/input').send_keys("template_test")
                         driver.find_element(By.NAME ,'configure').click()
                         time.sleep(1)
+
+
+                        
+                        driver.find_element(By.NAME ,'add_toolkit').click()
+                        time.sleep(0.5)
+                        driver.find_element(By.NAME ,'addToolBtn').click()
+                        time.sleep(0.2)
+
+
+                        driver.find_element(By.ID ,'save_btn').click()
+                        time.sleep(0.5)
+                        try:
+                            # Find the field element that contains the mandatory star mark
+                            #TOOL
+                            field_element = driver.find_element(By.ID ,'tool_1')
+                            TOOL = field_element.get_attribute('outerHTML')
+                            if "required" in TOOL:
+                                print("'TOOL' Field is mandatory. Please fill it.")
+                            else:
+                                print("'TOOL' Field is not mandatory or no validation error") 
+                                pass
+
+                            #  TOOL_kit
+                            field_element = driver.find_element(By.ID ,'toolkit_1')
+                            TOOL_kit = field_element.get_attribute('outerHTML')
+                            if "required" in TOOL_kit:
+                                print("'TOOL_kit' Field is mandatory. Please fill it.")
+                            else:
+                                print("'TOOL_kit' Field is not mandatory or no validation error") 
+                                pass
+
+                        except:
+                            pass
+                        driver.refresh()
                         driver.find_element(By.NAME ,'add_toolkit').click()
                         time.sleep(0.5)
                         driver.find_element(By.NAME ,'addToolBtn').click()
