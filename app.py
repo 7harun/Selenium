@@ -20,6 +20,7 @@ from Standard_text import Standard_text
 from CustomReports import Custom_Reports
 from ChecklistGuidance import ChecklistGuidance
 from Controls import Controls
+from subdecisions import SubDecisions
 from FIFW_AED import FIFW_AED
 from addAPT_toolkit import APT_toolkit
 
@@ -332,6 +333,21 @@ def run_Annexuresconfig():
     def selenium_script():
         
         decision_obj = Annexures_config.annexures_config()
+        print(decision_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/subdecisions', methods=['POST'])
+def run_subdecision():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        decision_obj = SubDecisions.subdecisions()
         print(decision_obj)
         
     thread = Thread(target=selenium_script)

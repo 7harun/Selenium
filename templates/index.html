@@ -27,7 +27,9 @@
     <button id="guidance">Checklist Guidance</button>
     <button id="ff">FF Add/Edit/Delete</button>
     <button id="apt_toolkit">APT Tool kit</button>
+    <button id="subdecisions">Subdecisions</button>
 
+    
     
 
 
@@ -221,6 +223,25 @@
                 });
         });
     </script>
+
+
+<script>
+    document.getElementById('subdecisions').addEventListener('click', function() {
+        // Send a POST request to the server to trigger the Selenium script
+        fetch('/subdecisions', { method: 'POST' })
+            .then(response => {
+                if (response.ok) {
+                    console.log(response)
+                    console.log('Selenium script triggered successfully.');
+                } else {
+                    console.error('Failed to trigger Selenium script.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+</script>
     <script>
         document.getElementById('controls').addEventListener('click', function() {
             // Send a POST request to the server to trigger the Selenium script
