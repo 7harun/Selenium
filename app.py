@@ -23,6 +23,8 @@ from Controls import Controls
 from subdecisions import SubDecisions
 from FIFW_AED import FIFW_AED
 from addAPT_toolkit import APT_toolkit
+from Datehub_addplan import Datehub_add_plan
+from datehub_addmilestone import Datehub_add_MS
 
 
 app = Flask(__name__)
@@ -38,6 +40,52 @@ def run_selenium():
     def selenium_script():
         
         datehubaddassignment = Datehub_add_assignment.datehub_add_assignment()
+        print(datehubaddassignment)
+        # driver.get('path/to/webpage.html')
+
+        # Your Selenium code here
+        # Interact with elements on the webpage (e.g., fill forms, click buttons, etc.)
+        # Perform automated testing using Selenium
+
+        # driver.quit()
+
+    # Run the Selenium script in a separate thread
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/datehubaddplan', methods=['POST'])
+def datehubaddplan():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        datehubaddassignment = Datehub_add_plan.datehub_add_plan()
+        print(datehubaddassignment)
+        # driver.get('path/to/webpage.html')
+
+        # Your Selenium code here
+        # Interact with elements on the webpage (e.g., fill forms, click buttons, etc.)
+        # Perform automated testing using Selenium
+
+        # driver.quit()
+
+    # Run the Selenium script in a separate thread
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/datehubaddMS', methods=['POST'])
+def datehubaddMS():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        datehubaddassignment = Datehub_add_MS.datehub_add_MS()
         print(datehubaddassignment)
         # driver.get('path/to/webpage.html')
 

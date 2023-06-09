@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Test Automation</title>
+    <title>ANYAUDIT Test Automation</title>
 </head>
 <body>
     <button id="add_assignment">Add Assignment through datehub</button>
@@ -13,6 +13,10 @@
     <button id="standardisedreports">Standardised Reports</button>
     <button id="apt">APT</button>
     <button id="condition">Check Conditions</button>
+    <div>
+        <ul></ul>
+        
+    </div>
     <div>
     <button id="auditvariable">Audit Variable</button>
     <button id="risks">Risks</button>
@@ -28,18 +32,17 @@
     <button id="ff">FF Add/Edit/Delete</button>
     <button id="apt_toolkit">APT Tool kit</button>
     <button id="subdecisions">Subdecisions</button>
+    <button id="datehubaddplan">Datehub add plan</button>
 
-    
-    
+    </div>
+    <div>
+        <ul></ul>
+        
+    </div>
+    <div>
+        <button id="datehubaddMS">Datehub add Milestone</button>
 
-
-
-
-
-
-
-
-
+        
     </div>
 
 
@@ -60,7 +63,40 @@
                 });
         });
     </script>
-
+     <script>
+        document.getElementById('datehubaddMS').addEventListener('click', function() {
+            // Send a POST request to the server to trigger the Selenium script
+            fetch('/datehubaddMS', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(response)
+                        console.log('Selenium script triggered successfully.');
+                    } else {
+                        console.error('Failed to trigger Selenium script.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+<script>
+    document.getElementById('datehubaddplan').addEventListener('click', function() {
+        // Send a POST request to the server to trigger the Selenium script
+        fetch('/datehubaddplan', { method: 'POST' })
+            .then(response => {
+                if (response.ok) {
+                    console.log(response)
+                    console.log('Selenium script triggered successfully.');
+                } else {
+                    console.error('Failed to trigger Selenium script.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+</script>
 <script>
     document.getElementById('ff').addEventListener('click', function() {
         // Send a POST request to the server to trigger the Selenium script

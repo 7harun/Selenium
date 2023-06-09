@@ -32,7 +32,7 @@ class Datehub_add_assignment:
         driver.find_element(By.XPATH,'//*[@id="tree2"]/li[2]/ul/li[6]/a').click()
         time.sleep(0.5)
         date_field = driver.find_element(By.ID,"seldate_datehub")
-        date_field.send_keys("23052023")
+        date_field.send_keys("09062023")
         time.sleep(0.5)
         driver.find_element(By.XPATH,'//*[@id="sticky_hub"]/button[2]/span').click()
         time.sleep(0.2)
@@ -66,7 +66,7 @@ class Datehub_add_assignment:
         driver.find_element(By.XPATH ,'/html/body/nav/div/div[2]/div[1]/div[1]/a/img').click()
         time.sleep(2)
         driver.get(current_url)
-        driver.find_element(By.ID,"pname").send_keys("testassignment4542")
+        driver.find_element(By.ID,"pname").send_keys("testassignment454212")
         driver.find_element(By.ID,"select2-pro_company_id_x-container").click()
         select_box = driver.find_element(By.XPATH,'/html/body/span/span/span[1]/input')
         select_box.send_keys("Anyaudit")
@@ -108,9 +108,9 @@ class Datehub_add_assignment:
         period.send_keys(Keys.RETURN)
 
         time.sleep(2)
-        driver.find_element(By.ID,'est_start_date').send_keys("23-04-2023")
+        driver.find_element(By.ID,'est_start_date').send_keys("09-06-2023")
         time.sleep(0.8)
-        driver.find_element(By.ID,'est_end_date').send_keys("24-04-2023")
+        driver.find_element(By.ID,'est_end_date').send_keys("09-06-2023")
 
         driver.find_element(By.XPATH,'/html/body/section/div/div/div/div/div/div/form/div/div[8]/button').click()
         
