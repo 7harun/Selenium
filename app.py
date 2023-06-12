@@ -21,13 +21,14 @@ from Standard_text import Standard_text
 from CustomReports import Custom_Reports
 from ChecklistGuidance import ChecklistGuidance
 from Controls import Controls
-from subdecisions import SubDecisions
+from subdecisions_addcondition import SubDecisions_addcondition
 from FIFW_AED import FIFW_AED
 from addAPT_toolkit import APT_toolkit
 from Datehub_addplan import Datehub_add_plan
 from datehub_addmilestone import Datehub_add_MS
 from clienthub_addplan import client_add_plan
 from clienthub_addMS import client_add_MS
+from sub_decisions import SubDecisions
 
 
 app = Flask(__name__)
@@ -458,6 +459,23 @@ def run_Annexuresconfig():
     thread.start()
 
     return selenium_script
+
+
+@app.route('/subdecisionsaddc', methods=['POST'])
+def run_subdecision_addcondition():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        decision_obj = SubDecisions_addcondition.subdecisions_addcondition()
+        print(decision_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
 
 
 @app.route('/subdecisions', methods=['POST'])

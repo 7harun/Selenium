@@ -17,8 +17,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from CheckurlinAssignment import CheckUrlinAssignment
 
 
-class SubDecisions:
-    def subdecisions():
+class SubDecisions_addcondition:
+    def subdecisions_addcondition():
         # logging.basicConfig(filename='logs.txt', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
         user = "tharun"
         password = "tharun123"
