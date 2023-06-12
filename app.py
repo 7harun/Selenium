@@ -4,6 +4,7 @@ from selenium import webdriver
 from dateHub_add_assignment import Datehub_add_assignment
 from FIFW import fifwclass
 from User_add_assignment import User_add_assignment
+from User_addplan import User_add_plan
 from AddCluster_assignment import AddClusterreport
 from edit_milestone import EditMilestone
 from editMilestoneUpdates import EditMilestoneUpdates
@@ -25,6 +26,8 @@ from FIFW_AED import FIFW_AED
 from addAPT_toolkit import APT_toolkit
 from Datehub_addplan import Datehub_add_plan
 from datehub_addmilestone import Datehub_add_MS
+from clienthub_addplan import client_add_plan
+from clienthub_addMS import client_add_MS
 
 
 app = Flask(__name__)
@@ -148,6 +151,74 @@ def run_useraddassignment():
     return selenium_script
 
 
+@app.route('/useraddplan', methods=['POST'])
+def useraddplan():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        useraddassignemnt_obj = User_add_plan.user_add_plan()
+        print(useraddassignemnt_obj)
+        # driver.get('path/to/webpage.html')
+
+        # Your Selenium code here
+        # Interact with elements on the webpage (e.g., fill forms, click buttons, etc.)
+        # Perform automated testing using Selenium
+
+        # driver.quit()
+
+    # Run the Selenium script in a separate thread
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/clientaddplan', methods=['POST'])
+def clientaddplan():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        useraddassignemnt_obj = client_add_plan.client_add_plan()
+        print(useraddassignemnt_obj)
+        # driver.get('path/to/webpage.html')
+
+        # Your Selenium code here
+        # Interact with elements on the webpage (e.g., fill forms, click buttons, etc.)
+        # Perform automated testing using Selenium
+
+        # driver.quit()
+
+    # Run the Selenium script in a separate thread
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+
+@app.route('/clientaddMS', methods=['POST'])
+def clientaddMS():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        useraddassignemnt_obj = client_add_MS.client_add_ms()
+        print(useraddassignemnt_obj)
+        # driver.get('path/to/webpage.html')
+
+        # Your Selenium code here
+        # Interact with elements on the webpage (e.g., fill forms, click buttons, etc.)
+        # Perform automated testing using Selenium
+
+        # driver.quit()
+
+    # Run the Selenium script in a separate thread
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
 
 @app.route('/Addclusterreport', methods=['POST'])
 def Addclusterreport():
