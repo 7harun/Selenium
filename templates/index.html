@@ -46,6 +46,8 @@
         <button id="clientaddplan">Clienthub add Plan</button>
         <button id="clientaddMS">Clienthub add Milestone</button>
         <button id="subdecisions">Subdecisions</button>
+        <button id="pat_addrisk">PAT RISKS</button>
+
 
 
 
@@ -54,7 +56,23 @@
 
         
     </div>
-
+    <script>
+        document.getElementById('pat_addrisk').addEventListener('click', function() {
+            // Send a POST request to the server to trigger the Selenium script
+            fetch('/pat_addrisk', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(response)
+                        console.log('Selenium script triggered successfully.');
+                    } else {
+                        console.error('Failed to trigger Selenium script.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
 
     <script>
         document.getElementById('clientaddplan').addEventListener('click', function() {

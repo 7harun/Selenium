@@ -29,6 +29,7 @@ from datehub_addmilestone import Datehub_add_MS
 from clienthub_addplan import client_add_plan
 from clienthub_addMS import client_add_MS
 from sub_decisions import SubDecisions
+from PAT_Risk import PAT_risk
 
 
 app = Flask(__name__)
@@ -468,6 +469,21 @@ def run_subdecision_addcondition():
     def selenium_script():
         
         decision_obj = SubDecisions_addcondition.subdecisions_addcondition()
+        print(decision_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/pat_addrisk', methods=['POST'])
+def run_PAT_addrisk():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        decision_obj = PAT_risk.PAT_risk()
         print(decision_obj)
         
     thread = Thread(target=selenium_script)
