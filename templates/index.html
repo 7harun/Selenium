@@ -51,6 +51,9 @@
         <button id="pat_answer">PAT ANSWER</button>
         <button id="cluster_sub">Cluster sub category</button>
 
+        <button id="assignmenthubaddMS">Addmilestone Through A hub</button>
+
+
 
 
 
@@ -62,6 +65,23 @@
 
         
     </div>
+    <script>
+        document.getElementById('assignmenthubaddMS').addEventListener('click', function() {
+            // Send a POST request to the server to trigger the Selenium script
+            fetch('/assignmenthubaddMS', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(response)
+                        console.log('Selenium script triggered successfully.');
+                    } else {
+                        console.error('Failed to trigger Selenium script.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
     <script>
         document.getElementById('cluster_sub').addEventListener('click', function() {
             // Send a POST request to the server to trigger the Selenium script
@@ -79,7 +99,6 @@
                 });
         });
     </script>
-
 <script>
     document.getElementById('pat_answer').addEventListener('click', function() {
         // Send a POST request to the server to trigger the Selenium script

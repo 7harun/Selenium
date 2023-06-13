@@ -33,6 +33,7 @@ from PAT_Risk import PAT_risk
 from PAT_addcontrol import PAT_control
 from PAT_answer import PAT_answer
 from Cluster_subcategory import Cluster_sub
+from AssignHub_Add_Milestone import AssignHub_add_MS
 
 
 app = Flask(__name__)
@@ -639,6 +640,29 @@ def apt_toolkit():
         
     thread = Thread(target=selenium_script)
     thread.start()
+
+    return selenium_script 
+
+@app.route('/assignmenthubaddMS', methods=['POST'])
+def AssignmenthubaddMS():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        assignmenthubaddassignment = AssignHub_add_MS.AssignHub_add_MS()
+        print(assignmenthubaddassignment)
+        # driver.get('path/to/webpage.html')
+
+        # Your Selenium code here
+        # Interact with elements on the webpage (e.g., fill forms, click buttons, etc.)
+        # Perform automated testing using Selenium
+
+        # driver.quit()
+
+    # Run the Selenium script in a separate thread
+    thread = Thread(target=selenium_script)
+    thread.start()
+
 
     return selenium_script
 
