@@ -33,6 +33,9 @@ from PAT_Risk import PAT_risk
 from PAT_addcontrol import PAT_control
 from PAT_answer import PAT_answer
 from Cluster_subcategory import Cluster_sub
+from SR_guidance import Standardised_reports_guidance
+from SR_models import Standardised_reports_models
+from SR_Node import Standardised_reports_node
 
 
 app = Flask(__name__)
@@ -650,6 +653,51 @@ def apt_cluster_sub():
     def selenium_script():
         
         ff_obj = Cluster_sub.cluster_sub()
+        print(ff_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/sr_guidance', methods=['POST'])
+def sr_guidance():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        ff_obj = Standardised_reports_guidance.standardised_reports_guidance()
+        print(ff_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/sr_models', methods=['POST'])
+def sr_models():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        ff_obj = Standardised_reports_models.standardised_reports_models()
+        print(ff_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/sr_node', methods=['POST'])
+def sr_node():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        ff_obj = Standardised_reports_node.standardised_reports_node()
         print(ff_obj)
         
     thread = Thread(target=selenium_script)
