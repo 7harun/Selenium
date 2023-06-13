@@ -30,6 +30,9 @@ from clienthub_addplan import client_add_plan
 from clienthub_addMS import client_add_MS
 from sub_decisions import SubDecisions
 from PAT_Risk import PAT_risk
+from PAT_addcontrol import PAT_control
+from PAT_answer import PAT_answer
+from Cluster_subcategory import Cluster_sub
 
 
 app = Flask(__name__)
@@ -492,6 +495,36 @@ def run_PAT_addrisk():
     return selenium_script
 
 
+@app.route('/pat_control', methods=['POST'])
+def run_PAT_control():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        decision_obj = PAT_control.PAT_control()
+        print(decision_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/pat_answer', methods=['POST'])
+def run_PAT_answer():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        decision_obj = PAT_answer.PAT_answer()
+        print(decision_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
 
 
 @app.route('/subdecisions', methods=['POST'])
@@ -602,6 +635,21 @@ def apt_toolkit():
     def selenium_script():
         
         ff_obj = APT_toolkit.apt_toolkit()
+        print(ff_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/cluster_sub', methods=['POST'])
+def apt_cluster_sub():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        ff_obj = Cluster_sub.cluster_sub()
         print(ff_obj)
         
     thread = Thread(target=selenium_script)
