@@ -50,6 +50,11 @@
         <button id="pat_control">PAT CONTROL</button>
         <button id="pat_answer">PAT ANSWER</button>
         <button id="cluster_sub">Cluster sub category</button>
+        <button id="sr_guidance">SR Guidance</button>
+        <button id="sr_models">SR Models</button>        
+    </div>
+    <div>
+        <ul></ul>
 
         <button id="assignmenthubaddMS">Addmilestone Through A hub</button>
 
@@ -61,9 +66,10 @@
 
 
         
+    </div>
+    <div>
+        <button id="sr_node">SR Node</button>        
 
-
-        
     </div>
     <script>
         document.getElementById('assignmenthubaddMS').addEventListener('click', function() {
@@ -83,7 +89,7 @@
         });
     </script>
     <script>
-        document.getElementById('cluster_sub').addEventListener('click', function() {
+        document.getElementById('sr_node').addEventListener('click', function() {
             // Send a POST request to the server to trigger the Selenium script
             fetch('/cluster_sub', { method: 'POST' })
                 .then(response => {
@@ -99,6 +105,75 @@
                 });
         });
     </script>
+            fetch('/sr_node', { method: 'POST' })
+                .then(response => {
+                    if (response.ok) {
+                        console.log(response)
+                        console.log('Selenium script triggered successfully.');
+                    } else {
+                        console.error('Failed to trigger Selenium script.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
+
+<script>
+    document.getElementById('sr_models').addEventListener('click', function() {
+        // Send a POST request to the server to trigger the Selenium script
+        fetch('/sr_models', { method: 'POST' })
+            .then(response => {
+                if (response.ok) {
+                    console.log(response)
+                    console.log('Selenium script triggered successfully.');
+                } else {
+                    console.error('Failed to trigger Selenium script.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+</script>
+
+<script>
+    document.getElementById('sr_guidance').addEventListener('click', function() {
+        // Send a POST request to the server to trigger the Selenium script
+        fetch('/sr_guidance', { method: 'POST' })
+            .then(response => {
+                if (response.ok) {
+                    console.log(response)
+                    console.log('Selenium script triggered successfully.');
+                } else {
+                    console.error('Failed to trigger Selenium script.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+</script>
+
+<script>
+    document.getElementById('cluster_sub').addEventListener('click', function() {
+        // Send a POST request to the server to trigger the Selenium script
+        fetch('/cluster_sub', { method: 'POST' })
+            .then(response => {
+                if (response.ok) {
+                    console.log(response)
+                    console.log('Selenium script triggered successfully.');
+                } else {
+                    console.error('Failed to trigger Selenium script.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+</script>
+
 <script>
     document.getElementById('pat_answer').addEventListener('click', function() {
         // Send a POST request to the server to trigger the Selenium script
