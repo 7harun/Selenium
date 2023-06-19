@@ -7,7 +7,7 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-
+from CheckurlinAssignment import CheckUrlinAssignment
 from lxml import etree
 # import logging
 import sys
@@ -44,29 +44,54 @@ class AddClusterreport:
         else:
             # logging.info("not able to open Add_assignemnt page")  # Log the message
             print("not able to open Add_assignemnt page")
-
-        # Access check
-        driver.get("https://old.anyaudit.co.in/Navigation")
-        driver.find_element(By.XPATH , '//*[@id="select2-selassignmentchange_dashboard-container"]').click()  
-        new = driver.find_element(By.XPATH , '/html/body/span/span/span[1]/input')
-        new.send_keys(3003)
-        time.sleep(2)
-        driver.find_element(By.XPATH , '/html/body/span/span/span[2]').click()
-        time.sleep(2)
-        driver.get(current_url)
-        check_element = driver.find_element(By.ID,"select2-assignment_id-container")
-        if check_element:          
-            print("Add assignemt page opened successfully inside assignment")
-            pass
-        else:
-            print("not able to open Add_assignemnt page inside assignment")
+        standardised_reports_url = driver.current_url
+        check_element_path = '//*[@id="navbar1"]/div[2]/div/button/i'
+        checkinassignment = CheckUrlinAssignment.checkurlinassignment(driver,standardised_reports_url,check_element_path)
+        print(checkinassignment)
+        driver.get(standardised_reports_url)
         time.sleep(0.8)
-        driver.find_element(By.XPATH ,'/html/body/nav/div/div[2]/div[1]/div[1]/a/img').click()
-        time.sleep(2)
-        driver.get(current_url)
+        
+        # driver.find_element(By.ID,"select2-pro_company_id_x-container").click()
+
+
+        driver.find_element(By.ID ,'btnSubmit').click()
+        time.sleep(0.5)
+        try:
+            # Find the field element that contains the mandatory star mark
+            #assignment_id
+            field_element = driver.find_element(By.NAME ,'assignment_id')
+            assignment_id = field_element.get_attribute('outerHTML')
+            if "required" in assignment_id:
+                print("'assignment_id' Field is mandatory. Please fill it.")
+            else:
+                print("'assignment_id' Field is not mandatory or no validation error") 
+                pass
+
+            #  cluster_category
+            field_element = driver.find_element(By.NAME ,'cluster_category')
+            cluster_category = field_element.get_attribute('outerHTML')
+            if "required" in cluster_category:
+                print("'cluster_category' Field is mandatory. Please fill it.")
+            else:
+                print("'cluster_category' Field is not mandatory or no validation error") 
+                pass
+
+             #  cluster_subcategory
+            field_element = driver.find_element(By.NAME ,'cluster_subcategory')
+            cluster_subcategory = field_element.get_attribute('outerHTML')
+            if "required" in cluster_subcategory:
+                print("'cluster_subcategory' Field is mandatory. Please fill it.")
+            else:
+                print("'cluster_subcategory' Field is not mandatory or no validation error") 
+                pass
+
+        except:
+            pass
+        time.sleep(1)
+        driver.get(standardised_reports_url)
+        time.sleep(1)
         driver.find_element(By.ID,"select2-assignment_id-container").click()
         time.sleep(1)
-        # driver.find_element(By.ID,"select2-pro_company_id_x-container").click()
         select_box = driver.find_element(By.XPATH,'/html/body/span/span/span[1]/input')
         select_box.send_keys("3003")
         select_box.send_keys(Keys.RETURN)

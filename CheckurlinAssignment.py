@@ -25,16 +25,20 @@ class CheckUrlinAssignment:
         driver.find_element(By.XPATH , '/html/body/span/span/span[2]').click()
         time.sleep(2)
         driver.get(current_url)
-
-        check_element = driver.find_element(By.XPATH,check_element_path)
+        try:
+            check_element = driver.find_element(By.XPATH,check_element_path)
+        except:
+            check_element = ""
+            pass
         if check_element:          
             print("Add assignemt page opened successfully inside assignment")
             result = "Add assignemt page opened successfully inside assignment"
+            time.sleep(0.8)
+            driver.find_element(By.XPATH ,'/html/body/nav/div/div[2]/div[1]/div[1]/a/img').click()
+            time.sleep(2)
             pass
         else:
             print("not able to open Add_assignemnt page inside assignment")
             result = "not able to open Add_assignemnt page inside assignment"
-        time.sleep(0.8)
-        driver.find_element(By.XPATH ,'/html/body/nav/div/div[2]/div[1]/div[1]/a/img').click()
-        time.sleep(2)
+       
         return result

@@ -4,6 +4,7 @@ from selenium import webdriver
 from dateHub_add_assignment import Datehub_add_assignment
 from FIFW import fifwclass
 from User_add_assignment import User_add_assignment
+from User_addplan import User_add_plan
 from AddCluster_assignment import AddClusterreport
 from edit_milestone import EditMilestone
 from editMilestoneUpdates import EditMilestoneUpdates
@@ -13,12 +14,29 @@ from Conditions import CheckConditions
 from AuditVariables import Auditvariables
 from Risks import Risks
 from Annexures import Annexures
+from Annexures_Config import Annexures_config
 from Decisions import Decisions
 from Compliance_calender import Compliancecalender
 from Standard_text import Standard_text
 from CustomReports import Custom_Reports
 from ChecklistGuidance import ChecklistGuidance
 from Controls import Controls
+from subdecisions_addcondition import SubDecisions_addcondition
+from FIFW_AED import FIFW_AED
+from addAPT_toolkit import APT_toolkit
+from Datehub_addplan import Datehub_add_plan
+from datehub_addmilestone import Datehub_add_MS
+from clienthub_addplan import client_add_plan
+from clienthub_addMS import client_add_MS
+from sub_decisions import SubDecisions
+from PAT_Risk import PAT_risk
+from PAT_addcontrol import PAT_control
+from PAT_answer import PAT_answer
+from Cluster_subcategory import Cluster_sub
+from SR_guidance import Standardised_reports_guidance
+from SR_models import Standardised_reports_models
+from SR_Node import Standardised_reports_node
+from AssignHub_Add_Milestone import AssignHub_add_MS
 
 
 app = Flask(__name__)
@@ -27,13 +45,59 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/run_selenium', methods=['POST'])
-def run_selenium():
+@app.route('/datehub_add_assignment', methods=['POST'])
+def datehub_add_assignment():
 
     # Define your Selenium automation script here
     def selenium_script():
         
         datehubaddassignment = Datehub_add_assignment.datehub_add_assignment()
+        print(datehubaddassignment)
+        # driver.get('path/to/webpage.html')
+
+        # Your Selenium code here
+        # Interact with elements on the webpage (e.g., fill forms, click buttons, etc.)
+        # Perform automated testing using Selenium
+
+        # driver.quit()
+
+    # Run the Selenium script in a separate thread
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/datehubaddplan', methods=['POST'])
+def datehubaddplan():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        datehubaddassignment = Datehub_add_plan.datehub_add_plan()
+        print(datehubaddassignment)
+        # driver.get('path/to/webpage.html')
+
+        # Your Selenium code here
+        # Interact with elements on the webpage (e.g., fill forms, click buttons, etc.)
+        # Perform automated testing using Selenium
+
+        # driver.quit()
+
+    # Run the Selenium script in a separate thread
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/datehubaddMS', methods=['POST'])
+def datehubaddMS():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        datehubaddassignment = Datehub_add_MS.datehub_add_MS()
         print(datehubaddassignment)
         # driver.get('path/to/webpage.html')
 
@@ -96,6 +160,74 @@ def run_useraddassignment():
     return selenium_script
 
 
+@app.route('/useraddplan', methods=['POST'])
+def useraddplan():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        useraddassignemnt_obj = User_add_plan.user_add_plan()
+        print(useraddassignemnt_obj)
+        # driver.get('path/to/webpage.html')
+
+        # Your Selenium code here
+        # Interact with elements on the webpage (e.g., fill forms, click buttons, etc.)
+        # Perform automated testing using Selenium
+
+        # driver.quit()
+
+    # Run the Selenium script in a separate thread
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/clientaddplan', methods=['POST'])
+def clientaddplan():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        useraddassignemnt_obj = client_add_plan.client_add_plan()
+        print(useraddassignemnt_obj)
+        # driver.get('path/to/webpage.html')
+
+        # Your Selenium code here
+        # Interact with elements on the webpage (e.g., fill forms, click buttons, etc.)
+        # Perform automated testing using Selenium
+
+        # driver.quit()
+
+    # Run the Selenium script in a separate thread
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+
+@app.route('/clientaddMS', methods=['POST'])
+def clientaddMS():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        useraddassignemnt_obj = client_add_MS.client_add_ms()
+        print(useraddassignemnt_obj)
+        # driver.get('path/to/webpage.html')
+
+        # Your Selenium code here
+        # Interact with elements on the webpage (e.g., fill forms, click buttons, etc.)
+        # Perform automated testing using Selenium
+
+        # driver.quit()
+
+    # Run the Selenium script in a separate thread
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
 
 @app.route('/Addclusterreport', methods=['POST'])
 def Addclusterreport():
@@ -321,6 +453,98 @@ def run_Annexures():
 
     return selenium_script
 
+
+@app.route('/annexuresconfig', methods=['POST'])
+def run_Annexuresconfig():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        decision_obj = Annexures_config.annexures_config()
+        print(decision_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/subdecisionsaddc', methods=['POST'])
+def run_subdecision_addcondition():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        decision_obj = SubDecisions_addcondition.subdecisions_addcondition()
+        print(decision_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/pat_addrisk', methods=['POST'])
+def run_PAT_addrisk():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        decision_obj = PAT_risk.PAT_risk()
+        print(decision_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/pat_control', methods=['POST'])
+def run_PAT_control():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        decision_obj = PAT_control.PAT_control()
+        print(decision_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/pat_answer', methods=['POST'])
+def run_PAT_answer():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        decision_obj = PAT_answer.PAT_answer()
+        print(decision_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+
+
+@app.route('/subdecisions', methods=['POST'])
+def run_subdecision():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        decision_obj = SubDecisions.subdecisions()
+        print(decision_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
 @app.route('/cc', methods=['POST'])
 def run_CC():
 
@@ -388,6 +612,117 @@ def run_control():
         
         cr_obj = Controls.controls()
         print(cr_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+@app.route('/ff', methods=['POST'])
+def run_FF():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        ff_obj = FIFW_AED.fifw_aed()
+        print(ff_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+@app.route('/apt_toolkit', methods=['POST'])
+def apt_toolkit():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        ff_obj = APT_toolkit.apt_toolkit()
+        print(ff_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script 
+
+@app.route('/assignmenthubaddMS', methods=['POST'])
+def AssignmenthubaddMS():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        assignmenthubaddassignment = AssignHub_add_MS.AssignHub_add_MS()
+        print(assignmenthubaddassignment)
+        # driver.get('path/to/webpage.html')
+
+        # Your Selenium code here
+        # Interact with elements on the webpage (e.g., fill forms, click buttons, etc.)
+        # Perform automated testing using Selenium
+
+        # driver.quit()
+
+    # Run the Selenium script in a separate thread
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+
+    return selenium_script
+
+
+@app.route('/cluster_sub', methods=['POST'])
+def apt_cluster_sub():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        ff_obj = Cluster_sub.cluster_sub()
+        print(ff_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/sr_guidance', methods=['POST'])
+def sr_guidance():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        ff_obj = Standardised_reports_guidance.standardised_reports_guidance()
+        print(ff_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/sr_models', methods=['POST'])
+def sr_models():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        ff_obj = Standardised_reports_models.standardised_reports_models()
+        print(ff_obj)
+        
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+
+@app.route('/sr_node', methods=['POST'])
+def sr_node():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        ff_obj = Standardised_reports_node.standardised_reports_node()
+        print(ff_obj)
         
     thread = Thread(target=selenium_script)
     thread.start()

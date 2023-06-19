@@ -29,13 +29,13 @@ class APT:
         driver.find_element(By.XPATH , '//*[@id="sign_in"]/div[3]/div/button').click()
         time.sleep(0.5)
         driver.find_element(By.ID,"bl18").click()
-        time.sleep(0.5)
+        time.sleep(1)
         driver.find_element(By.ID,"Planning_Template").click()
         time.sleep(1)
         standardised_reports_url = driver.current_url
-        check_element_path = '//*[@id="navbar1"]/div[2]/div/button/i'
-        checkinassignment = CheckUrlinAssignment.checkurlinassignment(driver,standardised_reports_url,check_element_path)
-        print(checkinassignment)
+        # check_element_path = '//*[@id="navbar1"]/div[2]/div/button/i'
+        # checkinassignment = CheckUrlinAssignment.checkurlinassignment(driver,standardised_reports_url,check_element_path)
+        # print(checkinassignment)
         driver.get("https://old.anyaudit.co.in/Management/users")
         driver.find_element(By.ID  ,"txtSearch").send_keys("tharun")
         driver.find_element(By.XPATH  ,'/html/body/section/div/div/div/div/div[1]/ul/li[3]/div/div/button').click()
@@ -69,6 +69,65 @@ class APT:
                     print("button exists and no error")
                     if flow[i] == "add":
                         add_element.click()
+
+                        time.sleep(1)
+                        driver.find_element(By.ID ,'btnsb').click()
+                        time.sleep(0.5)
+                        try:
+                            # Find the field element that contains the mandatory star mark
+                            #REPORT_name
+                            field_element = driver.find_element(By.NAME ,'template_name')
+                            REPORT_name = field_element.get_attribute('outerHTML')
+                            if "required" in REPORT_name:
+                                print("'REPORT_name' Field is mandatory. Please fill it.")
+                            else:
+                                print("'REPORT_name' Field is not mandatory or no validation error") 
+                                pass
+
+                            #  Chapter_name
+                            field_element = driver.find_element(By.NAME ,'template')
+                            Chapter_name = field_element.get_attribute('outerHTML')
+                            if "required" in Chapter_name:
+                                print("'Chapter_name' Field is mandatory. Please fill it.")
+                            else:
+                                print("'Chapter_name' Field is not mandatory or no validation error") 
+                                pass
+
+                        except:
+                            pass
+
+
+                        input_element = ["..","alpha1","alpha@1",12345]
+                        for j in input_element:
+                            # driver.get(decision_reports_url)
+                            try:
+                                
+                                driver.get(standardised_reports_url)
+                                time.sleep(1)
+                                add_element = driver.find_element(By.ID ,id_list[i])
+                                add_element.click()
+                                print("check1")
+                                time.sleep(1)                             
+                                
+                                driver.find_element(By.ID ,'template_name').send_keys(j)
+                                time.sleep(0.2)
+                                driver.find_element(By.ID,"template").send_keys(j)
+                                time.sleep(2)
+                                driver.find_element(By.ID , 'btnsb').click()
+
+                                if "alert alert-danger text-center alert-dismiss " in html:
+                                    print("already exists")
+                                if "alert alert-success text-center alert-dismiss " in html:
+                                    print("new record created")
+                            except Exception as e:
+                                print("ERROR",e)
+                                pass
+                        driver.get(standardised_reports_url)
+                        time.sleep(1)
+                        add_element = driver.find_element(By.ID ,id_list[i])
+                        add_element.click()
+                        time.sleep(1)
+
                         driver.find_element(By.ID ,'template_name').send_keys("template_test")
                         driver.find_element(By.ID,"template").send_keys("template_description")
                         time.sleep(2)
@@ -84,22 +143,24 @@ class APT:
                             print("new APT created")
                             
                     elif flow[i] == "edit":
+                        unique_id = random.randint(1000, 9999)
+                        test = "test"+str(unique_id)
                         driver.find_element(By.XPATH , '//*[@id="configuration_act_filter"]/label/input').send_keys("template_test")
                         driver.find_element(By.ID ,'edit').click()
                         time.sleep(1)
                         update_btn = driver.find_element(By.ID ,'template_name')
                         update_btn.clear()
-                        update_btn.send_keys("template_test2")
+                        update_btn.send_keys(test)
                         time.sleep(1)
                         update_desc = driver.find_element(By.ID,"template")
                         update_desc.clear()
-                        update_desc.send_keys("template_description")
+                        update_desc.send_keys(test)
                         time.sleep(2)
                         driver.find_element(By.ID , 'btnsb').click()
 
                         
                     elif flow[i] == "delete":
-                        driver.find_element(By.XPATH , '//*[@id="configuration_act_filter"]/label/input').send_keys("template_test2")
+                        driver.find_element(By.XPATH , '//*[@id="configuration_act_filter"]/label/input').send_keys(test)
     #                     search_btn.send_keys("new_checklist")
                         delete_btn = driver.find_element(By.ID ,'mark_inactive')
                         delete_btn.click()

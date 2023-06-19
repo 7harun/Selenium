@@ -12,6 +12,7 @@ from lxml import etree
 import sys
 from login import loginclass
 from selenium.webdriver.support import expected_conditions as EC
+from CheckurlinAssignment import CheckUrlinAssignment
 
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -32,7 +33,7 @@ class Datehub_add_assignment:
         driver.find_element(By.XPATH,'//*[@id="tree2"]/li[2]/ul/li[6]/a').click()
         time.sleep(0.5)
         date_field = driver.find_element(By.ID,"seldate_datehub")
-        date_field.send_keys("23052023")
+        date_field.send_keys("09062023")
         time.sleep(0.5)
         driver.find_element(By.XPATH,'//*[@id="sticky_hub"]/button[2]/span').click()
         time.sleep(0.2)
@@ -49,24 +50,173 @@ class Datehub_add_assignment:
             print("not able to open Add_assignemnt page")
 
         # Access check
-        driver.get("https://old.anyaudit.co.in/Navigation")
-        driver.find_element(By.XPATH , '//*[@id="select2-selassignmentchange_dashboard-container"]').click()  
-        new = driver.find_element(By.XPATH , '/html/body/span/span/span[1]/input')
-        new.send_keys(3003)
-        time.sleep(2)
-        driver.find_element(By.XPATH , '/html/body/span/span/span[2]').click()
-        time.sleep(2)
-        driver.get(current_url)
-        check_element = driver.find_element(By.ID,"pname")
-        if check_element:          
-            print("Add assignemt page opened successfully inside assignment")
+        standardised_reports_url = driver.current_url
+        # check_element = driver.find_element(By.ID,"pname")
+        
+        check_element_path = '//*[@id="pname"]'
+        checkinassignment = CheckUrlinAssignment.checkurlinassignment(driver,standardised_reports_url,check_element_path)
+        print(checkinassignment)
+        time.sleep(1)
+        driver.get(standardised_reports_url)
+
+
+        try:
+            driver.find_element(By.NAME,"submitBtn").click()
+            
+            field_element = driver.find_element(By.NAME,"pname")
+            pname = field_element.get_attribute('outerHTML')
+            if "required" in pname:
+                print("'assignment name' Field is mandatory. Please fill it.")
+            else:
+                print("'assignment name' Field is not mandatory or no validation error") 
+                pass
+
+
+            #Client
+            field_element = driver.find_element(By.XPATH, '//*[@id="systemrightsForm"]/div/div[1]/div/div[2]/div')
+            has_validation_error = field_element.get_attribute("class") == "your-validation-error-class"
+            is_mandatory = "*" in field_element.text
+
+            if has_validation_error or is_mandatory:
+                print("'Client' Field is mandatory. Please fill it.")
+            else:
+                print("' Client' Field is not mandatory")
+
+            #     Field is not mandatory or no validation error
+                pass
+
+
+            #User
+            field_element = driver.find_element(By.XPATH, '//*[@id="systemrightsForm"]/div/div[2]/div/div[1]/div')
+            has_validation_error = field_element.get_attribute("class") == "your-validation-error-class"
+            is_mandatory = "*" in field_element.text
+
+            if has_validation_error or is_mandatory:
+                print("'User' Field is mandatory. Please fill it.")
+            else:
+                print("' User' Field is not mandatory")
+
+            #     Field is not mandatory or no validation error
+                pass
+
+             #AM user
+            field_element = driver.find_element(By.XPATH, '//*[@id="systemrightsForm"]/div/div[1]/div/div[3]/div')
+            has_validation_error = field_element.get_attribute("class") == "your-validation-error-class"
+            is_mandatory = "*" in field_element.text
+
+            if has_validation_error or is_mandatory:
+                print("'AM user' Field is mandatory. Please fill it.")
+            else:
+                print("'AM User' Field is not mandatory")
+
+            #     Field is not mandatory or no validation error
+                pass
+
+            #Review partner
+            field_element = driver.find_element(By.XPATH, '//*[@id="systemrightsForm"]/div/div[1]/div/div[4]/div')
+            has_validation_error = field_element.get_attribute("class") == "your-validation-error-class"
+            is_mandatory = "*" in field_element.text
+
+            if has_validation_error or is_mandatory:
+                print("'Review partner' Field is mandatory. Please fill it.")
+            else:
+                print("'Review partner' Field is not mandatory")
+
+            #     Field is not mandatory or no validation error
+                pass
+
+
+            #External User
+            field_element = driver.find_element(By.XPATH, '//*[@id="systemrightsForm"]/div/div[2]/div/div[2]/div')
+            has_validation_error = field_element.get_attribute("class") == "your-validation-error-class"
+            is_mandatory = "*" in field_element.text
+
+            if has_validation_error or is_mandatory:
+                print("'External User' Field is mandatory. Please fill it.")
+            else:
+                print("'External User' Field is not mandatory")
+            #     Field is not mandatory or no validation error
+                pass
+
+
+            #Period
+            field_element = driver.find_element(By.XPATH, '//*[@id="systemrightsForm"]/div/div[4]/div')
+            has_validation_error = field_element.get_attribute("class") == "your-validation-error-class"
+            is_mandatory = "*" in field_element.text
+
+            if has_validation_error or is_mandatory:
+                print("'Period' Field is mandatory. Please fill it.")
+            else:
+                print("'Period' Field is not mandatory")
+            #     Field is not mandatory or no validation error
+                pass
+
+
+            #Previous Assignment
+            field_element = driver.find_element(By.XPATH, '//*[@id="prevdiv"]')
+            has_validation_error = field_element.get_attribute("class") == "your-validation-error-class"
+            is_mandatory = "*" in field_element.text
+
+            if has_validation_error or is_mandatory:
+                print("'Previous Assignment' Field is mandatory. Please fill it.")
+            else:
+                print("'Previous Assignment' Field is not mandatory")
+
+            #     Field is not mandatory or no validation error
+                pass
+
+
+            #start date
+            field_element = driver.find_element(By.XPATH, '//*[@id="systemrightsForm"]/div/div[6]/div[1]/div')
+            has_validation_error = field_element.get_attribute("class") == "your-validation-error-class"
+            is_mandatory = "*" in field_element.text
+
+            if has_validation_error or is_mandatory:
+                print("'start date' Field is mandatory. Please fill it.")
+            else:
+                print("'start date' Field is not mandatory")
+
+            #     Field is not mandatory or no validation error
+                pass
+
+
+            #End date
+            field_element = driver.find_element(By.XPATH, '//*[@id="systemrightsForm"]/div/div[6]/div[2]/div')
+            has_validation_error = field_element.get_attribute("class") == "your-validation-error-class"
+            is_mandatory = "*" in field_element.text
+
+            if has_validation_error or is_mandatory:
+                print("'End date' Field is mandatory. Please fill it.")
+            else:
+                print("'End date' Field is not mandatory")
+
+            #     Field is not mandatory or no validation error
+                pass
+
+            #Description
+            field_element = driver.find_element(By.XPATH, '//*[@id="systemrightsForm"]/div/div[7]/div')
+            has_validation_error = field_element.get_attribute("class") == "your-validation-error-class"
+            is_mandatory = "*" in field_element.text
+
+            if has_validation_error or is_mandatory:
+                print("'Description' Field is mandatory. Please fill it.")
+            else:
+                print("'Description' Field is not mandatory")
+
+            #     Field is not mandatory or no validation error
+                pass
+
+
+
+
+
+            
+        except:
             pass
-        else:
-            print("not able to open Add_assignemnt page inside assignment")
-        driver.find_element(By.XPATH ,'/html/body/nav/div/div[2]/div[1]/div[1]/a/img').click()
-        time.sleep(2)
-        driver.get(current_url)
-        driver.find_element(By.ID,"pname").send_keys("testassignment4542")
+
+        driver.get(standardised_reports_url)
+        time.sleep(1)
+        driver.find_element(By.ID,"pname").send_keys("testassignment454212")
         driver.find_element(By.ID,"select2-pro_company_id_x-container").click()
         select_box = driver.find_element(By.XPATH,'/html/body/span/span/span[1]/input')
         select_box.send_keys("Anyaudit")
@@ -108,11 +258,11 @@ class Datehub_add_assignment:
         period.send_keys(Keys.RETURN)
 
         time.sleep(2)
-        driver.find_element(By.ID,'est_start_date').send_keys("23-04-2023")
+        driver.find_element(By.ID,'est_start_date').send_keys("09-06-2023")
         time.sleep(0.8)
-        driver.find_element(By.ID,'est_end_date').send_keys("24-04-2023")
+        driver.find_element(By.ID,'est_end_date').send_keys("09-06-2023")
 
-        driver.find_element(By.XPATH,'/html/body/section/div/div/div/div/div/div/form/div/div[8]/button').click()
+        driver.find_element(By.NAME,'submitBtn').click()
         
         time.sleep(1)
         
