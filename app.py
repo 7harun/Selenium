@@ -45,8 +45,8 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/run_selenium', methods=['POST'])
-def run_selenium():
+@app.route('/datehub_add_assignment', methods=['POST'])
+def datehub_add_assignment():
 
     # Define your Selenium automation script here
     def selenium_script():

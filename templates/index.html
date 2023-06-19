@@ -4,7 +4,7 @@
     <title>ANYAUDIT Test Automation</title>
 </head>
 <body>
-    <button id="add_assignment">Add Assignment through datehub</button>
+    <button id="datehub_add_assignment">Add Assignment through datehub</button>
     <button id="FIFW">Financial Inactive Financial Framework</button>
     <button id="User_addassignment">Add Assignment through Userhub</button>
     <button id="Addclusterreport">Add Assignment to cluster</button>
@@ -105,6 +105,8 @@
                 });
         });
     </script>
+    <script>
+        document.getElementById('sr_node').addEventListener('click', function() {
             fetch('/sr_node', { method: 'POST' })
                 .then(response => {
                     if (response.ok) {
@@ -640,9 +642,9 @@
     </script>
 
     <script>
-        document.getElementById('add_assignment').addEventListener('click', function() {
+        document.getElementById('datehub_add_assignment').addEventListener('click', function() {
             // Send a POST request to the server to trigger the Selenium script
-            fetch('/run_selenium', { method: 'POST' })
+            fetch('/datehub_add_assignment', { method: 'POST' })
                 .then(response => {
                     if (response.ok) {
                         console.log(response)

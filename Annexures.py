@@ -135,7 +135,10 @@ class Annexures:
 
                         except:
                             pass
-                        driver.find_element(By.NAME ,'annexure_name').send_keys("new_annexure123_test")
+
+                        unique_id = random.randint(1000, 9999)
+                        annexure = "annexure_"+str(unique_id)
+                        driver.find_element(By.NAME ,'annexure_name').send_keys(annexure)
                         time.sleep(0.2)
                         driver.find_element(By.ID,"select2-chapters-container").click()
                         time.sleep(1)
@@ -172,14 +175,14 @@ class Annexures:
                             print("new Decision created")
                             
                     elif flow[i] == "edit":
-
-                        driver.find_element(By.XPATH , '//*[@id="annextureact_filter"]/label/input').send_keys("new_annexure123_test")
-                        driver.find_element(By.ID ,'edit').click()
+                        annexure_upd = annexure+"_update"
+                        driver.find_element(By.XPATH , '//*[@id="annextureact_filter"]/label/input').send_keys(annexure)
+                        driver.find_element(By.NAME ,'edit').click()
                         
                         time.sleep(0.2)
                         decision_btn = driver.find_element(By.NAME ,'annexure_name')
                         decision_btn.clear()
-                        decision_btn.send_keys("new_annexure22334")
+                        decision_btn.send_keys(annexure_upd)
                         time.sleep(1)              
                         driver.find_element(By.NAME , 'btnsb').click()
                         
@@ -194,7 +197,7 @@ class Annexures:
 
                         
                     elif flow[i] == "delete":
-                        driver.find_element(By.XPATH , '//*[@id="annextureact_filter"]/label/input').send_keys("new_annexure22334")
+                        driver.find_element(By.XPATH , '//*[@id="annextureact_filter"]/label/input').send_keys(annexure_upd)
     #                     search_btn.send_keys("new_checklist")
                         delete_btn = driver.find_element(By.NAME ,'mark_inactive')
                         delete_btn.click()

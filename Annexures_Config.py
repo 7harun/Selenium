@@ -69,8 +69,11 @@ class Annexures_config:
             add_element.click()
             time.sleep(0.2)
 
+            unique_id = random.randint(1000, 9999)
+            annexure = "annexure_"+str(unique_id)
+
             
-            driver.find_element(By.NAME ,'annexure_name').send_keys("new_annexure123_test")
+            driver.find_element(By.NAME ,'annexure_name').send_keys(annexure)
             time.sleep(0.2)
             driver.find_element(By.ID,"select2-chapters-container").click()
             time.sleep(1)
@@ -108,7 +111,7 @@ class Annexures_config:
                 if "alert alert-success text-center alert-dismiss " in html:
                     print("new Annexure created")
             time.sleep(2)
-            driver.find_element(By.XPATH , '//*[@id="annextureact_filter"]/label/input').send_keys("new_annexure123_test")
+            driver.find_element(By.XPATH , '//*[@id="annextureact_filter"]/label/input').send_keys(annexure)
             driver.find_element(By.ID ,'configure').click()
             time.sleep(1)
             annexures_reports_url = driver.current_url
@@ -127,7 +130,7 @@ class Annexures_config:
                         try:
                             # Find the field element that contains the mandatory star mark
                             #fieldname
-                            field_element = driver.find_element(By.XPATH, 'fieldname')
+                            field_element = driver.find_element(By.NAME, 'fieldname')
                             fieldname = field_element.get_attribute('outerHTML')
                             if "required" in fieldname:
                                 print("'fieldname' Field is mandatory. Please fill it.")
@@ -135,14 +138,16 @@ class Annexures_config:
                                 print("'fieldname' Field is not mandatory or no validation error") 
                                 pass
 
-                            field_element = driver.find_element(By.XPATH, 'fieldtype')
+                            field_element = driver.find_element(By.NAME, 'fieldtype')
                             fieldtype = field_element.get_attribute('outerHTML')
                             if "required" in fieldname:
                                 print("'fieldtype' Field is mandatory. Please fill it.")
                             else:
                                 print("'fieldtype' Field is not mandatory or no validation error") 
                                 pass
-                        except:
+                        except Exception as e:
+                            print("ERROR:not able to check mandatory check")
+                            print(e)
                             pass
                         driver.refresh()
                         driver.find_element(By.ID ,'add_under').click()
