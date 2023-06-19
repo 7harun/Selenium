@@ -105,8 +105,12 @@
                 });
         });
     </script>
+    
+       
     <script>
         document.getElementById('sr_node').addEventListener('click', function() {
+
+     document.getElementById('sr_node').addEventListener('click', function() {
             fetch('/sr_node', { method: 'POST' })
                 .then(response => {
                     if (response.ok) {

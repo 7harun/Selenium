@@ -143,7 +143,7 @@ class Datehub_add_MS:
         search = driver.find_element(By.XPATH,'/html/body/span/span/span[1]/input')
         search.send_keys("configuration")
         search.send_keys(Keys.RETURN)
-        time.sleep(1)
+        time.sleep(1)   
 
         
         est_start_date = driver.find_element(By.ID,'est_start_date')
