@@ -45,7 +45,7 @@ class ChecklistGuidance:
         time.sleep(1)
         driver.find_element(By.XPATH  ,'/html/body/section/div/div/div/div/div[2]/div/div[3]/table/tbody/tr/td[11]/a[1]/button').click()
         
-
+        print_statements = []
 
         check_status = driver.find_element(By.XPATH  ,xpath_list_perm_page[0])
             # Get the HTML of the element
@@ -91,8 +91,10 @@ class ChecklistGuidance:
                 time.sleep(2)
                 if "alert alert-danger text-center alert-dismiss " in html:
                         print("checklist already exists")
+                        print_statements.append("checklist already exist")
                 if "alert alert-success text-center alert-dismiss " in html:
                         print("new checklist created")
+                        print_statements.append("new checklist created")
 
                 
 
@@ -162,11 +164,14 @@ class ChecklistGuidance:
             #                     print(html,"this is html")
                     if "alert alert-danger text-center alert-dismiss " in html:
                         print("Node already exists")
+                        print_statements.append("checklist already exist")
                     if "alert alert-success text-center alert-dismiss " in html:
                         print("new Node created")
+                        print_statements.append("new Node created")
                 except Exception as e:
                     print(e)
                     print("cannot add node guidance")
+                    print_statements.append("cannot add node guidance")
             
                 time.sleep(4) 
                 driver.refresh()
@@ -204,11 +209,14 @@ class ChecklistGuidance:
             #                     print(html,"this is html")
                     if "alert alert-danger text-center alert-dismiss " in html:
                         print("Guidance already exists")
+                        print_statements.append("Guidance already exists")
                     if "alert alert-success text-center alert-dismiss " in html:
                         print("new Guidance created")
+                        print_statements.append("new Guidance created")
                 except Exception as e:
                     print(e)
                     print("exception is in edit")
+                    print_statements.append("exception is in edit")
 
                 time.sleep(4) 
 
@@ -223,9 +231,11 @@ class ChecklistGuidance:
                 except Exception as e:
                     print(e)
                     print("cannot delete guidance")
+                    print_statements.append("cannot delete guidence")
             
             else:
                 print("ERROR:nobutton and error")
+                print_statements.append("ERROR:nobutton and error")
 
 
         else:
@@ -241,9 +251,18 @@ class ChecklistGuidance:
                     add_element = ""
                     pass
                 print(add_element,"this is add_elelmtn")
+                print_statements.append(add_element,"this is add_elelmtn")
                 if add_element:
                     print("ERROR:button exists and error")
+                    print_statements.append("ERROR:button exists and error")
                 else:
-                    print("nobutton and no error") 
+                    print("nobutton and no error")
+                    print_statements.append("nobutton and no error")
+        df = pd.DataFrame({"Print Statements": print_statements})
 
+    # Save the DataFrame to an Excel file
+        unique_id = random.randint(1000, 9999)
+        excelsave = "AuditVariable"+str(unique_id)+".xlsx"
+        df.to_excel(excelsave, index=False)
+        print(excelsave)
         return True

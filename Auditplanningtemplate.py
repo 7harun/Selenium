@@ -46,6 +46,8 @@ class APT:
         xpath_list_perm_page = ['//*[@id="32"]/div/div/table/tbody/tr[9]/td[2]/input','//*[@id="32"]/div/div/table/tbody/tr[41]/td[2]/input','//*[@id="32"]/div/div/table/tbody/tr[25]/td[2]/input']
         id_list = ['add_cinfigure_temp','edit','mark_inactive']
         flow = ["add","edit","delete"]
+        print_statements = []
+
         for i in range(0,len(xpath_list_perm_page)):
         
             driver.get(new_page_url)
@@ -67,6 +69,7 @@ class APT:
                     pass
                 if add_element:
                     print("button exists and no error")
+                    print_statements.append("button exists and no error")
                     if flow[i] == "add":
                         add_element.click()
 
@@ -80,8 +83,10 @@ class APT:
                             REPORT_name = field_element.get_attribute('outerHTML')
                             if "required" in REPORT_name:
                                 print("'REPORT_name' Field is mandatory. Please fill it.")
+                                print_statements.append("'REPORT_name' Field is mandatory. Please fill it.")
                             else:
                                 print("'REPORT_name' Field is not mandatory or no validation error") 
+                                print_statements.append("'REPORT_name' Field is not mandatory or no validation error")
                                 pass
 
                             #  Chapter_name
@@ -89,8 +94,10 @@ class APT:
                             Chapter_name = field_element.get_attribute('outerHTML')
                             if "required" in Chapter_name:
                                 print("'Chapter_name' Field is mandatory. Please fill it.")
+                                print_statements.append("'Chapter_name' Field is mandatory. Please fill it.")
                             else:
-                                print("'Chapter_name' Field is not mandatory or no validation error") 
+                                print("'Chapter_name' Field is not mandatory or no validation error")
+                                print_statements.append("'Chapter_name' Field is not mandatory or no validation error")
                                 pass
 
                         except:
@@ -117,8 +124,10 @@ class APT:
 
                                 if "alert alert-danger text-center alert-dismiss " in html:
                                     print("already exists")
+                                    print_statements.append("already exists")
                                 if "alert alert-success text-center alert-dismiss " in html:
                                     print("new record created")
+                                    print_statements.append("new record created")
                             except Exception as e:
                                 print("ERROR",e)
                                 pass
@@ -139,8 +148,11 @@ class APT:
     #                     print(html,"this is html")
                         if "alert alert-danger text-center alert-dismiss " in html:
                             print("APT already exists")
+                            print_statements.append("APT already exists")
                         if "alert alert-success text-center alert-dismiss " in html:
                             print("new APT created")
+                            print_statements.append("new APT created")
+
                             
                     elif flow[i] == "edit":
                         unique_id = random.randint(1000, 9999)
@@ -171,6 +183,7 @@ class APT:
 
                 else:
                     print("ERROR:nobutton and error")
+                    print_statements.append("ERROR:nobutton and error")
                 
 
                 
@@ -187,8 +200,19 @@ class APT:
                     add_element = ""
                     pass
                 print(add_element,"this is add_elelmtn")
+                print_statements.append(add_element,"this is add_elelmtn")
                 if add_element:
                     print("ERROR:button exists and error")
+                    print_statements.append("ERROR:button exists and error")
                 else:
                     print("nobutton and no error")
+                    print_statements.append("nobutton and no error")
+
+            df = pd.DataFrame({"Print Statements": print_statements})
+
+    # Save the DataFrame to an Excel file
+        unique_id = random.randint(1000, 9999)
+        excelsave = "AuditPlanningTemplate"+str(unique_id)+".xlsx"
+        df.to_excel(excelsave, index=False)
+        print(excelsave)
         return True

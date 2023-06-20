@@ -10,6 +10,7 @@ from selenium.webdriver.common.by import By
 from lxml import etree
 # import logging
 import sys
+import random
 from login import loginclass
 from selenium.webdriver.support import expected_conditions as EC
 from CheckurlinAssignment import CheckUrlinAssignment
@@ -40,14 +41,17 @@ class Datehub_add_MS:
         time.sleep(1)
         standardised_reports_url = driver.current_url
         check_element = driver.find_element(By.NAME,"assignmentid")
+        print_statements = []
         if check_element:
             # logging.info("Add assignemt page opened successfully")  # Log the message
 
             print("Add Milestone page opened successfully")
+            print_statements.append("Add Milestone page opened successfully")
             pass
         else:
             # logging.info("not able to open Add_assignemnt page")  # Log the message
             print("not able to open add Milestone page")
+            print_statements.append("not able to open add Milestone page")
 
        
 
@@ -61,56 +65,71 @@ class Datehub_add_MS:
             assignmentid = field_element.get_attribute('outerHTML')
             if "required" in assignmentid:
                 print("'assignmentid' Field is mandatory. Please fill it.")
+                print_statements.append("'assignmentid' Field is mandatory. Please fill it.")
             else:
-                print("'assignmentid' Field is not mandatory or no validation error") 
+                print("'assignmentid' Field is not mandatory or no validation error")
+                print_statements.append("'assignmentid' Field is not mandatory or no validation error") 
                 pass
 
             field_element = driver.find_element(By.NAME,"activity_name")
             activity_name = field_element.get_attribute('outerHTML')
             if "required" in activity_name:
                 print("'activity_name' Field is mandatory. Please fill it.")
+                print_statements.append("'activity_name' Field is mandatory. Please fill it.")
             else:
                 print("'activity_name' Field is not mandatory or no validation error") 
+                print_statements.append("'activity_name' Field is not mandatory or no validation error")
                 pass
 
             field_element = driver.find_element(By.NAME,"dur_hrs")
             dur_hrs = field_element.get_attribute('outerHTML')
             if "required" in dur_hrs:
                 print("'dur_hrs' Field is mandatory. Please fill it.")
+                print_statements.append("'dur_hrs' Field is mandatory. Please fill it.")
             else:
-                print("'dur_hrs' Field is not mandatory or no validation error") 
+                print("'dur_hrs' Field is not mandatory or no validation error")
+                print_statements.append("'dur_hrs' Field is not mandatory or no validation error")
                 pass
 
             field_element = driver.find_element(By.NAME,"avalue")
             avalue = field_element.get_attribute('outerHTML')
             if "required" in avalue:
                 print("'avalue' Field is mandatory. Please fill it.")
+                print_statements.append("'avalue' Field is mandatory. Please fill it.")
             else:
                 print("'avalue' Field is not mandatory or no validation error") 
+                print_statements.append("'avalue' Field is not mandatory or no validation error")
                 pass
 
             field_element = driver.find_element(By.NAME,"chapter_id")
             chapter_id = field_element.get_attribute('outerHTML')
             if "required" in chapter_id:
                 print("'chapter_id' Field is mandatory. Please fill it.")
+                print_statements.append("'chapter_id' Field is mandatory. Please fill it.")
             else:
                 print("'chapter_id' Field is not mandatory or no validation error") 
+                print_statements.append("'chapter_id' Field is not mandatory or no validation error")
                 pass
 
             field_element = driver.find_element(By.NAME,"est_start_date")
             est_start_date = field_element.get_attribute('outerHTML')
             if "required" in est_start_date:
                 print("'est_start_date' Field is mandatory. Please fill it.")
+                print_statements.append("'est_start_date' Field is mandatory. Please fill it.")
+
             else:
                 print("'est_start_date' Field is not mandatory or no validation error") 
+                print_statements.append("'est_start_date' Field is not mandatory or no validation error")
                 pass
 
             field_element = driver.find_element(By.NAME,"est_end_date")
             est_end_date = field_element.get_attribute('outerHTML')
             if "required" in est_end_date:
                 print("'est_end_date' Field is mandatory. Please fill it.")
+                print_statements.append("'est_end_date' Field is mandatory. Please fill it.")
             else:
                 print("'est_end_date' Field is not mandatory or no validation error") 
+                print_statements.append("'est_end_date' Field is not mandatory or no validation error")
                 pass     
         except:
             pass
@@ -167,10 +186,20 @@ class Datehub_add_MS:
         html = check_status.get_attribute('outerHTML')
         if "alert alert-danger text-center alert-dismiss " in html:
             print("Milestone is not added")
+            print_statements.append("Milestone is not added")
             variable = "Milestone is not added"
         if "alert alert-success text-center alert-dismiss " in html:
             print("Milestone added successfully")
+            print_statements.append("Milestone added successfully")
             variable = "Milestone added successfully"    
+
+            df = pd.DataFrame({"Print Statements": print_statements})
+
+    # Save the DataFrame to an Excel file
+        unique_id = random.randint(1000, 9999)
+        excelsave = "Datahub_add_milestone"+str(unique_id)+".xlsx"
+        df.to_excel(excelsave, index=False)
+        print(excelsave)
 
         return variable
 

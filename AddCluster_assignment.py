@@ -10,6 +10,7 @@ from selenium.webdriver.common.by import By
 from CheckurlinAssignment import CheckUrlinAssignment
 from lxml import etree
 # import logging
+import random
 import sys
 from login import loginclass
 from selenium.webdriver.support import expected_conditions as EC
@@ -25,6 +26,7 @@ class AddClusterreport:
         url = "https://old.anyaudit.co.in/login"
         driver,static_value = loginclass.loginfunction(user,password,url)
         print(static_value)
+        print_statements = []
         # clicking on message otp
         driver.find_element(By.XPATH , '//*[@id="sign_in"]/div[3]/div/button').click()
         time.sleep(0.5)
@@ -40,10 +42,12 @@ class AddClusterreport:
             # logging.info("Add assignemt page opened successfully")  # Log the message
 
             print("Add assignemt page opened successfully")
+            print_statements.append("Add assignemt page opened successfully")
             pass
         else:
             # logging.info("not able to open Add_assignemnt page")  # Log the message
             print("not able to open Add_assignemnt page")
+            print_statements.append("not able to open Add_assignemnt page")
         standardised_reports_url = driver.current_url
         check_element_path = '//*[@id="navbar1"]/div[2]/div/button/i'
         checkinassignment = CheckUrlinAssignment.checkurlinassignment(driver,standardised_reports_url,check_element_path)
@@ -63,8 +67,11 @@ class AddClusterreport:
             assignment_id = field_element.get_attribute('outerHTML')
             if "required" in assignment_id:
                 print("'assignment_id' Field is mandatory. Please fill it.")
+                print_statements.append("'assignment_id' Field is mandatory. Please fill it.")
+                
             else:
                 print("'assignment_id' Field is not mandatory or no validation error") 
+                print_statements.append("'assignment_id' Field is not mandatory or no validation error")
                 pass
 
             #  cluster_category
@@ -72,8 +79,10 @@ class AddClusterreport:
             cluster_category = field_element.get_attribute('outerHTML')
             if "required" in cluster_category:
                 print("'cluster_category' Field is mandatory. Please fill it.")
+                print_statements.append("'cluster_category' Field is mandatory. Please fill it.")
             else:
-                print("'cluster_category' Field is not mandatory or no validation error") 
+                print("'cluster_category' Field is not mandatory or no validation error")
+                print_statements.append("'cluster_category' Field is not mandatory or no validation error")
                 pass
 
              #  cluster_subcategory
@@ -81,8 +90,10 @@ class AddClusterreport:
             cluster_subcategory = field_element.get_attribute('outerHTML')
             if "required" in cluster_subcategory:
                 print("'cluster_subcategory' Field is mandatory. Please fill it.")
+                print_statements.append("cluster_subcategory' Field is mandatory. Please fill it.")
             else:
-                print("'cluster_subcategory' Field is not mandatory or no validation error") 
+                print("'cluster_subcategory' Field is not mandatory or no validation error")
+                print_statements.append("'cluster_subcategory' Field is not mandatory or no validation error") 
                 pass
 
         except:
@@ -122,6 +133,15 @@ class AddClusterreport:
             variable = "new cluster created"
 
         time.sleep(10)
+
+
+        df = pd.DataFrame({"Print Statements": print_statements})
+
+    # Save the DataFrame to an Excel file
+        unique_id = random.randint(1000, 9999)
+        excelsave = "AddCluster_Assignment"+str(unique_id)+".xlsx"
+        df.to_excel(excelsave, index=False)
+        print(excelsave)
         return variable
 
 

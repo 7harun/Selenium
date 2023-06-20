@@ -39,6 +39,7 @@ class Controls:
         # new_page_url = driver.current_url
         id_list = ['addtype','edit','mark_inactive']
         flow = ["add","edit","delete"]
+        print_statements = []
         for i in range(0,len(id_list)):
         
             driver.get(standardised_reports_url)          
@@ -49,6 +50,7 @@ class Controls:
                 except:
                     add_element = ""
                     print("no add element button")
+                    print_statements.append("no add element button")
                     pass
                 add_element.click()
                 time.sleep(0.2)
@@ -59,8 +61,10 @@ class Controls:
                 Control_name = field_element.get_attribute('outerHTML')
                 if "required" in Control_name:
                     print("'Area of Audit' Field is mandatory. Please fill it.")
+                    print_statements.append("'Area of Audit' Field is mandatory. Please fill it.")
                 else:
-                    print("'Area of Audit' Field is not mandatory or no validation error") 
+                    print("'Area of Audit' Field is not mandatory or no validation error")
+                    print_statements.append("'Area of Audit' Field is not mandatory or no validation error")
                     pass
                     
                 input_element = ["..","alpha1","alpha@1",12345]
@@ -108,4 +112,11 @@ class Controls:
                 alert = driver.switch_to.alert
                 alert.accept()
                 time.sleep(2)
+                df = pd.DataFrame({"Print Statements": print_statements})
+
+    # Save the DataFrame to an Excel file
+        unique_id = random.randint(1000, 9999)
+        excelsave = "Controls"+str(unique_id)+".xlsx"
+        df.to_excel(excelsave, index=False)
+        print(excelsave)
         return True

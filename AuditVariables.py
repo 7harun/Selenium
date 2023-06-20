@@ -48,6 +48,7 @@ class Auditvariables:
         xpath_list_perm_page = ['//*[@id="32"]/div/div/table/tbody/tr[2]/td[2]/input','//*[@id="32"]/div/div/table/tbody/tr[34]/td[2]/input','//*[@id="32"]/div/div/table/tbody/tr[18]/td[2]/input']
         id_list = ['add_auditvariables','edit','mark_inactive']
         flow = ["add","edit","delete"]
+        print_statements = []
         for i in range(0,len(xpath_list_perm_page)):
             time.sleep(2)
             driver.get(new_page_url)
@@ -69,6 +70,7 @@ class Auditvariables:
                     pass
                 if add_element:
                     print("button exists and no error")
+                    print_statements.append("button exists and no error")
                     if flow[i] == "add":
                         add_element.click()
                         time.sleep(0.2)
@@ -83,9 +85,11 @@ class Auditvariables:
 
                             if has_validation_error or is_mandatory:
                                 print("'AUDIT VARIABLE' Field is mandatory. Please fill it.")
+                                print_statements.append("'AUDIT VARIABLE' Field is mandatory. Please fill it.")
                             else:
                             #     Field is not mandatory or no validation error
-                                print("'AUDIT VARIABLE' Field is not mandatory or no validation error") 
+                                print("'AUDIT VARIABLE' Field is not mandatory or no validation error")
+                                print_statements.append("'AUDIT VARIABLE' Field is not mandatory or no validation error")
                                 pass
 
                              #AUDIT VARIABLE TYPE
@@ -95,9 +99,11 @@ class Auditvariables:
 
                             if has_validation_error or is_mandatory:
                                 print("'AUDIT VARIABLE TYPE' Field is mandatory. Please fill it.")
+                                print_statements.append("n'AUDIT VARIABLE TYPE' Field is mandatory. Please fill itot able to open add Milestone page")
                             else:
                             #     Field is not mandatory or no validation error
                                 print("'AUDIT VARIABLE TYPE' Field is not mandatory or no validation error") 
+                                print_statements.append("'AUDIT VARIABLE TYPE' Field is not mandatory or no validation error")
                                 pass
 
                         except:
@@ -127,8 +133,10 @@ class Auditvariables:
 
                                 if "alert alert-danger text-center alert-dismiss " in html:
                                     print("already exists")
+                                    print_statements.append("already exists")
                                 if "alert alert-success text-center alert-dismiss " in html:
                                     print("new record created")
+                                    print_statements.append("new record created")
                             except Exception as e:
                                 print("ERROR",e)
                                 pass
@@ -187,6 +195,7 @@ class Auditvariables:
 
                 else:
                     print("ERROR:nobutton and error")
+                    print_statements.append("ERROR:nobutton and error")
                 
 
                 
@@ -203,8 +212,18 @@ class Auditvariables:
                     add_element = ""
                     pass
                 print(add_element,"this is add_elelmtn")
+                print_statements.append(add_element,"this is add_elelmtn")
                 if add_element:
                     print("ERROR:button exists and error")
+                    print_statements.append("ERROR:button exists and error ")
                 else:
                     print("nobutton and no error")
+                    print_statements.append("nobutton and no error")
+            df = pd.DataFrame({"Print Statements": print_statements})
+
+    # Save the DataFrame to an Excel file
+        unique_id = random.randint(1000, 9999)
+        excelsave = "AuditVariable"+str(unique_id)+".xlsx"
+        df.to_excel(excelsave, index=False)
+        print(excelsave)
         return True

@@ -13,6 +13,7 @@
     <button id="standardisedreports">Standardised Reports</button>
     <button id="apt">APT</button>
     <button id="condition">Check Conditions</button>
+    <button id="recurring_milestone">Recurring Milestone</button>
     <div>
         <ul></ul>
         
@@ -580,6 +581,24 @@
     document.getElementById('auditvariable').addEventListener('click', function() {
         // Send a POST request to the server to trigger the Selenium script
         fetch('/auditvariable', { method: 'POST' })
+            .then(response => {
+                if (response.ok) {
+                    console.log(response)
+                    console.log('Selenium script triggered successfully.');
+                } else {
+                    console.error('Failed to trigger Selenium script.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+</script>
+
+<script>
+    document.getElementById('recurring_milestone').addEventListener('click', function() {
+        // Send a POST request to the server to trigger the Selenium script
+        fetch('/recurring_milestone', { method: 'POST' })
             .then(response => {
                 if (response.ok) {
                     console.log(response)

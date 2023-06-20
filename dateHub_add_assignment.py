@@ -10,6 +10,7 @@ from selenium.webdriver.common.by import By
 from lxml import etree
 # import logging
 import sys
+import random
 from login import loginclass
 from selenium.webdriver.support import expected_conditions as EC
 from CheckurlinAssignment import CheckUrlinAssignment
@@ -40,14 +41,17 @@ class Datehub_add_assignment:
         driver.find_element(By.XPATH,'/html/body/section/div/div/div/div/div/div[2]/div[1]/div/div[1]/a/i').click()
         current_url = driver.current_url
         check_element = driver.find_element(By.ID,"pname")
+        print_statements = []
         if check_element:
             # logging.info("Add assignemt page opened successfully")  # Log the message
 
             print("Add assignemt page opened successfully")
+            print_statements.append("Add assignemt page opened successfully")
             pass
         else:
             # logging.info("not able to open Add_assignemnt page")  # Log the message
             print("not able to open Add_assignemnt page")
+            print_statements.append("not able to open Add_assignemnt page")
 
         # Access check
         standardised_reports_url = driver.current_url
@@ -67,8 +71,10 @@ class Datehub_add_assignment:
             pname = field_element.get_attribute('outerHTML')
             if "required" in pname:
                 print("'assignment name' Field is mandatory. Please fill it.")
+                print_statements.append("'assignment name' Field is mandatory. Please fill it.")
             else:
                 print("'assignment name' Field is not mandatory or no validation error") 
+                print_statements.append("'assignment name' Field is not mandatory or no validation error")
                 pass
 
 
@@ -79,8 +85,11 @@ class Datehub_add_assignment:
 
             if has_validation_error or is_mandatory:
                 print("'Client' Field is mandatory. Please fill it.")
+                print_statements.append("'Client' Field is mandatory. Please fill it.")
+
             else:
                 print("' Client' Field is not mandatory")
+                print_statements.append("'Client' Field is not mandatory")
 
             #     Field is not mandatory or no validation error
                 pass
@@ -93,8 +102,10 @@ class Datehub_add_assignment:
 
             if has_validation_error or is_mandatory:
                 print("'User' Field is mandatory. Please fill it.")
+                print_statements.append("'User' Field is mandatory. Please fill it.")
             else:
                 print("' User' Field is not mandatory")
+                print_statements.append("' User' Field is not mandatory")
 
             #     Field is not mandatory or no validation error
                 pass
@@ -106,8 +117,10 @@ class Datehub_add_assignment:
 
             if has_validation_error or is_mandatory:
                 print("'AM user' Field is mandatory. Please fill it.")
+                print_statements.append("'AM user' Field is mandatory. Please fill it.")
             else:
                 print("'AM User' Field is not mandatory")
+                print_statements.append("'AM User' Field is not mandatory")
 
             #     Field is not mandatory or no validation error
                 pass
@@ -119,8 +132,11 @@ class Datehub_add_assignment:
 
             if has_validation_error or is_mandatory:
                 print("'Review partner' Field is mandatory. Please fill it.")
+                print_statements.append("'Review partner' Field is mandatory. Please fill it.")
             else:
                 print("'Review partner' Field is not mandatory")
+                print_statements.append("'Review partner' Field is not mandatory")
+                
 
             #     Field is not mandatory or no validation error
                 pass
@@ -133,8 +149,10 @@ class Datehub_add_assignment:
 
             if has_validation_error or is_mandatory:
                 print("'External User' Field is mandatory. Please fill it.")
+                print_statements.append("'External User' Field is mandatory. Please fill it.")
             else:
                 print("'External User' Field is not mandatory")
+                print_statements.append("'External User' Field is not mandatory")
             #     Field is not mandatory or no validation error
                 pass
 
@@ -146,8 +164,10 @@ class Datehub_add_assignment:
 
             if has_validation_error or is_mandatory:
                 print("'Period' Field is mandatory. Please fill it.")
+                print_statements.append("'Period' Field is mandatory. Please fill it.")
             else:
                 print("'Period' Field is not mandatory")
+                print_statements.append("'Period' Field is not mandatory")
             #     Field is not mandatory or no validation error
                 pass
 
@@ -159,8 +179,10 @@ class Datehub_add_assignment:
 
             if has_validation_error or is_mandatory:
                 print("'Previous Assignment' Field is mandatory. Please fill it.")
+                print_statements.append("'Previous Assignment' Field is mandatory. Please fill it.")
             else:
                 print("'Previous Assignment' Field is not mandatory")
+                print_statements.append("'Previous Assignment' Field is not mandatory")
 
             #     Field is not mandatory or no validation error
                 pass
@@ -173,8 +195,10 @@ class Datehub_add_assignment:
 
             if has_validation_error or is_mandatory:
                 print("'start date' Field is mandatory. Please fill it.")
+                print_statements.append("'start date' Field is mandatory. Please fill it.")
             else:
                 print("'start date' Field is not mandatory")
+                print_statements.append("'start date' Field is not mandatory")
 
             #     Field is not mandatory or no validation error
                 pass
@@ -187,8 +211,10 @@ class Datehub_add_assignment:
 
             if has_validation_error or is_mandatory:
                 print("'End date' Field is mandatory. Please fill it.")
+                print_statements.append("'End date' Field is mandatory. Please fill it.")
             else:
                 print("'End date' Field is not mandatory")
+                print_statements.append("'End date' Field is not mandatory")
 
             #     Field is not mandatory or no validation error
                 pass
@@ -200,8 +226,10 @@ class Datehub_add_assignment:
 
             if has_validation_error or is_mandatory:
                 print("'Description' Field is mandatory. Please fill it.")
+                print_statements.append("'Description' Field is mandatory. Please fill it.")
             else:
                 print("'Description' Field is not mandatory")
+                print_statements.append("'Description' Field is not mandatory")
 
             #     Field is not mandatory or no validation error
                 pass
@@ -275,14 +303,24 @@ class Datehub_add_assignment:
             if "Confirmation" in html:
                 variable = "new_assignment is created"
                 print("new_assignment is created")
+                print_statements.append("new_assignment is created")
             else:
                 raise Exception
         except Exception as e:
             if "Assignment Name Already Exist!" in html:
                 variable = "Assignment Name Already Exist!"
                 print(variable,e)
+                print_statements.append(variable,e)
                 pass      
-        time.sleep(100)
+
+            df = pd.DataFrame({"Print Statements": print_statements})
+
+    # Save the DataFrame to an Excel file
+        unique_id = random.randint(1000, 9999)
+        excelsave = "Datahub_add_assignment"+str(unique_id)+".xlsx"
+        df.to_excel(excelsave, index=False)
+        print(excelsave)
+        time.sleep(10)
         return variable
 
 

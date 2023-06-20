@@ -47,6 +47,7 @@ class Annexures_config:
         xpath_list_perm_page = ['//*[@id="32"]/div/div/table/tbody/tr[1]/td[2]/input']
         id_list = ['add_annexure','add_annexure','add_annexure']
         flow = ["add","edit","delete"]
+        print_statements = []
         
         time.sleep(2)
         driver.get(new_page_url)
@@ -82,12 +83,14 @@ class Annexures_config:
                 alert.accept()
                 time.sleep(2)
                 print("annexure already exists")
+                print_statements.append("annexure already exists")
                 variable = ""
                 
             except Exception as e:
                 print(e)
                 variable = "add_all_items"
                 print("entered into exception")
+                print_statements.append("entered into exception")
                 pass
             if variable == "add_all_items":
                 search = driver.find_element(By.XPATH,"/html/body/span/span/span[1]/input")
@@ -108,8 +111,10 @@ class Annexures_config:
 #                     print(html,"this is html")
                 if "alert alert-danger text-center alert-dismiss " in html:
                     print("Annexure already exists")
+                    print_statements.append("Annexure already exists")
                 if "alert alert-success text-center alert-dismiss " in html:
                     print("new Annexure created")
+                    print_statements.append("new Annexure created")
             time.sleep(2)
             driver.find_element(By.XPATH , '//*[@id="annextureact_filter"]/label/input').send_keys(annexure)
             driver.find_element(By.ID ,'configure').click()
@@ -118,6 +123,7 @@ class Annexures_config:
             for i in range(0,len(id_list)):
                 if add_element:
                     print("button exists and no error")
+                    print_statements.append("button exists and no error")
                     if flow[i] == "add":
                         
                         # check_element_path = '//*[@id="navbar1"]/div[2]/div/button/i'
@@ -134,19 +140,24 @@ class Annexures_config:
                             fieldname = field_element.get_attribute('outerHTML')
                             if "required" in fieldname:
                                 print("'fieldname' Field is mandatory. Please fill it.")
+                                print_statements.append("'fieldname' Field is mandatory. Please fill it.")
                             else:
                                 print("'fieldname' Field is not mandatory or no validation error") 
+                                print_statements.append("'fieldname' Field is not mandatory or no validation error")
                                 pass
 
                             field_element = driver.find_element(By.NAME, 'fieldtype')
                             fieldtype = field_element.get_attribute('outerHTML')
                             if "required" in fieldname:
                                 print("'fieldtype' Field is mandatory. Please fill it.")
+                                print_statements.append("'fieldtype' Field is mandatory. Please fill it.")
                             else:
-                                print("'fieldtype' Field is not mandatory or no validation error") 
+                                print("'fieldtype' Field is not mandatory or no validation error")
+                                print_statements.append("'fieldtype' Field is not mandatory or no validation error") 
                                 pass
                         except Exception as e:
                             print("ERROR:not able to check mandatory check")
+                            print_statements.append("ERROR:not able to check mandatory check")
                             print(e)
                             pass
                         driver.refresh()
@@ -213,6 +224,7 @@ class Annexures_config:
 
                 else:
                     print("ERROR:nobutton and error")
+                    print_statements.append("ERROR:nobutton and error")
                 
 
                 
@@ -231,6 +243,18 @@ class Annexures_config:
                 print(add_element,"this is add_elelmtn")
                 if add_element:
                     print("ERROR:button exists and error")
+                    print_statements.append("ERROR:button exists and error")
+
                 else:
                     print("nobutton and no error")
+                    print_statements.append("nobutton and no error")
+
+
+        df = pd.DataFrame({"Print Statements": print_statements})
+
+    # Save the DataFrame to an Excel file
+        unique_id = random.randint(1000, 9999)
+        excelsave = "Annexures_config"+str(unique_id)+".xlsx"
+        df.to_excel(excelsave, index=False)
+        print(excelsave)
         return True

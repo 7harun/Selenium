@@ -11,6 +11,7 @@ from editMilestoneUpdates import EditMilestoneUpdates
 from StandardisedReports import Standardised_reports
 from Auditplanningtemplate import APT
 from Conditions import CheckConditions
+from Recurring_Milestone import CheckRecurring_milestone
 from AuditVariables import Auditvariables
 from Risks import Risks
 from Annexures import Annexures
@@ -352,6 +353,28 @@ def condition():
     def selenium_script():
         
         condition_obj = CheckConditions.checkconditions()
+        print(condition_obj)
+        # driver.get('path/to/webpage.html')
+
+        # Your Selenium code here
+        # Interact with elements on the webpage (e.g., fill forms, click buttons, etc.)
+        # Perform automated testing using Selenium
+
+        # driver.quit()
+
+    # Run the Selenium script in a separate thread
+    thread = Thread(target=selenium_script)
+    thread.start()
+
+    return selenium_script
+
+@app.route('/recurring_milestone', methods=['POST'])
+def run_recurring_milestone():
+
+    # Define your Selenium automation script here
+    def selenium_script():
+        
+        condition_obj = CheckRecurring_milestone.CheckRecurring_milestone()
         print(condition_obj)
         # driver.get('path/to/webpage.html')
 

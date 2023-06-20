@@ -32,6 +32,7 @@ class CheckConditions:
         time.sleep(1)
         driver.find_element(By.ID,"Conditions").click()
         time.sleep(1)
+        
         condition_url = driver.current_url
         # check_element_path = '//*[@id="navbar1"]/div[2]/div/button/i'
         # checkinassignment = CheckUrlinAssignment.checkurlinassignment(driver,condition_url,check_element_path)
@@ -50,6 +51,7 @@ class CheckConditions:
         xpath_list_perm_page = ['//*[@id="32"]/div/div/table/tbody/tr[8]/td[2]/input','//*[@id="32"]/div/div/table/tbody/tr[40]/td[2]/input','//*[@id="32"]/div/div/table/tbody/tr[24]/td[2]/input']
         id_list = ['add_conditions','edit','delete']
         flow = ["add","edit","delete"]
+        print_statements = []
         for i in range(0,len(xpath_list_perm_page)):
         
             driver.get(new_page_url)
@@ -90,6 +92,8 @@ class CheckConditions:
                             # print(html)
                             if "required" in cname:
                                 print("'ConditionName' Field is mandatory. Please fill it.")
+                                print_statements.append("'ConditionName' Field is mandatory. Please fill it.")
+                                
                             # if "alert alert-success text-center alert-dismiss " in cname:
                             #     print("new record created")
                             # if has_validation_error or is_mandatory:
@@ -97,6 +101,7 @@ class CheckConditions:
                             else:
                             #     Field is not mandatory or no validation error
                                 print("'ConditionName' Field is not mandatory or no validation error") 
+                                print_statements.append("'ConditionName' Field is not mandatory or no validation error")
                                 pass
 
 
@@ -106,9 +111,11 @@ class CheckConditions:
 
                             if has_validation_error or is_mandatory:
                                 print("'Variable' Field is mandatory. Please fill it.")
+                                print_statements.append("'Variable' Field is not mandatory or no validation erro")
                             else:
                             #     Field is not mandatory or no validation error
                                 print("'Variable' Field is not mandatory or no validation error") 
+                                print_statements.append("'Variable' Field is not mandatory or no validation erro")
                                 pass
 
                             field_element = driver.find_element(By.NAME ,'operator')
@@ -116,6 +123,7 @@ class CheckConditions:
                             # print(html)
                             if "required" in operator:
                                 print("'operator' Field is mandatory. Please fill it.")
+                                print_statements.append("'operator' Field is not mandatory or no validation error")
                             # if "alert alert-success text-center alert-dismiss " in cname:
                             #     print("new record created")
                             # if has_validation_error or is_mandatory:
@@ -123,6 +131,7 @@ class CheckConditions:
                             else:
                             #     Field is not mandatory or no validation error
                                 print("'operator' Field is not mandatory or no validation error") 
+                                print_statements.append("'operator' Field is not mandatory or no validation error")
                                 pass
 
 
@@ -131,6 +140,7 @@ class CheckConditions:
                             # print(html)
                             if "required" in value1:
                                 print("'value1' Field is mandatory. Please fill it.")
+                                print_statements.append("'value1' Field is mandatory. Please fill it.")
                             # if "alert alert-success text-center alert-dismiss " in cname:
                             #     print("new record created")
                             # if has_validation_error or is_mandatory:
@@ -138,6 +148,7 @@ class CheckConditions:
                             else:
                             #     Field is not mandatory or no validation error
                                 print("'value1' Field is not mandatory or no validation error") 
+                                print_statements.append("'value1' Field is not mandatory or no validation error")
                                 pass
 
                             field_element = driver.find_element(By.NAME ,'cond_desc')
@@ -145,6 +156,7 @@ class CheckConditions:
                             # print(html)
                             if "required" in description:
                                 print("'description' Field is mandatory. Please fill it.")
+                                print_statements.append("'description' Field is mandatory. Please fill it.")
                             # if "alert alert-success text-center alert-dismiss " in cname:
                             #     print("new record created")
                             # if has_validation_error or is_mandatory:
@@ -152,6 +164,7 @@ class CheckConditions:
                             else:
                             #     Field is not mandatory or no validation error
                                 print("'description' Field is not mandatory or no validation error") 
+                                print_statements.append("'description' Field is not mandatory or no validation error")
                                 pass
 
                         except:
@@ -169,6 +182,7 @@ class CheckConditions:
                                 add_element = driver.find_element(By.ID ,id_list[i])
                                 add_element.click()
                                 print("check1")
+                                print_statements.append("check1")
                                 time.sleep(1)
                                 driver.find_element(By.ID ,'cond_name').send_keys(j)
                                 driver.find_element(By.ID,"select2-fact_decision_id-container").click()
@@ -196,8 +210,10 @@ class CheckConditions:
                                 # print(html)
                                 if "alert alert-danger text-center alert-dismiss " in html:
                                     print("already exists")
+                                    print_statements.append("already exists")
                                 if "alert alert-success text-center alert-dismiss " in html:
                                     print("new record created")
+                                    print_statements.append("new record created")
                                 #     message = element.text
                             #     print(message)
                             except Exception as e:
@@ -218,6 +234,7 @@ class CheckConditions:
                             alert.accept()
                             time.sleep(2)
                             print("condition already exists")
+                            print_statements.append("condition already exists")
                             continue
                         except Exception as e:
                             print(e)
@@ -250,8 +267,10 @@ class CheckConditions:
         #                     print(html,"this is html")
                             if "alert alert-danger text-center alert-dismiss " in html:
                                 print("conditions already exists")
+                                print_statements.append("conditions already exists")
                             if "alert alert-success text-center alert-dismiss " in html:
                                 print("new conditions created")
+                                print_statements.append("new conditions created")
                         except:
                             alert = driver.switch_to.alert
                             alert.accept()
@@ -317,6 +336,7 @@ class CheckConditions:
 
                 else:
                     print("ERROR:nobutton and error")
+                    print_statements.append("ERROR:nobutton and error")
                 
 
                 
@@ -338,6 +358,17 @@ class CheckConditions:
                 print(add_element,"this is add_elelmtn")
                 if add_element:
                     print("ERROR:button exists and error")
+                    print_statements.append("ERROR:button exists and error")
                 else:
                     print("nobutton and no error")
+                    print_statements.append("nobutton and no error")
+
+        df = pd.DataFrame({"Print Statements": print_statements})
+
+    # Save the DataFrame to an Excel file
+        unique_id = random.randint(1000, 9999)
+        excelsave = "Conditions"+str(unique_id)+".xlsx"
+        df.to_excel(excelsave, index=False)
+        print(excelsave)
         return True
+    

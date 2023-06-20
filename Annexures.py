@@ -49,6 +49,7 @@ class Annexures:
         xpath_list_perm_page = ['//*[@id="32"]/div/div/table/tbody/tr[1]/td[2]/input','//*[@id="32"]/div/div/table/tbody/tr[33]/td[2]/input','//*[@id="32"]/div/div/table/tbody/tr[17]/td[2]/input']
         id_list = ['add_annexure','edit','mark_inactive']
         flow = ["add","edit","delete"]
+        print_statements = []
         for i in range(0,len(xpath_list_perm_page)):
             time.sleep(2)
             driver.get(new_page_url)
@@ -70,6 +71,7 @@ class Annexures:
                     pass
                 if add_element:
                     print("button exists and no error")
+                    print_statements.append("button exists and no error")
                     if flow[i] == "add":
                         add_element.click()
                         time.sleep(0.2)
@@ -84,9 +86,11 @@ class Annexures:
 
                             if has_validation_error or is_mandatory:
                                 print("'Name' Field is mandatory. Please fill it.")
+                                print_statements.append("'Name' Field is mandatory. Please fill it.")
                             else:
                             #     Field is not mandatory or no validation error
                                 print("'Name' Field is not mandatory or no validation error") 
+                                print_statements.append("'Name' Field is not mandatory or no validation error")
                                 pass
 
 
@@ -97,9 +101,11 @@ class Annexures:
 
                             if has_validation_error or is_mandatory:
                                 print("'Chapter' Field is mandatory. Please fill it.")
+                                print_statements.append("'Chapter' Field is mandatory. Please fill it.")
                             else:
                             #     Field is not mandatory or no validation error4    
                                 print("'Chapter' Field is not mandatory or no validation error") 
+                                print_statements.append("'Chapter' Field is not mandatory or no validation error")
                                 pass
                             
 
@@ -115,9 +121,11 @@ class Annexures:
 
                             if has_validation_error or is_mandatory:
                                 print("'Area of audit' Field is mandatory. Please fill it.")
+                                print_statements.append("'Area of audit' Field is mandatory. Please fill it.")
                             else:
                             #     Field is not mandatory or no validation error
                                 print("'Area of audit' Field is not mandatory or no validation error") 
+                                print_statements.append("'Area of audit' Field is not mandatory or no validation error")
                                 pass
 
 
@@ -128,9 +136,12 @@ class Annexures:
 
                             if has_validation_error or is_mandatory:
                                 print("'Description' Field is mandatory. Please fill it.")
+                                print_statements.append("'Description' Field is mandatory. Please fill it.")
                             else:
                             #     Field is not mandatory or no validation error
-                                print("'Description' Field is not mandatory or no validation error") 
+                                print("'Description' Field is not mandatory or no validation error")
+                                print_statements.append("'Description' Field is not mandatory or no validation error") 
+
                                 pass
 
                         except:
@@ -147,10 +158,12 @@ class Annexures:
                             alert.accept()
                             time.sleep(2)
                             print("annexure already exists")
+                            print_statements.append("annexure already exists")
                             continue
                         except Exception as e:
                             print(e)
                             print("entered into exception")
+                            print_statements.append("entered into exception")
                             pass
                         
                         search = driver.find_element(By.XPATH,"/html/body/span/span/span[1]/input")
@@ -171,8 +184,10 @@ class Annexures:
     #                     print(html,"this is html")
                         if "alert alert-danger text-center alert-dismiss " in html:
                             print("Decision already exists")
+                            print_statements.append("Decision already exists")
                         if "alert alert-success text-center alert-dismiss " in html:
                             print("new Decision created")
+                            print_statements.append("new Decision created")
                             
                     elif flow[i] == "edit":
                         annexure_upd = annexure+"_update"
@@ -192,8 +207,10 @@ class Annexures:
     #                     print(html,"this is html")
                         if "alert alert-danger text-center alert-dismiss " in html:
                             print("Decision already exists")
+                            print_statements.append("Decision already exists")
                         if "alert alert-success text-center alert-dismiss " in html:
                             print("new Decision created")
+                            print_statements.append("new Decision created")
 
                         
                     elif flow[i] == "delete":
@@ -208,6 +225,7 @@ class Annexures:
 
                 else:
                     print("ERROR:nobutton and error")
+                    print_statements.append("ERROR:nobutton and error")
                 
 
                 
@@ -224,8 +242,20 @@ class Annexures:
                     add_element = ""
                     pass
                 print(add_element,"this is add_elelmtn")
+                print_statements.append("this is add_elelmtn")
                 if add_element:
                     print("ERROR:button exists and error")
+                    print_statements.append("ERROR:button exists and error")
                 else:
                     print("nobutton and no error")
+                    print_statements.append("nobutton and no error")
+
+                    df = pd.DataFrame({"Print Statements": print_statements})
+
+    # Save the DataFrame to an Excel file
+        unique_id = random.randint(1000, 9999)
+        excelsave = "Annexures"+str(unique_id)+".xlsx"
+        df.to_excel(excelsave, index=False)
+        print(excelsave)
+
         return True

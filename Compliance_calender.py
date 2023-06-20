@@ -49,6 +49,7 @@ class Compliancecalender:
         xpath_list_perm_page = ['//*[@id="32"]/div/div/table/tbody/tr[7]/td[2]/input','//*[@id="32"]/div/div/table/tbody/tr[39]/td[2]/input','//*[@id="32"]/div/div/table/tbody/tr[23]/td[2]/input']
         id_list = ['add_compliance','edit','mark_inactive']
         flow = ["add","edit","delete"]
+        print_statements = []
         for i in range(0,len(xpath_list_perm_page)):
             time.sleep(2)
             driver.get(new_page_url)
@@ -82,6 +83,7 @@ class Compliancecalender:
         #                     print(html,"this is html")
                             if "required" in html:
                                 print("Compliance Name is mandotory")
+                                print_statements.append("Compliance Name is mandotory")
                         except Exception as e:
                             print("error",e)
                             pass
@@ -124,8 +126,10 @@ class Compliancecalender:
                                 # print(html)
                                 if "alert alert-danger text-center alert-dismiss " in html:
                                     print("already exists")
+                                    print_statements.append("already exists")
                                 if "alert alert-success text-center alert-dismiss " in html:
                                     print("new record created")
+                                    print_statements.append("new record created")
                                 #     message = element.text
                             #     print(message)
                             except Exception as e:
@@ -154,8 +158,10 @@ class Compliancecalender:
     #                     print(html,"this is html")
                         if "alert alert-danger text-center alert-dismiss " in html:
                             print("Compliance calender already exists")
+                            print_statements.append("Compliance calender already exists")
                         if "alert alert-success text-center alert-dismiss " in html:
                             print("new Compliance calender created")
+                            print_statements.append("new Compliance calender created")
                             
                     elif flow[i] == "edit":
                         unique_id = random.randint(1000, 9999)
@@ -177,8 +183,10 @@ class Compliancecalender:
     #                     print(html,"this is html")
                         if "alert alert-danger text-center alert-dismiss " in html:
                             print("Decision already exists")
+                            print_statements.append("Decision already exists")
                         if "alert alert-success text-center alert-dismiss " in html:
                             print("new Decision created")
+                            print_statements.append("new Decision created")
 
                         
                     elif flow[i] == "delete":
@@ -193,6 +201,7 @@ class Compliancecalender:
 
                 else:
                     print("ERROR:nobutton and error")
+                    print_statements.append("ERROR:nobutton and error")
                 
 
                 
@@ -209,8 +218,20 @@ class Compliancecalender:
                     add_element = ""
                     pass
                 print(add_element,"this is add_elelmtn")
+                print_statements.append(add_element,"this is add_elelmtn")
                 if add_element:
                     print("ERROR:button exists and error")
+                    print_statements.append("ERROR:button exists and error")
                 else:
                     print("nobutton and no error")
+                    print_statements.append("nobutton and no error")
+
+
+                    df = pd.DataFrame({"Print Statements": print_statements})
+
+    # Save the DataFrame to an Excel file
+        unique_id = random.randint(1000, 9999)
+        excelsave = "Compliance_calender"+str(unique_id)+".xlsx"
+        df.to_excel(excelsave, index=False)
+        print(excelsave)
         return True

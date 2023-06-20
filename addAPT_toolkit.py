@@ -50,6 +50,7 @@ class APT_toolkit:
         xpath_list_perm_page = ['//*[@id="32"]/div/div/table/tbody/tr[9]/td[2]/input']
         id_list = ['add_cinfigure_temp','add_cinfigure_temp']
         flow = ["add","delete"]
+        print_statements = []
         for i in range(0,len(id_list)):
         
             driver.get(new_page_url)
@@ -71,6 +72,7 @@ class APT_toolkit:
                     pass
                 if add_element:
                     print("button exists and no error")
+                    print_statements.append("button exists and no error")
                     if flow[i] == "add":
                         add_element.click()
                     
@@ -92,8 +94,10 @@ class APT_toolkit:
     #                     print(html,"this is html")
                         if "alert alert-danger text-center alert-dismiss " in html:
                             print("APT already exists")
+                            print_statements.append("APT already exists")
                         if "alert alert-success text-center alert-dismiss " in html:
                             print("new APT created")
+                            print_statements.append("APT already created")
                         time.sleep(1)
                         driver.find_element(By.XPATH , '//*[@id="configuration_act_filter"]/label/input').send_keys("template_test")
                         driver.find_element(By.NAME ,'configure').click()
@@ -116,8 +120,12 @@ class APT_toolkit:
                             TOOL = field_element.get_attribute('outerHTML')
                             if "required" in TOOL:
                                 print("'TOOL' Field is mandatory. Please fill it.")
+                                print_statements.append("'TOOL' Field is mandatory. Please fill it.")
+                            
+
                             else:
-                                print("'TOOL' Field is not mandatory or no validation error") 
+                                print("'TOOL' Field is not mandatory or no validation error")
+                                print_statements.append("'TOOL' Field is not mandatory or no validation error") 
                                 pass
 
                             #  TOOL_kit
@@ -125,8 +133,10 @@ class APT_toolkit:
                             TOOL_kit = field_element.get_attribute('outerHTML')
                             if "required" in TOOL_kit:
                                 print("'TOOL_kit' Field is mandatory. Please fill it.")
+                                print_statements.append("'TOOL_kit' Field is mandatory. Please fill it.")
                             else:
-                                print("'TOOL_kit' Field is not mandatory or no validation error") 
+                                print("'TOOL_kit' Field is not mandatory or no validation error")
+                                print_statements.append("'TOOL_kit' Field is not mandatory or no validation error") 
                                 pass
 
                         except:
@@ -175,6 +185,8 @@ class APT_toolkit:
 
                 else:
                     print("ERROR:nobutton and error")
+                    print_statements.append("ERROR:nobutton and error")
+
                 
 
                 
@@ -191,8 +203,17 @@ class APT_toolkit:
                     add_element = ""
                     pass
                 print(add_element,"this is add_elelmtn")
+                print_statements.append(add_element,"this is add_elelmtn")
                 if add_element:
                     print("ERROR:button exists and error")
                 else:
                     print("nobutton and no error")
+
+        df = pd.DataFrame({"Print Statements": print_statements})
+
+    # Save the DataFrame to an Excel file
+        unique_id = random.randint(1000, 9999)
+        excelsave = "addAPT_toolkit"+str(unique_id)+".xlsx"
+        df.to_excel(excelsave, index=False)
+        print(excelsave)
         return True
