@@ -50,6 +50,8 @@ class Standardised_reports_node:
         xpath_list_perm_page = ['//*[@id="32"]/div/div/table/tbody/tr[14]/td[2]/input']
         id_list = ['add_standardized']
         flow = ["add","edit","delete"]
+        print_statements=[]
+        
     
     
         driver.get(new_page_url)
@@ -71,6 +73,7 @@ class Standardised_reports_node:
                 pass
             if add_element:
                 print("button exists and no error")
+                print_statements.append("button exists and no error")
             
                 add_element.click()
 
@@ -91,8 +94,12 @@ class Standardised_reports_node:
 #                     print(html,"this is html")
                 if "alert alert-danger text-center alert-dismiss " in html:
                     print("Standardised Report already exists")
+                    print_statements.append("Standardised Report already exists")
+
                 if "alert alert-success text-center alert-dismiss " in html:
                     print("new Standardised Report created")
+                    print_statements.append("new Standardised Report created")
+
 
                 time.sleep(2)
                 driver.find_element(By.XPATH , '//*[@id="report_active_filter"]/label/input').send_keys(Stand_r)
@@ -171,7 +178,9 @@ class Standardised_reports_node:
 
 
             else:
-                print("ERROR:nobutton and error")
+                print("button exists and no error")
+                print_statements.append("button exists and no error")
+
             
 
             
@@ -188,8 +197,19 @@ class Standardised_reports_node:
                 add_element = ""
                 pass
             print(add_element,"this is add_elelmtn")
+            print_statements.append(add_element,"this is add_elelmtn")
             if add_element:
                 print("ERROR:button exists and error")
+                print_statements.append("ERROR:button exists and error")
+
             else:
                 print("nobutton and no error")
+                print_statements.append("nobutton and no error")
+                df = pd.DataFrame({"Print Statements": print_statements})
+
+    # Save the DataFrame to an Excel file
+        unique_id = random.randint(1000, 9999)
+        excelsave = "SR_Node"+str(unique_id)+".xlsx"
+        df.to_excel(excelsave, index=False)
+        print(excelsave)
         return True

@@ -39,6 +39,7 @@ class PAT_risk:
         
         id_list = ['add_process_capture']
         flow = ["add","edit","delete"]
+        print_statements=[]
         
     
         try:
@@ -50,6 +51,7 @@ class PAT_risk:
             pass
         if add_element:
             print("button exists and no error")
+            print_statements.append('button exists and no error')
             add_element.click()
             time.sleep(1)
             # add_element = driver.find_element(By.ID ,id_list[0])
@@ -66,10 +68,12 @@ class PAT_risk:
                 alert.accept()
                 time.sleep(2)
                 print("PAT already exists")
+                print_statements.append('PAT already exists')
                 pass
             except Exception as e:
                 print(e)
                 print("entered into exception")
+                print_statements.append('entered into exception')
                 
             
                 time.sleep(1)
@@ -88,8 +92,10 @@ class PAT_risk:
     #                     print(html,"this is html")
                 if "alert alert-danger text-center alert-dismiss " in html:
                     print("PAT already exists")
+                    print_statements.append('PAT already exists')
                 if "alert alert-success text-center alert-dismiss " in html:
                     print("new PAT created")
+                    print_statements.append('new PAT created')
                 driver.refresh()
                 time.sleep(1)
                 pass
@@ -220,6 +226,7 @@ class PAT_risk:
             alert.accept()
             time.sleep(2)
             print("risk deleted successfully")
+            print_statements.append('risk deleted successfully')
             
             
 
@@ -231,6 +238,14 @@ class PAT_risk:
        
         else:
             print("ERROR:nobutton and error")
+            print_statements.append('ERROR:nobutton and error')
+            df = pd.DataFrame({"Print Statements": print_statements})
+
+    # Save the DataFrame to an Excel file
+        unique_id = random.randint(1000, 9999)
+        excelsave = "PAT_risk"+str(unique_id)+".xlsx"
+        df.to_excel(excelsave, index=False)
+        print(excelsave)
             
 
             

@@ -46,6 +46,7 @@ class Standardised_reports:
         xpath_list_perm_page = ['//*[@id="32"]/div/div/table/tbody/tr[14]/td[2]/input','//*[@id="32"]/div/div/table/tbody/tr[46]/td[2]/input','//*[@id="32"]/div/div/table/tbody/tr[30]/td[2]/input']
         id_list = ['add_standardized','edit','mark_inactive']
         flow = ["add","edit","delete"]
+        print_statements=[]
         for i in range(0,len(xpath_list_perm_page)):
         
             driver.get(new_page_url)
@@ -67,6 +68,7 @@ class Standardised_reports:
                     pass
                 if add_element:
                     print("button exists and no error")
+                    print_statements.append("button exists and no error")
                     if flow[i] == "add":
                         add_element.click()
 
@@ -80,8 +82,10 @@ class Standardised_reports:
                             REPORT_name = field_element.get_attribute('outerHTML')
                             if "required" in REPORT_name:
                                 print("'REPORT_name' Field is mandatory. Please fill it.")
+                                print_statements.append("'REPORT_name' Field is mandatory. Please fill it.")
                             else:
-                                print("'REPORT_name' Field is not mandatory or no validation error") 
+                                print("'REPORT_name' Field is not mandatory or no validation error")
+                                print_statements.append("'REPORT_name' Field is not mandatory or no validation error") 
                                 pass
 
                             #  Chapter_name
@@ -89,8 +93,10 @@ class Standardised_reports:
                             Chapter_name = field_element.get_attribute('outerHTML')
                             if "required" in Chapter_name:
                                 print("'Chapter_name' Field is mandatory. Please fill it.")
+                                print_statements.append("'Chapter_name' Field is mandatory. Please fill it.")
                             else:
-                                print("'Chapter_name' Field is not mandatory or no validation error") 
+                                print("'Chapter_name' Field is not mandatory or no validation error")
+                                print_statements.append("'Chapter_name' Field is not mandatory or no validation error") 
                                 pass
 
                         except:
@@ -120,8 +126,10 @@ class Standardised_reports:
 
                                 if "alert alert-danger text-center alert-dismiss " in html:
                                     print("already exists")
+                                    print_statements.append("already exists")
                                 if "alert alert-success text-center alert-dismiss " in html:
                                     print("new record created")
+                                    print_statements.append("new record created")
                             except Exception as e:
                                 print("ERROR",e)
                                 pass
@@ -145,8 +153,12 @@ class Standardised_reports:
     #                     print(html,"this is html")
                         if "alert alert-danger text-center alert-dismiss " in html:
                             print("Checklist already exists")
+                            print_statements.append("Checklist already exists")
+
                         if "alert alert-success text-center alert-dismiss " in html:
                             print("new Checklist created")
+                            print_statements.append("new Checklist created")
+
                             
                     elif flow[i] == "edit":
                         unique_id = random.randint(1000, 9999)
@@ -172,6 +184,8 @@ class Standardised_reports:
 
                 else:
                     print("ERROR:nobutton and error")
+                    print_statements.append("ERROR:nobutton and error")
+
                 
 
                 
@@ -188,8 +202,22 @@ class Standardised_reports:
                     add_element = ""
                     pass
                 print(add_element,"this is add_elelmtn")
+                print.append(add_element,"this is add_elelmtn")
+
+
                 if add_element:
                     print("ERROR:button exists and error")
+                    print_statements.append("ERROR:button exists and error")
+
                 else:
                     print("nobutton and no error")
+                    print_statements.append("nobutton and no error")
+                    df = pd.DataFrame({"Print Statements": print_statements})
+
+    # Save the DataFrame to an Excel file
+        unique_id = random.randint(1000, 9999)
+        excelsave = "StandardisedReports"+str(unique_id)+".xlsx"
+        df.to_excel(excelsave, index=False)
+        print(excelsave)
+                    
         return True

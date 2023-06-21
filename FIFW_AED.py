@@ -48,6 +48,7 @@ class FIFW_AED:
         driver.get(standard_text_url)
         id_list = ['add_ff','edit','mark_inactive']
         flow = ["add","edit","delete"]
+        print_statements = []
         for i in range(0,len(id_list)):
             time.sleep(2)
             driver.get(standard_text_url)
@@ -62,6 +63,7 @@ class FIFW_AED:
                 pass
             if add_element:
                 print("button exists and no error")
+                print_statements.append("button exists and no error")
                 if flow[i] == "add":
                     add_element.click()
                     time.sleep(0.2)
@@ -74,9 +76,11 @@ class FIFW_AED:
             #                     print(html,"this is html")
                         if "required" in html:
                             print("'fss_head_name' Field is mandatory. Please fill it.")
+                            print_statements.append("'fss_head_name' Field is mandatory. Please fill it.")
                         else:
                         #     Field is not mandatory or no validation error
-                            print("'fss_head_name' Field is not mandatory or no validation error") 
+                            print("'fss_head_name' Field is not mandatory or no validation error")
+                            print_statements.append("'fss_head_name' Field is not mandatory or no validation error") 
                             pass
                         #Description
                         field_element = driver.find_element(By.NAME, 'description')
@@ -84,9 +88,12 @@ class FIFW_AED:
             #                     print(html,"this is html")
                         if "required" in html:
                             print("'Description' Field is mandatory. Please fill it.")
+                            print_statements.append("'Description' Field is mandatory. Please fill it.")
                         else:
                         #     Field is not mandatory or no validation error4    
-                            print("'Description' Field is not mandatory or no validation error") 
+                            print("'Description' Field is not mandatory or no validation error")
+                            print_statements.append("'Description' Field is not mandatory or no validation error")
+                            
                             pass
 
                     except:
@@ -122,8 +129,10 @@ class FIFW_AED:
                                 # print(html)
                                 if "alert alert-danger text-center alert-dismiss " in html:
                                     print("already exists")
+                                    print_statements.append("already exists")
                                 if "alert alert-success text-center alert-dismiss " in html:
                                     print("new record created")
+                                    print_statements.append("new record created")
                                 #     message = element.text
                             #     print(message)
                             except:
@@ -153,8 +162,10 @@ class FIFW_AED:
             #                     print(html,"this is html")
                         if "alert alert-danger text-center alert-dismiss " in html:
                             print("Decision already exists")
+                            print_statements.append("Decision already exists")
                         if "alert alert-success text-center alert-dismiss " in html:
                             print("new Decision created")
+                            print_statements.append("new Decision created")
                     except:
                         print("no alert")
                         pass
@@ -179,8 +190,10 @@ class FIFW_AED:
         #                     print(html,"this is html")
                     if "alert alert-danger text-center alert-dismiss " in html:
                         print("Decision already exists")
+                        print_statements.append("Decision already exists")
                     if "alert alert-success text-center alert-dismiss " in html:
                         print("new Decision created")
+                        print_statements.append("new Decision created")
 
                     
                 elif flow[i] == "delete":
@@ -194,8 +207,16 @@ class FIFW_AED:
 
             else:
                 print("ERROR:nobutton and error")
+                print_statements.append("ERROR:nobutton and error")
        
-                
+                df = pd.DataFrame({"Print Statements": print_statements})
+
+    # Save the DataFrame to an Excel file
+        unique_id = random.randint(1000, 9999)
+        excelsave = "FIFW_AED"+str(unique_id)+".xlsx"
+        df.to_excel(excelsave, index=False)
+        print(excelsave)
+        time.sleep(20)
 
                 
             

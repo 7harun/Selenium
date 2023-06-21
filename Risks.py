@@ -48,6 +48,7 @@ class Risks:
         xpath_list_perm_page = ['//*[@id="32"]/div/div/table/tbody/tr[15]/td[2]/input','//*[@id="32"]/div/div/table/tbody/tr[47]/td[2]/input','//*[@id="32"]/div/div/table/tbody/tr[31]/td[2]/input']
         id_list = ['add_risk','edit','mark_inactive']
         flow = ["add","edit","delete"]
+        print_statements=[]
         for i in range(0,len(xpath_list_perm_page)):
             time.sleep(2)
             driver.get(new_page_url)
@@ -69,6 +70,7 @@ class Risks:
                     pass
                 if add_element:
                     print("button exists and no error")
+                    print_statements.append("button exists and no error")
                     if flow[i] == "add":
                         add_element.click()
                         time.sleep(0.2)
@@ -84,9 +86,11 @@ class Risks:
 
                             if has_validation_error or is_mandatory:
                                 print("'Name' Field is mandatory. Please fill it.")
+                                print_statements.append("'Name' Field is mandatory. Please fill it.")
                             else:
                             #     Field is not mandatory or no validation error
                                 print("'Name' Field is not mandatory or no validation error") 
+                                print_statements.append("'Name' Field is not mandatory or no validation error")
                                 pass
 
                         except:
@@ -119,8 +123,10 @@ class Risks:
                                 # print(html)
                                 if "alert alert-danger text-center alert-dismiss " in html:
                                     print("already exists")
+                                    print_statements.append("already exists")
                                 if "alert alert-success text-center alert-dismiss " in html:
                                     print("new record created")
+                                    print_statements.append("new record created")
                                 #     message = element.text
                             #     print(message)
                             except Exception as e:
@@ -144,8 +150,10 @@ class Risks:
     #                     print(html,"this is html")
                         if "alert alert-danger text-center alert-dismiss " in html:
                             print("APT already exists")
+                            print_statements.append("APT already exists")
                         if "alert alert-success text-center alert-dismiss " in html:
                             print("new APT created")
+                            print_statements.append("new APT created")
                             
                     elif flow[i] == "edit":
                         unique_id = random.randint(1000, 9999)
@@ -172,6 +180,7 @@ class Risks:
 
                 else:
                     print("ERROR:nobutton and error")
+                    print_statements.append("ERROR:nobutton and error")
                 
 
                 
@@ -188,8 +197,19 @@ class Risks:
                     add_element = ""
                     pass
                 print(add_element,"this is add_elelmtn")
+                print_statements.append(add_element,"this is add_elelmtn")
                 if add_element:
                     print("ERROR:button exists and error")
+                    print_statements.append("ERROR:button exists and error")
                 else:
                     print("nobutton and no error")
+                    print_statements.append("nobutton and no error")
+                    df = pd.DataFrame({"Print Statements": print_statements})
+
+    # Save the DataFrame to an Excel file
+        unique_id = random.randint(1000, 9999)
+        excelsave = "Risks"+str(unique_id)+".xlsx"
+        df.to_excel(excelsave, index=False)
+        print(excelsave)
+            
         return True

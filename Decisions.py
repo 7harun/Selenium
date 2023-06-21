@@ -48,6 +48,7 @@ class Decisions:
         xpath_list_perm_page = ['//*[@id="38"]/div/div/table/tbody/tr[1]/td[2]/input','//*[@id="38"]/div/div/table/tbody/tr[3]/td[2]/input','//*[@id="38"]/div/div/table/tbody/tr[2]/td[2]/input']
         id_list = ['add_decisions','edit','mark_inacticve']
         flow = ["add","edit","delete"]
+        print_statements = []
         for i in range(0,len(xpath_list_perm_page)):
             time.sleep(2)
             driver.get(new_page_url)
@@ -69,6 +70,7 @@ class Decisions:
                     pass
                 if add_element:
                     print("button exists and no error")
+                    print_statements.append("button exists and no error")
                     if flow[i] == "add":
                         add_element.click()
                         time.sleep(0.2)
@@ -83,8 +85,10 @@ class Decisions:
                             cname = field_element.get_attribute('outerHTML')
                             if "required" in cname:
                                 print("'ConditionName' Field is mandatory. Please fill it.")
+                                print_statements.append("'ConditionName' Field is mandatory. Please fill it.")
                             else:
-                                print("'ConditionName' Field is not mandatory or no validation error") 
+                                print("'ConditionName' Field is not mandatory or no validation error")
+                                print_statements.append("'ConditionName' Field is not mandatory or no validation error") 
                                 pass
 
                             #Type
@@ -92,8 +96,10 @@ class Decisions:
                             cname = field_element.get_attribute('outerHTML')
                             if "required" in cname:
                                 print("'Type' Field is mandatory. Please fill it.")
+                                print_statements.append("'Type' Field is mandatory. Please fill it.")
                             else:
                                 print("'Type' Field is not mandatory or no validation error") 
+                                print_statements.append("'Type' Field is not mandatory or no validation error")
                                 pass
 
 
@@ -103,8 +109,12 @@ class Decisions:
                             # print(html)
                             if "required" in operator:
                                 print("'operator' Field is mandatory. Please fill it.")
+                                print_statements.append("'operator' Field is mandatory. Please fill it.")
+
                             else:
-                                print("'operator' Field is not mandatory or no validation error") 
+                                print("'operator' Field is not mandatory or no validation error")
+                                print_statements.append("'operator' Field is not mandatory or no validation error")
+                                 
                                 pass
 
                             #Area of Audit
@@ -112,8 +122,10 @@ class Decisions:
                             Area_audit = field_element.get_attribute('outerHTML')
                             if "required" in Area_audit:
                                 print("'Area of Audit' Field is mandatory. Please fill it.")
+                                print_statements.append("'Area of Audit' Field is mandatory. Please fill it.")
                             else:
                                 print("'Area of Audit' Field is not mandatory or no validation error") 
+                                print_statements.append("'Area of Audit' Field is not mandatory or no validation error")
                                 pass
 
                             #dec_description
@@ -122,8 +134,10 @@ class Decisions:
                             # print(html)
                             if "required" in description:
                                 print("'description' Field is mandatory. Please fill it.")
+                                print_statements.append("'description' Field is mandatory. Please fill it.")
                             else:
                                 print("'description' Field is not mandatory or no validation error") 
+                                print_statements.append("'description' Field is not mandatory or no validation error")
                                 pass
 
                         except:
@@ -167,8 +181,10 @@ class Decisions:
                                 # print(html)
                                 if "alert alert-danger text-center alert-dismiss " in html:
                                     print("already exists")
+                                    print_statements.append("already exists")
                                 if "alert alert-success text-center alert-dismiss " in html:
                                     print("new record created")
+                                    print_statements.append("new record created")
                                 #     message = element.text
                             #     print(message)
                             except Exception as e:
@@ -209,8 +225,10 @@ class Decisions:
     #                     print(html,"this is html")
                         if "alert alert-danger text-center alert-dismiss " in html:
                             print("Decision already exists")
+                            print_statements.append("Decision already exists")
                         if "alert alert-success text-center alert-dismiss " in html:
                             print("new Decision created")
+                            print_statements.append("new Decision created")
                             
                     elif flow[i] == "edit":
                         unique_id = random.randint(1000, 9999)
@@ -231,8 +249,10 @@ class Decisions:
     #                     print(html,"this is html")
                         if "alert alert-danger text-center alert-dismiss " in html:
                             print("Decision already exists")
+                            print_statements.append("Decision already exists")
                         if "alert alert-success text-center alert-dismiss " in html:
                             print("new Decision created")
+                            print_statements.append("new Decision created")
 
                         
                     elif flow[i] == "delete":
@@ -247,6 +267,7 @@ class Decisions:
 
                 else:
                     print("ERROR:nobutton and error")
+                    print_statements.append("ERROR:nobutton and error")
                 
 
                 
@@ -263,8 +284,19 @@ class Decisions:
                     add_element = ""
                     pass
                 print(add_element,"this is add_elelmtn")
+                print_statements.append(add_element,"this is add_elelmtn")
                 if add_element:
                     print("ERROR:button exists and error")
+                    print_statements.append("ERROR:button exists and error")
                 else:
                     print("nobutton and no error")
+                    print_statements.append("nobutton and no error")
+
+                df = pd.DataFrame({"Print Statements": print_statements})
+
+    # Save the DataFrame to an Excel file
+        unique_id = random.randint(1000, 9999)
+        excelsave = "Decisions"+str(unique_id)+".xlsx"
+        df.to_excel(excelsave, index=False)
+        print(excelsave)
         return True

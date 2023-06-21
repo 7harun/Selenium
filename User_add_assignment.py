@@ -10,6 +10,7 @@ from selenium.webdriver.common.by import By
 from lxml import etree
 # import logging
 import sys
+import random
 from login import loginclass
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
@@ -46,14 +47,17 @@ class User_add_assignment:
         time.sleep(1)
         current_url = driver.current_url
         check_element = driver.find_element(By.ID,"pname")
+        print_statements=[]
         if check_element:
             # logging.info("Add assignemt page opened successfully")  # Log the message
 
             print("Add assignemt page opened successfully")
+            print_statements.append("Add assignemt page opened successfully")
             pass
         else:
             # logging.info("not able to open Add_assignemnt page")  # Log the message
             print("not able to open Add_assignemnt page")
+            print_statements.append("not able to open Add_assignemnt page")
 
         # Access check
         driver.get("https://old.anyaudit.co.in/Navigation")
@@ -67,9 +71,11 @@ class User_add_assignment:
         check_element = driver.find_element(By.ID,"pname")
         if check_element:          
             print("Add assignemt page opened successfully inside assignment")
+            print_statements.append("Add assignemt page opened successfully inside assignment")
             pass
         else:
             print("not able to open Add_assignemnt page inside assignment")
+            print_statements.append("not able to open Add_assignemnt page inside assignment")
         time.sleep(0.8)
         driver.find_element(By.XPATH ,'/html/body/nav/div/div[2]/div[1]/div[1]/a/img').click()
         time.sleep(2)
@@ -133,14 +139,23 @@ class User_add_assignment:
             if "Confirmation" in html:
                 variable = "new_assignment is created"
                 print("new_assignment is created")
+                print_statements.append("new_assignment is created")
             else:
                 raise Exception
         except Exception as e:
             if "Assignment Name Already Exist!" in html:
                 variable = "Assignment Name Already Exist!"
                 print(variable,e)
+                print_statements.append("variable,e")
                 pass      
-        time.sleep(100)
+        time.sleep(5)
+        df = pd.DataFrame({"Print Statements": print_statements})
+
+    # Save the DataFrame to an Excel file
+        unique_id = random.randint(1000, 9999)
+        excelsave = "Subdecisions_addconditions"+str(unique_id)+".xlsx"
+        df.to_excel(excelsave, index=False)
+        print(excelsave)
         return variable
 
 

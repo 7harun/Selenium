@@ -39,7 +39,7 @@ class EditMilestoneUpdates:
         time.sleep(10)
         
         window_handles = driver.window_handles
-
+        print_statements = []
         # Switch to the newly opened tab (assuming it's the last in the list)
         new_tab_handle = window_handles[-1]
         driver.switch_to.window(new_tab_handle)
@@ -51,10 +51,12 @@ class EditMilestoneUpdates:
             # logging.info("Add assignemt page opened successfully")  # Log the message
 
             print("Add assignemt page opened successfully")
+            print_statements.append("Add assignemt page opened successfully")
             pass
         else:
             # logging.info("not able to open Add_assignemnt page")  # Log the message
             print("not able to open Add_assignemnt page")
+            print_statements.append("not able to open Add_assignemnt page")
 
         # Access check
         driver.get("https://old.anyaudit.co.in/Navigation")
@@ -69,9 +71,11 @@ class EditMilestoneUpdates:
         check_element = driver.find_element(By.XPATH,"/html/body/section/div/div/div[2]/div/div[1]/div/button[5]/span")
         if check_element:          
             print("Add assignemt page opened successfully inside assignment")
+            print_statements.append("Add assignemt page opened successfully inside assignment")
             pass
         else:
             print("not able to open Add_assignemnt page inside assignment")
+            print_statements.append("not able to open Add_assignemnt page inside assignment")
         time.sleep(0.8)
         driver.find_element(By.XPATH ,'/html/body/nav/div/div[2]/div[1]/div[1]/a/img').click()
         time.sleep(2)
@@ -99,7 +103,13 @@ class EditMilestoneUpdates:
         #     print("Updates updated")
         #     variable = "Updates updated"
 
+        df = pd.DataFrame({"Print Statements": print_statements})
 
+    # Save the DataFrame to an Excel file
+        unique_id = random.randint(1000, 9999)
+        excelsave = "edit_milestoneUpdate"+str(unique_id)+".xlsx"
+        df.to_excel(excelsave, index=False)
+        print(excelsave)
         time.sleep(20)
         return variable
 

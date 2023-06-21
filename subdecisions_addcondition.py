@@ -48,6 +48,7 @@ class SubDecisions_addcondition:
         xpath_list_perm_page = ['//*[@id="38"]/div/div/table/tbody/tr[1]/td[2]/input']
         id_list = ['add_decisions']
         flow = ["add","edit","delete"]
+        print_statements=[]
         
         time.sleep(2)
         driver.get(new_page_url)
@@ -70,6 +71,7 @@ class SubDecisions_addcondition:
                 pass
             if add_element:
                 print("button exists and no error")
+                print_statements.append("button exists and no error")
                 time.sleep(1)
                 # add_element = driver.find_element(By.ID ,id_list[0])
                 # add_element.click()
@@ -102,8 +104,10 @@ class SubDecisions_addcondition:
 #                     print(html,"this is html")
                 if "alert alert-danger text-center alert-dismiss " in html:
                     print("Decision already exists")
+                    print_statements.append("Decision already exists")
                 if "alert alert-success text-center alert-dismiss " in html:
                     print("new Decision created")
+                    print_statements.append("new Decision created")
                 driver.refresh()
                 time.sleep(1)
                 driver.find_element(By.XPATH , '//*[@id="decisionid_filter"]/label/input').send_keys("new_decision")
@@ -121,9 +125,11 @@ class SubDecisions_addcondition:
                 html = check_status.get_attribute('outerHTML')
                 if "alert alert-danger text-center alert-dismiss " in html:
                     print("subDecision already exists")
+                    print_statements.append("subDecision already exists")
                     driver.get(subdecisionurl)
                 if "alert alert-success text-center alert-dismiss " in html:
                     print("new subDecision created")
+                    print_statements.append("new subDecision created")
                 # Find the row with the name "new_decision"
                 driver.refresh()
                 time.sleep(2)
@@ -148,14 +154,17 @@ class SubDecisions_addcondition:
                 html = check_status.get_attribute('outerHTML')
                 if "alert alert-danger text-center alert-dismiss " in html:
                     print("condition already exists")
+                    print_statements.append("condition already exists")
                     driver.get(subdecisionurl)
                 if "alert alert-success text-center alert-dismiss " in html:
                     print("new condition created")
+                    print_statements.append("new condition created")
 
                       
                 
             else:
                 print("ERROR:nobutton and error")
+                print_statements.append("ERROR:nobutton and error")
             
 
             
@@ -172,8 +181,20 @@ class SubDecisions_addcondition:
                 add_element = ""
                 pass
             print(add_element,"this is add_elelmtn")
+            print_statements.append(add_element,"this is add_elelmtn")
             if add_element:
                 print("ERROR:button exists and error")
+                print_statements.append("ERROR:button exists and error")
             else:
                 print("nobutton and no error")
+                print_statements.append("button exists and no error")
+
+                df = pd.DataFrame({"Print Statements": print_statements})
+
+    # Save the DataFrame to an Excel file
+        unique_id = random.randint(1000, 9999)
+        excelsave = "Subdecisions_addconditions"+str(unique_id)+".xlsx"
+        df.to_excel(excelsave, index=False)
+        print(excelsave)
+
         return True

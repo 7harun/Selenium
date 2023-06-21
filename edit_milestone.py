@@ -47,14 +47,17 @@ class EditMilestone:
         current_url = driver.current_url
         print(current_url)
         check_element = driver.find_element(By.XPATH,"/html/body/section/div/div/div[2]/div/div[1]/div/button[5]/span")
+        print_statements = []
         if check_element:
             # logging.info("Add assignemt page opened successfully")  # Log the message
 
             print("Add assignemt page opened successfully")
+            print_statements.append("Add assignemt page opened successfully")
             pass
         else:
             # logging.info("not able to open Add_assignemnt page")  # Log the message
             print("not able to open Add_assignemnt page")
+            print_statements.append("not able to open Add_assignemnt page")
 
         # Access check
         driver.get("https://old.anyaudit.co.in/Navigation")
@@ -68,9 +71,11 @@ class EditMilestone:
         check_element = driver.find_element(By.XPATH,"/html/body/section/div/div/div[2]/div/div[1]/div/button[5]/span")
         if check_element:          
             print("Add assignemt page opened successfully inside assignment")
+            print_statements.append("Add assignemt page opened successfully inside assignment")
             pass
         else:
             print("not able to open Add_assignemnt page inside assignment")
+            print_statements.append("not able to open Add_assignemnt page inside assignment")
         time.sleep(0.8)
         driver.find_element(By.XPATH ,'/html/body/nav/div/div[2]/div[1]/div[1]/a/img').click()
         time.sleep(2)
@@ -92,11 +97,19 @@ class EditMilestone:
     #                     print(html,"this is html")
         if "alert alert-danger text-center alert-dismiss " in html:
             print("Milestone is not updated")
+            print_statements.append("Milestone is not updated")
             variable = "Milestone is not updated"
         if "alert alert-success text-center alert-dismiss " in html:
             print("Milestone updated successfully")
+            print_statements.append("Milestone updated successfully")
             variable = "Milestone updated successfully"
+        df = pd.DataFrame({"Print Statements": print_statements})
 
+    # Save the DataFrame to an Excel file
+        unique_id = random.randint(1000, 9999)
+        excelsave = "edit_milestone"+str(unique_id)+".xlsx"
+        df.to_excel(excelsave, index=False)
+        print(excelsave)
 
         time.sleep(10)
         return variable

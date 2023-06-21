@@ -10,6 +10,7 @@ from selenium.webdriver.common.by import By
 from lxml import etree
 # import logging
 import sys
+import random
 from login import loginclass
 from selenium.webdriver.support import expected_conditions as EC
 from CheckurlinAssignment import CheckUrlinAssignment
@@ -38,15 +39,18 @@ class Datehub_add_plan:
         time.sleep(0.2)
         driver.find_element(By.NAME,'fa_plus').click()
         standardised_reports_url = driver.current_url
+        print_statements = []
         check_element = driver.find_element(By.ID,"select2-planuserclient-container")
         if check_element:
             # logging.info("Add assignemt page opened successfully")  # Log the message
 
             print("Add plan page opened successfully")
+            print_statements.append("Add plan page opened successfully")
             pass
         else:
             # logging.info("not able to open Add_assignemnt page")  # Log the message
             print("not able to open add plan page")
+            print_statements.append("not able to open add plan page")
 
        
 
@@ -60,56 +64,70 @@ class Datehub_add_plan:
             planuserclient = field_element.get_attribute('outerHTML')
             if "required" in planuserclient:
                 print("'planuserclient' Field is mandatory. Please fill it.")
+                print_statements.append("'planuserclient' Field is mandatory. Please fill it.")
             else:
                 print("'planuserclient' Field is not mandatory or no validation error") 
+                print_statements.append("'planuserclient' Field is not mandatory or no validation error")
                 pass
 
             field_element = driver.find_element(By.NAME,"planuserwork")
             planuserwork = field_element.get_attribute('outerHTML')
             if "required" in planuserwork:
                 print("'planuserwork' Field is mandatory. Please fill it.")
+                print_statements.append("'planuserwork' Field is mandatory. Please fill it.")
             else:
-                print("'planuserwork' Field is not mandatory or no validation error") 
+                print("'planuserwork' Field is not mandatory or no validation error")
+                print_statements.append("'planuserwork' Field is not mandatory or no validation error") 
                 pass
 
             field_element = driver.find_element(By.NAME,"tasklist")
             tasklist = field_element.get_attribute('outerHTML')
             if "required" in tasklist:
                 print("'tasklist' Field is mandatory. Please fill it.")
+                print_statements.append("'tasklist' Field is mandatory. Please fill it.")
             else:
                 print("'tasklist' Field is not mandatory or no validation error") 
+                print_statements.append("'tasklist' Field is not mandatory or no validation error")
                 pass
 
             field_element = driver.find_element(By.NAME,"tomdate")
             tomdate = field_element.get_attribute('outerHTML')
             if "required" in tomdate:
                 print("'date' Field is mandatory. Please fill it.")
+                print_statements.append("'date' Field is mandatory. Please fill it.")
             else:
                 print("'date' Field is not mandatory or no validation error") 
+                print_statements.append("'date' Field is not mandatory or no validation error")
                 pass
 
             field_element = driver.find_element(By.NAME,"planuser_1")
             planuser_1 = field_element.get_attribute('outerHTML')
             if "required" in planuser_1:
                 print("'user' Field is mandatory. Please fill it.")
+                print_statements.append("'user' Field is mandatory. Please fill it.")
             else:
-                print("'user' Field is not mandatory or no validation error") 
+                print("'user' Field is not mandatory or no validation error")
+                print_statements.append("'user' Field is not mandatory or no validation error") 
                 pass
 
             field_element = driver.find_element(By.NAME,"useresthrs")
             useresthrs = field_element.get_attribute('outerHTML')
             if "required" in useresthrs:
                 print("'EST hours' Field is mandatory. Please fill it.")
+                print_statements.append("'EST hours' Field is mandatory. Please fill it.")
             else:
                 print("'EST hours' Field is not mandatory or no validation error") 
+                print_statements.append("'EST hours' Field is not mandatory or no validation error")
                 pass
 
             field_element = driver.find_element(By.NAME,"planuserdescription")
             planuserdescription = field_element.get_attribute('outerHTML')
             if "required" in planuserdescription:
                 print("'Description' Field is mandatory. Please fill it.")
+                print_statements.append("'Description' Field is mandatory. Please fill it.")
             else:
-                print("'Description' Field is not mandatory or no validation error") 
+                print("'Description' Field is not mandatory or no validation error")
+                print_statements.append("'Description' Field is not mandatory or no validation error") 
                 pass     
         except:
             pass
@@ -162,7 +180,13 @@ class Datehub_add_plan:
 
 
 
+        df = pd.DataFrame({"Print Statements": print_statements})
 
+    # Save the DataFrame to an Excel file
+        unique_id = random.randint(1000, 9999)
+        excelsave = "Datahub_add_plan"+str(unique_id)+".xlsx"
+        df.to_excel(excelsave, index=False)
+        print(excelsave)
 
 
         
